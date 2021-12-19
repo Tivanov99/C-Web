@@ -1,0 +1,10 @@
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\bin\Debug\netcoreapp3.1\SIS.HTTP.deps.json
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\bin\Debug\netcoreapp3.1\SIS.HTTP.dll
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\bin\Debug\netcoreapp3.1\SIS.HTTP.pdb
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.csproj.AssemblyReference.cache
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.AssemblyInfoInputs.cache
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.AssemblyInfo.cs
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.csproj.CoreCompileInputs.cache
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.dll
+C:\Users\Trifon\source\repos\Asynchronous SIS WebServer\SIS.HTTP\obj\Debug\netcoreapp3.1\SIS.HTTP.pdb
