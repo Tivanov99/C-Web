@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace InversionOfControl.Animals
 {
     public interface IAnimal
@@ -9,6 +6,10 @@ namespace InversionOfControl.Animals
         public int Age { get; set; }
 
         public string Name { get; set; }
+
+        public bool IsAggressive { get; }
+
+        public bool IsExotic { get;  }
 
         void GetSpecialSound();
     }
