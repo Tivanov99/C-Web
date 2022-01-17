@@ -18,6 +18,8 @@ public static class Startup
 
     public static async Task Main()
     {
+        string someText = "Hello World!";
+
         await DownloadSitesAsTextFile(FileName
             , new string[] { "https://judge.softuni.org/", "https://softuni.org/" });
 
