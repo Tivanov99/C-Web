@@ -40,7 +40,7 @@
 
             foreach (Cookie cookie in this.Cookies)
             {
-                result.Append($"{cookie.Name}: {cookie.Value}");
+                result.AppendLine($"{Header.SetCookies}: {cookie}");
             }
 
             result.AppendLine();

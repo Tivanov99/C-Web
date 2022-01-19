@@ -72,6 +72,7 @@
 
         private async Task WriteResponse(NetworkStream networkStream, IResponse response)
         {
+            string result = response.ToString();
             byte[] responseBytes = Encoding.UTF8.GetBytes(response.ToString());
 
             await networkStream.WriteAsync(responseBytes);

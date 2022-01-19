@@ -110,12 +110,15 @@ public static class Startup
                     .Append($"<td>{HttpUtility.HtmlEncode(currCookie.Value)}</td>");
                 cookieText.Append("</tr>");
             }
+
             cookieText.Append("</table>");
             bodyText = cookieText.ToString();
+            response.Body = bodyText;
         }
         else
         {
             bodyText = "<h1>Cookies set!</h1>";
+            response.Body = bodyText;
         }
 
         if (!requestHasCookies)

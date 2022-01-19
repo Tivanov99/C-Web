@@ -13,8 +13,7 @@
         public string Value { get; set; }
         public override string ToString()
         {
-            return $"{Name}={Value}";
+            return $"{this.Name}={this.Value}";
         }
     }
-
 }
