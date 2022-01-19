@@ -68,7 +68,6 @@
                     connection.Close();
                 });
             }
-
         }
 
         private async Task WriteResponse(NetworkStream networkStream, IResponse response)

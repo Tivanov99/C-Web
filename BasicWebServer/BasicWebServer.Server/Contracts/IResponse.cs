@@ -10,6 +10,8 @@
 
         public IHeaderCollection Headers { get; }
 
+        public ICookieCollection Cookies { get; }
+
         public string Body { get; set; }
 
         public Action<IRequest, IResponse> PreRenderAction { get;  }

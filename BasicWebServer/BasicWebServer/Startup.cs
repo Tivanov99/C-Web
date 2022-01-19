@@ -1,6 +1,11 @@
 ﻿using BasicWebServer.Server;
 using BasicWebServer.Server.Contracts;
+using BasicWebServer.Server.Cookies;
+using BasicWebServer.Server.Headers;
+using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Responses;
+using System.Text;
+using System.Web;
 
 public static class Startup
 {
@@ -30,6 +35,7 @@ public static class Startup
                        .MapGet("/Content", new HtmlResponse(DownloadForm))
                        .MapPost("/Content", new TextFileResponse(FileName))
                        .MapPost("/HTML", new TextResponse("", AddFromDataAction))
+                       .MapGet("/Cookies", new HtmlResponse("", AddCookieAction))
         )
         .Start();
     }
@@ -80,5 +86,42 @@ public static class Startup
             response);
 
         await File.WriteAllTextAsync(fileName, responsesString);
+    }
+    private static void AddCookieAction(IRequest request, IResponse response)
+    {
+        bool requestHasCookies = response.Cookies.Any();
+
+        string bodyText = "";
+
+        if (requestHasCookies)
+        {
+            StringBuilder cookieText = new StringBuilder();
+
+            cookieText.AppendLine("<h1>Cookies</h1>");
+
+            cookieText.Append("<table border='1'><tr><th>Name</th><ht>Value</th></tr>");
+
+            foreach (Cookie currCookie in request.Cookies)
+            {
+                cookieText.Append("<tr>");
+                cookieText
+                    .Append($"<td>{HttpUtility.HtmlEncode(currCookie.Name)}</td>");
+                cookieText
+                    .Append($"<td>{HttpUtility.HtmlEncode(currCookie.Value)}</td>");
+                cookieText.Append("</tr>");
+            }
+            cookieText.Append("</table>");
+            bodyText = cookieText.ToString();
+        }
+        else
+        {
+            bodyText = "<h1>Cookies set!</h1>";
+        }
+
+        if (!requestHasCookies)
+        {
+            response.Cookies.Add("My-Cookie", "My-Value");
+            response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
+        }
     }
 }

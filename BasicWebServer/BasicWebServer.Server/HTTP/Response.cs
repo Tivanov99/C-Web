@@ -1,6 +1,7 @@
 ﻿namespace BasicWebServer.Server.HTTP
 {
     using BasicWebServer.Server.Contracts;
+    using BasicWebServer.Server.Cookies;
     using BasicWebServer.Server.Enums;
     using BasicWebServer.Server.Headers;
     using BasicWebServer.Server.Headers.Contracts;
@@ -13,6 +14,7 @@
             this.StatusCode = statusCode;
             this.Headers.Add($"{Header.Server}", "My Web Server");
             this.Headers.Add(Header.Date, $"{DateTime.UtcNow:R}");
+            this.Cookies = new CookieCollection();
         }
 
         public HttpResponseStatusCode StatusCode { get; init; }
@@ -23,6 +25,8 @@
 
         public Action<IRequest, IResponse> PreRenderAction { get; protected set; }
 
+        public ICookieCollection Cookies { get; private set; }
+
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
@@ -32,6 +36,11 @@
             foreach (IHeader header in this.Headers)
             {
                 result.AppendLine(header.ToString());
+            }
+
+            foreach (Cookie cookie in this.Cookies)
+            {
+                result.Append($"{cookie.Name}: {cookie.Value}");
             }
 
             result.AppendLine();
