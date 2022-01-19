@@ -2,7 +2,6 @@
 {
     using BasicWebServer.Server.Enums;
     using BasicWebServer.Server.Headers;
-    using BasicWebServer.Server.Headers.Contracts;
 
     public interface IRequest
     {
@@ -14,8 +13,10 @@
 
         public HeaderCollection Headers { get; }
 
+        public ICookieCollection Cookies { get; }
+
         public string Body { get; set; }
 
-        public IReadOnlyDictionary<string,string> Form { get; }
+        public IReadOnlyDictionary<string, string> Form { get; }
     }
 }

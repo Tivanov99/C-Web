@@ -1,13 +1,9 @@
-﻿using BasicWebServer.Server.Contracts;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BasicWebServer.Server.Cookies
+﻿namespace BasicWebServer.Server.Cookies
 {
+    using BasicWebServer.Server.Contracts;
+    using System.Collections;
+    using System.Collections.Generic;
+
     public class CookieCollection : ICookieCollection
     {
         private Dictionary<string, Cookie> _cookies;
@@ -17,12 +13,15 @@ namespace BasicWebServer.Server.Cookies
         }
         public void Add(string name, string value)
         {
-
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))
+            {
+                this._cookies.Add(name, new Cookie(name, value));
+            }
         }
 
         public bool Contains(string name)
         {
-            throw new NotImplementedException();
+            return this._cookies.ContainsKey(name);
         }
 
         public IEnumerator<Cookie> GetEnumerator()

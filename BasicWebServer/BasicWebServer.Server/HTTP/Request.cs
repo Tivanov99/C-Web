@@ -1,6 +1,7 @@
 ﻿namespace BasicWebServer.Server.HTTP
 {
     using BasicWebServer.Server.Contracts;
+    using BasicWebServer.Server.Cookies;
     using BasicWebServer.Server.Enums;
     using BasicWebServer.Server.Headers;
     using System;
@@ -13,6 +14,7 @@
         public Request(string queryString)
         {
             this.Headers = new HeaderCollection();
+            Cookies = new CookieCollection();
             Parse(queryString);
         }
         public string Url { get; private set; }
@@ -24,6 +26,8 @@
         public string Body { get; set; }
 
         public IReadOnlyDictionary<string, string> Form { get; private set; }
+
+        public ICookieCollection Cookies { get; private set; }
 
         private void Parse(string requestString)
         {
@@ -47,6 +51,8 @@
             this.Body = body;
 
             this.Form = ParseForm(body);
+
+            this.ParseCookies();
         }
 
         private void ParsePlainTextHeaders(string[] requestLines)
@@ -99,5 +105,23 @@
             part => part[1],
             StringComparer.InvariantCultureIgnoreCase);
 
+        private void ParseCookies()
+        {
+            if (this.Headers.ContaisHeader(Header.Cookie))
+            {
+                string cookiedHeader = this.Headers[Header.Cookie];
+
+                string[] allCookies = cookiedHeader.Split(";");
+
+                foreach (string cookieText in allCookies)
+                {
+                    string[] cookieParts = cookieText.Split("=");
+
+                    string cookieName = cookieParts[0].Trim();
+                    string cookieValue = cookieParts[1].Trim();
+                    this.Cookies.Add(cookieName, cookieValue);
+                }
+            }
+        }
     }
 }

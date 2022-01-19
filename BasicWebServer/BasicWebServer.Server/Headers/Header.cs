@@ -11,6 +11,8 @@
         public const string Location = "Location";
         public const string Server = "Server";
         public const string ContentDisposition = "Content-Disposition";
+        public const string Cookie = "Cookie";
+        public const string SetCookies = "Set-Cookie";
 
         public Header(string name, string value)
         {
