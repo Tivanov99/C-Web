@@ -11,6 +11,10 @@
         {
             _cookies = new Dictionary<string, Cookie>();
         }
+
+        public string this[string name]
+            => this._cookies[name].Value;
+
         public void Add(string name, string value)
         {
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))

@@ -4,6 +4,7 @@ using BasicWebServer.Server.Cookies;
 using BasicWebServer.Server.Headers;
 using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Responses;
+using BasicWebServer.Server.Session;
 using System.Text;
 using System.Web;
 
@@ -24,6 +25,7 @@ public static class Startup
     public static async Task Main()
     {
 
+
         await DownloadSitesAsTextFile(FileName
             , new string[] { "https://judge.softuni.org/", "https://softuni.org/" });
 
@@ -36,6 +38,7 @@ public static class Startup
                        .MapPost("/Content", new TextFileResponse(FileName))
                        .MapPost("/HTML", new TextResponse("", AddFromDataAction))
                        .MapGet("/Cookies", new HtmlResponse("", AddCookieAction))
+                       .MapGet("/Session", new TextResponse("", DisplaySessionInfoAction))
         )
         .Start();
     }
@@ -89,7 +92,8 @@ public static class Startup
     }
     private static void AddCookieAction(IRequest request, IResponse response)
     {
-        bool requestHasCookies = response.Cookies.Any();
+        bool requestHasCookies = response.Cookies
+            .Any(c => c.Name != Session.SessionCookieName);
 
         string bodyText = "";
 
@@ -126,5 +130,23 @@ public static class Startup
             response.Cookies.Add("My-Cookie", "My-Value");
             response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
         }
+    }
+    private static void DisplaySessionInfoAction(IRequest request, IResponse response)
+    {
+        bool sessionExist = request.HttpSession
+            .ContainsKey(Session.SessionCurrentDateKey);
+
+        string bodyText = "";
+        if (sessionExist)
+        {
+            string currentDate = request.HttpSession[Session.SessionCurrentDateKey];
+            bodyText = currentDate;
+        }
+        else
+        {
+            bodyText = "Current date stored!";
+        }
+        response.Body = "";
+        response.Body += bodyText;
     }
 }

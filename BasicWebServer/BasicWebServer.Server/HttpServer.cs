@@ -1,5 +1,6 @@
 ﻿namespace BasicWebServer.Server
 {
+    using BasicWebServer.Server.Session;
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.Routing;
@@ -64,6 +65,8 @@
                     if (response.PreRenderAction != null)
                         response.PreRenderAction(request, response);
 
+                    AddSession(request, response);
+
                     await WriteResponse(networkStream, response);
                     connection.Close();
                 });
@@ -103,6 +106,19 @@
         private IRequest PrepareRequest(string queryString)
         {
             return new Request(queryString);
+        }
+        private void AddSession(IRequest request, IResponse response)
+        {
+            bool sessionExist = request.HttpSession
+                .ContainsKey(Session.Session.SessionCurrentDateKey);
+
+            if (!sessionExist)
+            {
+                request.HttpSession[Session.Session.SessionCurrentDateKey] =
+                    DateTime.Now.ToString();
+                response.Cookies
+                    .Add(Session.Session.SessionCookieName, request.HttpSession.Id);
+            }
         }
     }
 }

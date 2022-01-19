@@ -1,5 +1,6 @@
 ﻿namespace BasicWebServer.Server.HTTP
 {
+    using BasicWebServer.Server.Session;
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.Cookies;
     using BasicWebServer.Server.Enums;
@@ -11,6 +12,8 @@
 
     public class Request : IRequest
     {
+        private Dictionary<string, Session> _sessions = new();
+
         public Request(string queryString)
         {
             this.Headers = new HeaderCollection();
@@ -28,6 +31,8 @@
         public IReadOnlyDictionary<string, string> Form { get; private set; }
 
         public ICookieCollection Cookies { get; private set; }
+
+        public ISession HttpSession { get; private set; }
 
         private void Parse(string requestString)
         {
@@ -53,6 +58,8 @@
             this.Form = ParseForm(body);
 
             this.ParseCookies();
+
+            this.GetSession();
         }
 
         private void ParsePlainTextHeaders(string[] requestLines)
@@ -122,6 +129,19 @@
                     this.Cookies.Add(cookieName, cookieValue);
                 }
             }
+        }
+
+        private void GetSession()
+        {
+            //string sessionId = this.Cookies.Contains(Session.SessionCookieName)
+            //    ? this.Cookies[Session.SessionCookieName]
+            //    : Guid.NewGuid().ToString();
+
+            //if (!this._sessions.ContainsKey(sessionId))
+            //{
+            //    this._sessions[sessionId] = new Session(sessionId);
+            //}
+            this.HttpSession = SessionCollection.GetSession(this.Cookies);
         }
     }
 }

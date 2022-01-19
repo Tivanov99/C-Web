@@ -15,8 +15,10 @@
 
         public ICookieCollection Cookies { get; }
 
+        public IReadOnlyDictionary<string, string> Form { get; }
+
         public string Body { get; set; }
 
-        public IReadOnlyDictionary<string, string> Form { get; }
+        public ISession HttpSession { get;  }
     }
 }

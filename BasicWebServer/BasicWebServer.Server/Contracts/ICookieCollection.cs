@@ -12,5 +12,7 @@ namespace BasicWebServer.Server.Contracts
         void Add(string name, string value);
 
         bool Contains(string name);
+
+        public string this[string name] { get; }
     }
 }
