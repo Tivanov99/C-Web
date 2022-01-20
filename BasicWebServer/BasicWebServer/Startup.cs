@@ -47,8 +47,11 @@ public static class Startup
                        .MapGet("/Session", new TextResponse("", DisplaySessionInfoAction))
                        .MapGet("/Login", new HtmlResponse(LoginForm))
                        .MapPost("/Login", new HtmlResponse("", LoginAction))
+                       .MapGet("/Logout", new HtmlResponse("", LogoutAction))
+                       .MapGet("/UserProfile", new HtmlResponse("", GetUserDataAction))
+
         );
-       await server.Start();
+        await server.Start();
     }
 
     static void AddFromDataAction(IRequest request, IResponse response)
@@ -184,5 +187,28 @@ public static class Startup
         }
         response.Body = String.Empty;
         response.Body += bodyText;
+    }
+
+    private static void LogoutAction(IRequest request, IResponse response)
+    {
+        request.HttpSession.Clear();
+        response.Body = "";
+        response.Body += "<h3>Logged out successfully!</h3>";
+    }
+
+    private static void GetUserDataAction(IRequest request, IResponse response)
+    {
+        if (request.HttpSession.ContainsKey(Session.SessionUserKey))
+        {
+            response.Body = "";
+            response.Body += "Currently logged-in user " +
+                $"is with username '{Username}'</h3>";
+        }
+        else
+        {
+            response.Body = "";
+            response.Body += "<h3>You should first log in " +
+                "- <a href='/Login'>Login</a></h3>";
+        }
     }
 }
