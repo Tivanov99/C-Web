@@ -109,6 +109,7 @@
         }
         private void AddSession(IRequest request, IResponse response)
         {
+            //TODO: Check here
             bool sessionExist = request.HttpSession
                 .ContainsKey(Session.Session.SessionCurrentDateKey);
 

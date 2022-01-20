@@ -16,17 +16,10 @@
             => this._cookies[name].Value;
 
         public void Add(string name, string value)
-        {
-            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))
-            {
-                this._cookies.Add(name, new Cookie(name, value));
-            }
-        }
+        => this._cookies[name] = new Cookie(name, value);
 
         public bool Contains(string name)
-        {
-            return this._cookies.ContainsKey(name);
-        }
+            => this._cookies.ContainsKey(name);
 
         public IEnumerator<Cookie> GetEnumerator()
         {

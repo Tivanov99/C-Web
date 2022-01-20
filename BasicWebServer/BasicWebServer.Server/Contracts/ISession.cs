@@ -15,5 +15,7 @@ namespace BasicWebServer.Server.Contracts
         public string this[string key] { get; set; }
 
         bool ContainsKey(string key);
+
+        public void Clear();
     }
 }

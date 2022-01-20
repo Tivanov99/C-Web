@@ -1,8 +1,6 @@
 ﻿using BasicWebServer.Server;
 using BasicWebServer.Server.Contracts;
 using BasicWebServer.Server.Cookies;
-using BasicWebServer.Server.Headers;
-using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Responses;
 using BasicWebServer.Server.Session;
 using System.Text;
@@ -20,12 +18,20 @@ public static class Startup
    <input type='submit' value ='Download Sites Content' /> 
 </form>";
 
+    private const string LoginForm = @"<form action='/Login' method='POST'>
+   Username: <input type='text' name='Username'/>
+   Password: <input type='text' name='Password'/>
+   <input type='submit' value ='Log In' /> 
+</form>";
+
+
     private const string FileName = "content.txt";
+
+    private const string Username = "user";
+    private const string Password = "user123";
 
     public static async Task Main()
     {
-
-
         await DownloadSitesAsTextFile(FileName
             , new string[] { "https://judge.softuni.org/", "https://softuni.org/" });
 
@@ -39,12 +45,15 @@ public static class Startup
                        .MapPost("/HTML", new TextResponse("", AddFromDataAction))
                        .MapGet("/Cookies", new HtmlResponse("", AddCookieAction))
                        .MapGet("/Session", new TextResponse("", DisplaySessionInfoAction))
-        )
-        .Start();
+                       .MapGet("/Login", new HtmlResponse(LoginForm))
+                       .MapPost("/Login", new HtmlResponse("", LoginAction))
+        );
+       await server.Start();
     }
 
     static void AddFromDataAction(IRequest request, IResponse response)
     {
+        ;
         response.Body = string.Empty;
         foreach (var (name, value) in request.Form)
         {
@@ -92,7 +101,7 @@ public static class Startup
     }
     private static void AddCookieAction(IRequest request, IResponse response)
     {
-        bool requestHasCookies = response.Cookies
+        bool requestHasCookies = request.Cookies
             .Any(c => c.Name != Session.SessionCookieName);
 
         string bodyText = "";
@@ -147,6 +156,33 @@ public static class Startup
             bodyText = "Current date stored!";
         }
         response.Body = "";
+        response.Body += bodyText;
+    }
+
+    private static void LoginAction(IRequest request, IResponse response)
+    {
+        request.HttpSession.Clear();
+
+        var sessionBeforeLogin = request.HttpSession;
+        var bodyText = "";
+
+        bool usernameMatches = request.Form["Username"] == Username;
+        bool passwordMatches = request.Form["Password"] == Password;
+
+        if (usernameMatches && passwordMatches)
+        {
+            request.HttpSession[Session.SessionUserKey] = "MyUserId";
+            response.Cookies
+                .Add(Session.SessionCookieName,
+                    request.HttpSession.Id);
+            bodyText = "<h3>Logged successfully!</h3>";
+            var sessionAfterLogin = request.HttpSession;
+        }
+        else
+        {
+            bodyText = LoginForm;
+        }
+        response.Body = String.Empty;
         response.Body += bodyText;
     }
 }
