@@ -22,16 +22,11 @@
             => this._cookies.ContainsKey(name);
 
         public IEnumerator<Cookie> GetEnumerator()
-        {
-            foreach (Cookie item in _cookies.Values)
-            {
-                yield return item;
-            }
-        }
+            => this._cookies
+            .Values
+            .GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            => GetEnumerator();
     }
 }

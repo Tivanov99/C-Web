@@ -20,6 +20,7 @@
             Cookies = new CookieCollection();
             Parse(queryString);
         }
+
         public string Url { get; private set; }
 
         public HttpRequestMethod RequestMethod { get; private set; }
@@ -132,16 +133,14 @@
         }
 
         private void GetSession()
-        {
-            //string sessionId = this.Cookies.Contains(Session.SessionCookieName)
-            //    ? this.Cookies[Session.SessionCookieName]
-            //    : Guid.NewGuid().ToString();
+         =>   //string sessionId = this.Cookies.Contains(Session.SessionCookieName)
+              //    ? this.Cookies[Session.SessionCookieName]
+              //    : Guid.NewGuid().ToString();
 
             //if (!this._sessions.ContainsKey(sessionId))
             //{
             //    this._sessions[sessionId] = new Session(sessionId);
             //}
             this.HttpSession = SessionCollection.GetSession(this.Cookies);
-        }
     }
 }

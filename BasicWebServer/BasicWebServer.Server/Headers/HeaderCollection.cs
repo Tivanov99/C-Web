@@ -15,7 +15,7 @@
         }
 
         public string this[string name]
-        => this._headers[name].Value;
+         => this._headers[name].Value;
 
         public int Count => this._headers.Count();
 
@@ -23,21 +23,14 @@
             => this._headers[name] = new Header(name, value);
 
         public bool ContaisHeader(string name)
-        {
-            return this._headers.ContainsKey(name);
-        }
+            => this._headers.ContainsKey(name);
 
         public IEnumerator<IHeader> GetEnumerator()
-        {
-            foreach (IHeader header in this._headers.Values)
-            {
-                yield return header;
-            }
-        }
+            => this._headers
+            .Values
+            .GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            => GetEnumerator();
     }
 }
