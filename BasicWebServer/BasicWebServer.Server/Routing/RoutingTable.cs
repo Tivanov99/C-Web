@@ -8,7 +8,9 @@
 
     public class RoutingTable : IRoutingTable
     {
-        private readonly Dictionary<HttpRequestMethod, Dictionary<string, IResponse>> _routingTable;
+        private readonly Dictionary<
+            HttpRequestMethod,
+            Dictionary<string, Func<IRequest, IResponse>>> _routingTable;
 
         public RoutingTable()
         {
@@ -21,29 +23,20 @@
             };
         }
 
-        public IRoutingTable Map(string url, HttpRequestMethod method, IResponse response)
-         => method switch
-         {
-             HttpRequestMethod.GET => this.MapGet(url, response),
-             HttpRequestMethod.POST => this.MapPost(url, response),
-             _ => throw new InvalidOperationException($"Method '{method}' is not supported")
-         };
-        public IRoutingTable MapGet(string url, IResponse response)
+        public IRoutingTable Map(HttpRequestMethod method, string url, Func<IRequest, IResponse> Func)
         {
             Guard.AgainstNull(url, nameof(url));
-            Guard.AgainstNull(response, nameof(response));
+            Guard.AgainstNull(method, nameof(method));
 
-            this._routingTable[HttpRequestMethod.GET][url] = response;
+            this._routingTable[method][url] = Func;
             return this;
         }
 
-        public IRoutingTable MapPost(string url, IResponse response)
-        {
-            Guard.AgainstNull(url, nameof(url));
-            Guard.AgainstNull(response, nameof(response));
-            this._routingTable[HttpRequestMethod.POST][url] = response;
-            return this;
-        }
+        public IRoutingTable MapGet(string url, Func<IRequest, IResponse> Func)
+            => Map(HttpRequestMethod.GET, url, Func);
+
+        public IRoutingTable MapPost(string url, Func<IRequest, IResponse> Func)
+            => Map(HttpRequestMethod.POST, url, Func);
 
         public IResponse MatchRequest(IRequest request)
         {
@@ -55,8 +48,8 @@
             {
                 return new NotFoundResponse();
             }
-            return this._routingTable[requestMethod][requestUrl];
+            var func = this._routingTable[requestMethod][requestUrl];
+            return func(request);
         }
-
     }
 }

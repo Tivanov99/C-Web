@@ -5,11 +5,11 @@
 
     public interface IRoutingTable
     {
-        IRoutingTable Map(string url, HttpRequestMethod method, IResponse response);
+        IRoutingTable Map(HttpRequestMethod method, string url, Func<IRequest, IResponse> Func);
 
-        IRoutingTable MapGet(string url, IResponse response);
+        IRoutingTable MapGet(string url,  Func<IRequest, IResponse> Func);
 
-        IRoutingTable MapPost(string url, IResponse response);
+        IRoutingTable MapPost(string url, Func<IRequest, IResponse> Func);
 
         IResponse MatchRequest(IRequest request);
     }

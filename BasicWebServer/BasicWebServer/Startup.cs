@@ -1,23 +1,14 @@
-﻿using BasicWebServer.Server;
+﻿using BasicWebServer.Demo.Controllers;
+using BasicWebServer.Server;
 using BasicWebServer.Server.Contracts;
+using BasicWebServer.Server.Controllers;
 using BasicWebServer.Server.Cookies;
-using BasicWebServer.Server.Responses;
 using BasicWebServer.Server.Session;
 using System.Text;
 using System.Web;
 
 public static class Startup
 {
-    private const string HtmlForm = @"<form action='/HTML' method='POST'>
-   Name: <input type='text' name='Name'/>
-   Age: <input type='number' name ='Age'/>
-<input type='submit' value ='Save' />
-</form>";
-
-    private const string DownloadForm = @"<form action='/Content' method='POST'>
-   <input type='submit' value ='Download Sites Content' /> 
-</form>";
-
     private const string LoginForm = @"<form action='/Login' method='POST'>
    Username: <input type='text' name='Username'/>
    Password: <input type='text' name='Password'/>
@@ -37,18 +28,18 @@ public static class Startup
 
 
         var server = new HttpServer(routes => routes
-                       .MapGet("/", new TextResponse("Hello from the server!"))
-                       .MapGet("/Redirect", new RedirectResponse("https://www.youtube.com/watch?v=5tXyXFIIoos"))
-                       .MapGet("/HTML", new HtmlResponse(HtmlForm))
-                       .MapGet("/Content", new HtmlResponse(DownloadForm))
-                       .MapPost("/Content", new TextFileResponse(FileName))
-                       .MapPost("/HTML", new TextResponse("", AddFromDataAction))
-                       .MapGet("/Cookies", new HtmlResponse("", AddCookieAction))
-                       .MapGet("/Session", new TextResponse("", DisplaySessionInfoAction))
-                       .MapGet("/Login", new HtmlResponse(LoginForm))
-                       .MapPost("/Login", new HtmlResponse("", LoginAction))
-                       .MapGet("/Logout", new HtmlResponse("", LogoutAction))
-                       .MapGet("/UserProfile", new HtmlResponse("", GetUserDataAction))
+        .MapGet<HomeController>("/", c => c.Index())
+        .MapGet<HomeController>("/Redirect", c => c.Redirect())
+        .MapGet<HomeController>("/HTML", c => c.Html())
+        .MapPost<HomeController>("/HTML", c => c.HtmlFormPost())
+        .MapGet<HomeController>("/Content", c => c.Content())
+        .MapPost<HomeController>("/Content", c=>c.DownloadContent())
+        //.MapGet<HomeController>("/Cookies", new HtmlResponse("", AddCookieAction))
+        //.MapGet<HomeController>("/Session", new TextResponse("", DisplaySessionInfoAction))
+        //.MapGet<HomeController>("/Login", new HtmlResponse(LoginForm))
+        //.MapPost<HomeController>("/Login", new HtmlResponse("", LoginAction))
+        //.MapGet<HomeController>("/Logout", new HtmlResponse("", LogoutAction))
+        //.MapGet<HomeController>("/UserProfile", new HtmlResponse("", GetUserDataAction))
 
         );
         await server.Start();
@@ -85,23 +76,24 @@ public static class Startup
     }
     private static async Task DownloadSitesAsTextFile(
         string fileName, string[] urls)
-    {
-        var download = new List<Task<string>>();
-
-        foreach (var url in urls)
         {
-            download.Add(DownloadWebSiteContent(url));
+            var download = new List<Task<string>>();
+
+            foreach (var url in urls)
+            {
+                download.Add(DownloadWebSiteContent(url));
+            }
+
+            var response = await Task
+                .WhenAll(download);
+
+            var responsesString = string.Join(
+                Environment.NewLine + new string('-', 100),
+                response);
+
+            await File.WriteAllTextAsync(fileName, responsesString);
         }
 
-        var response = await Task
-            .WhenAll(download);
-
-        var responsesString = string.Join(
-            Environment.NewLine + new string('-', 100),
-            response);
-
-        await File.WriteAllTextAsync(fileName, responsesString);
-    }
     private static void AddCookieAction(IRequest request, IResponse response)
     {
         bool requestHasCookies = request.Cookies
