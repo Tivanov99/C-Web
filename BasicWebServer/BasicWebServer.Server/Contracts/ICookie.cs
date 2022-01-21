@@ -1,6 +1,4 @@
-﻿using BasicWebServer.Server.Headers.Contracts;
-
-namespace BasicWebServer.Server.Contracts
+﻿namespace BasicWebServer.Server.Contracts
 {
     public interface ICookie 
     {
