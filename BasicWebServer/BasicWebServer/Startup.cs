@@ -166,7 +166,6 @@ public static class Startup
     {
         request.HttpSession.Clear();
 
-        var sessionBeforeLogin = request.HttpSession;
         var bodyText = "";
 
         bool usernameMatches = request.Form["Username"] == Username;
@@ -179,7 +178,6 @@ public static class Startup
                 .Add(Session.SessionCookieName,
                     request.HttpSession.Id);
             bodyText = "<h3>Logged successfully!</h3>";
-            var sessionAfterLogin = request.HttpSession;
         }
         else
         {
