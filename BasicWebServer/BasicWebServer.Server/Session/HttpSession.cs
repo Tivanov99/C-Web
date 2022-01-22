@@ -2,7 +2,7 @@
 {
     using BasicWebServer.Server.Contracts;
 
-    public class Session : ISession
+    public class HttpSession : ISession
     {
         public const string SessionCookieName = "MyWebServerSID";
         public const string SessionCurrentDateKey = "CurrentDate";
@@ -10,7 +10,7 @@
 
         private Dictionary<string, string> data;
 
-        public Session(string id)
+        public HttpSession(string id)
         {
             if (!string.IsNullOrEmpty(id))
             {

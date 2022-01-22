@@ -110,14 +110,14 @@
         private void AddSession(IRequest request, IResponse response)
         {
             bool sessionExist = request.HttpSession
-                .ContainsKey(Session.Session.SessionCurrentDateKey);
+                .ContainsKey(Session.HttpSession.SessionCurrentDateKey);
 
             if (!sessionExist)
             {
-                request.HttpSession[Session.Session.SessionCurrentDateKey] =
+                request.HttpSession[Session.HttpSession.SessionCurrentDateKey] =
                     DateTime.Now.ToString();
                 response.Cookies
-                    .Add(Session.Session.SessionCookieName, request.HttpSession.Id);
+                    .Add(Session.HttpSession.SessionCookieName, request.HttpSession.Id);
             }
         }
     }

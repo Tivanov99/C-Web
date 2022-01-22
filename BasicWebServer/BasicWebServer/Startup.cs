@@ -23,9 +23,6 @@ public static class Startup
 
     public static async Task Main()
     {
-        await DownloadSitesAsTextFile(FileName
-            , new string[] { "https://judge.softuni.org/", "https://softuni.org/" });
-
 
         var server = new HttpServer(routes => routes
         .MapGet<HomeController>("/", c => c.Index())
@@ -33,9 +30,9 @@ public static class Startup
         .MapGet<HomeController>("/HTML", c => c.Html())
         .MapPost<HomeController>("/HTML", c => c.HtmlFormPost())
         .MapGet<HomeController>("/Content", c => c.Content())
-        .MapPost<HomeController>("/Content", c=>c.DownloadContent())
-        //.MapGet<HomeController>("/Cookies", new HtmlResponse("", AddCookieAction))
-        //.MapGet<HomeController>("/Session", new TextResponse("", DisplaySessionInfoAction))
+        .MapPost<HomeController>("/Content", c => c.DownloadContent())
+        .MapGet<HomeController>("/Cookies", c => c.Cookies())
+        .MapGet<HomeController>("/Session", c => c.Session())
         //.MapGet<HomeController>("/Login", new HtmlResponse(LoginForm))
         //.MapPost<HomeController>("/Login", new HtmlResponse("", LoginAction))
         //.MapGet<HomeController>("/Logout", new HtmlResponse("", LogoutAction))
@@ -47,7 +44,6 @@ public static class Startup
 
     static void AddFromDataAction(IRequest request, IResponse response)
     {
-        ;
         response.Body = string.Empty;
         foreach (var (name, value) in request.Form)
         {
@@ -58,101 +54,6 @@ public static class Startup
     }
 
     public delegate int Comparison<in T>(string left, string right);
-
-    private static async Task<string> DownloadWebSiteContent(string url)
-    {
-        var httpClient = new HttpClient();
-        using (httpClient)
-        {
-            var response = await httpClient
-                .GetAsync(url);
-
-            var html = await response
-                .Content
-                .ReadAsStringAsync();
-
-            return html.Substring(0, 2000);
-        }
-    }
-    private static async Task DownloadSitesAsTextFile(
-        string fileName, string[] urls)
-        {
-            var download = new List<Task<string>>();
-
-            foreach (var url in urls)
-            {
-                download.Add(DownloadWebSiteContent(url));
-            }
-
-            var response = await Task
-                .WhenAll(download);
-
-            var responsesString = string.Join(
-                Environment.NewLine + new string('-', 100),
-                response);
-
-            await File.WriteAllTextAsync(fileName, responsesString);
-        }
-
-    private static void AddCookieAction(IRequest request, IResponse response)
-    {
-        bool requestHasCookies = request.Cookies
-            .Any(c => c.Name != Session.SessionCookieName);
-
-        string bodyText = "";
-
-        if (requestHasCookies)
-        {
-            StringBuilder cookieText = new StringBuilder();
-
-            cookieText.AppendLine("<h1>Cookies</h1>");
-
-            cookieText.Append("<table border='1'><tr><th>Name</th><ht>Value</th></tr>");
-
-            foreach (Cookie currCookie in request.Cookies)
-            {
-                cookieText.Append("<tr>");
-                cookieText
-                    .Append($"<td>{HttpUtility.HtmlEncode(currCookie.Name)}</td>");
-                cookieText
-                    .Append($"<td>{HttpUtility.HtmlEncode(currCookie.Value)}</td>");
-                cookieText.Append("</tr>");
-            }
-
-            cookieText.Append("</table>");
-            bodyText = cookieText.ToString();
-            response.Body = bodyText;
-        }
-        else
-        {
-            bodyText = "<h1>Cookies set!</h1>";
-            response.Body = bodyText;
-        }
-
-        if (!requestHasCookies)
-        {
-            response.Cookies.Add("My-Cookie", "My-Value");
-            response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
-        }
-    }
-    private static void DisplaySessionInfoAction(IRequest request, IResponse response)
-    {
-        bool sessionExist = request.HttpSession
-            .ContainsKey(Session.SessionCurrentDateKey);
-
-        string bodyText = "";
-        if (sessionExist)
-        {
-            string currentDate = request.HttpSession[Session.SessionCurrentDateKey];
-            bodyText = currentDate;
-        }
-        else
-        {
-            bodyText = "Current date stored!";
-        }
-        response.Body = "";
-        response.Body += bodyText;
-    }
 
     private static void LoginAction(IRequest request, IResponse response)
     {
@@ -165,9 +66,9 @@ public static class Startup
 
         if (usernameMatches && passwordMatches)
         {
-            request.HttpSession[Session.SessionUserKey] = "MyUserId";
+            request.HttpSession[HttpSession.SessionUserKey] = "MyUserId";
             response.Cookies
-                .Add(Session.SessionCookieName,
+                .Add(HttpSession.SessionCookieName,
                     request.HttpSession.Id);
             bodyText = "<h3>Logged successfully!</h3>";
         }
@@ -188,7 +89,7 @@ public static class Startup
 
     private static void GetUserDataAction(IRequest request, IResponse response)
     {
-        if (request.HttpSession.ContainsKey(Session.SessionUserKey))
+        if (request.HttpSession.ContainsKey(HttpSession.SessionUserKey))
         {
             response.Body = "";
             response.Body += "Currently logged-in user " +

@@ -12,7 +12,7 @@
 
     public class Request : IRequest
     {
-        private Dictionary<string, Session> _sessions = new();
+        private Dictionary<string, HttpSession> _sessions = new();
 
         public Request(string queryString)
         {
