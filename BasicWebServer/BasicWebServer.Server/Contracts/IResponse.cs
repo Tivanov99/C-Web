@@ -14,6 +14,5 @@
 
         public string Body { get; set; }
 
-        public Action<IRequest, IResponse> PreRenderAction { get;  }
     }
 }

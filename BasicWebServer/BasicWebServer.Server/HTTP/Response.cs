@@ -23,8 +23,6 @@
 
         public string Body { get; set; }
 
-        public Action<IRequest, IResponse> PreRenderAction { get; protected set; }
-
         public ICookieCollection Cookies { get; private set; }
 
         public override string ToString()

@@ -9,14 +9,12 @@
 
     public class ContentResponse : Response
     {
-        public ContentResponse(string content, string contentType,
-            Action<IRequest, IResponse> preRenderAction=null)
+        public ContentResponse(string content, string contentType)
             : base(HttpResponseStatusCode.OK)
         {
             Guard.AgainstNull(content);
             Guard.AgainstNull(contentType);
 
-            this.PreRenderAction = preRenderAction;
 
             this.Headers.Add(Header.ConteType, contentType);
 

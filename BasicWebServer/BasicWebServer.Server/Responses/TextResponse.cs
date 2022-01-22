@@ -6,9 +6,8 @@
     public class TextResponse : ContentResponse
     {
         public TextResponse(
-            string text,
-            Action<IRequest, IResponse> preRenderAction = null)
-            : base(text, ContentType.PlainText, preRenderAction)
+            string text)
+            : base(text, ContentType.PlainText)
         {
 
         }
