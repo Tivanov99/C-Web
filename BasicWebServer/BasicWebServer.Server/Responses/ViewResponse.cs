@@ -8,7 +8,6 @@
         public ViewResponse(string viewName, string controllerName)
             : base("", ContentType.Html)
         {
-
             GetContent(viewName, controllerName);
         }
 
@@ -26,9 +25,9 @@
 
             SetContent(viewPath);
         }
-        private async void SetContent(string viewPath)
+        private  void SetContent(string viewPath)
         {
-            var viewContent = await File.ReadAllTextAsync(viewPath);
+            var viewContent =  File.ReadAllText(viewPath);
 
             this.Body = viewContent;
         }

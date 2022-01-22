@@ -5,23 +5,13 @@
     using BasicWebServer.Server.Controllers;
     using BasicWebServer.Server.Cookies;
     using BasicWebServer.Server.Session;
+    using System.Linq;
     using System.Text;
     using System.Web;
 
     public class HomeController : Controller
     {
-        private const string HtmlForm = @"<form action='/HTML' method='POST'>
-   Name: <input type='text' name='Name'/>
-   Age: <input type='number' name ='Age'/>
-<input type='submit' value ='Save' />
-</form>";
-
-        private const string DownloadForm = @"<form action='/Content' method='POST'>
-   <input type='submit' value ='Download Sites Content' /> 
-</form>";
-
         private const string FileName = "content.txt";
-
 
         public HomeController(IRequest request)
             : base(request)
@@ -48,12 +38,12 @@
         }
 
         public IResponse Html()
-            => Html(HtmlForm);
+            => View();
 
         public IResponse PostTextFile()
             => File(FileName);
 
-        public IResponse Content() => Html(DownloadForm);
+        public IResponse Content() => View();
 
         public IResponse DownloadContent()
         {
