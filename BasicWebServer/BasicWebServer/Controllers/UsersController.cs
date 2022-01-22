@@ -3,7 +3,6 @@
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.Controllers;
     using BasicWebServer.Server.Cookies;
-    using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.Session;
 
     public class UsersController : Controller
