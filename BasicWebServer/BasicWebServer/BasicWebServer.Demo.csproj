@@ -17,6 +17,7 @@
 	<ItemGroup>
 	  <None Remove="Views\Home\Content.cshtml" />
 	  <None Remove="Views\Home\Html.cshtml" />
+	  <None Remove="Views\Home\HtmlFormPost.cshtml" />
 	</ItemGroup>
 
 
