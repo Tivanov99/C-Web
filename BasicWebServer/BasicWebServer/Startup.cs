@@ -19,6 +19,9 @@ public static class Startup
         .MapPost<UsersController>("/Login", c => c.LogInUser())
         .MapGet<UsersController>("/Logout", c => c.LogOut())
         .MapGet<UsersController>("/UserProfile", c => c.UserProfile())
+        .MapGet<UsersController>("/Register", c => c.Register())
+        .MapPost<UsersController>("/Registration", c => c.Registration())
+
         );
         await server.Start();
     }

@@ -15,7 +15,8 @@
         {
         }
 
-        public IResponse Login() => View();
+        public IResponse Login()
+            => View();
 
         public IResponse LogInUser()
         {
@@ -46,6 +47,24 @@
         {
             this.Request.HttpSession.Clear();
             return Html("<h3>Logged out successfully!</h3>");
+        }
+
+        public IResponse Register()
+        {
+            return this.View();
+        }
+
+        public IResponse Registration()
+        {
+            string email = this.Request.Form["Email"];
+            string pass = this.Request.Form["Psw"];
+            string passRepeat = this.Request.Form["Psw-Repeat"];
+
+            if (pass == passRepeat && !string.IsNullOrEmpty(email))
+            {
+
+            }
+            return this.View();
         }
 
         public IResponse UserProfile()

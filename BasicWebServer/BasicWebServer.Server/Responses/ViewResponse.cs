@@ -14,6 +14,8 @@
 
         private void GetContent(string viewName, string controllerName, object model = null)
         {
+            string layout = GetLayout();
+
             string viewPath = GetPath(viewName, controllerName);
 
             var viewContent = File.ReadAllText(viewPath);
@@ -23,7 +25,7 @@
                 viewContent = PopulateModel(viewContent, model);
             }
 
-            this.Body = viewContent;
+            this.Body = layout.Replace("@RenderContent()", viewContent);
         }
 
         private string GetPath(string viewName, string controllerName)
@@ -33,6 +35,7 @@
                 viewName = controllerName + PathSeparator + viewName;
             }
 
+
             var viewPath = Path.GetFullPath(
                 $"./Views/" +
                 viewName.TrimStart(PathSeparator)) +
@@ -40,7 +43,6 @@
 
             return viewPath;
         }
-
         private string PopulateModel(string viewContent, object model)
         {
             var data = model
@@ -61,6 +63,15 @@
                     entry.Value.ToString());
             }
             return viewContent;
+        }
+        private string GetLayout()
+        {
+            var layoutPath = Path.GetFullPath(
+                $"./Views/" +
+                "Layout") +
+                ".cshtml";
+
+            return File.ReadAllText(layoutPath);
         }
     }
 }
