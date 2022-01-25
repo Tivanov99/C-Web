@@ -3,6 +3,7 @@
     using BasicWebServer.Server.Common;
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.Enums;
+    using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.Responses.HTTP;
     using System;
 
@@ -10,7 +11,7 @@
     {
         private readonly Dictionary<
             HttpRequestMethod,
-            Dictionary<string, Func<IRequest, IResponse>>> _routingTable;
+            Dictionary<string, Func<Request, Response>>> _routingTable;
 
         public RoutingTable()
         {
@@ -23,7 +24,7 @@
             };
         }
 
-        public IRoutingTable Map(HttpRequestMethod method, string url, Func<IRequest, IResponse> Func)
+        public IRoutingTable Map(HttpRequestMethod method, string url, Func<Request, Response> Func)
         {
             Guard.AgainstNull(url, nameof(url));
             Guard.AgainstNull(method, nameof(method));
@@ -32,13 +33,13 @@
             return this;
         }
 
-        public IRoutingTable MapGet(string url, Func<IRequest, IResponse> Func)
+        public IRoutingTable MapGet(string url, Func<Request, Response> Func)
             => Map(HttpRequestMethod.GET, url, Func);
 
-        public IRoutingTable MapPost(string url, Func<IRequest, IResponse> Func)
+        public IRoutingTable MapPost(string url, Func<Request, Response> Func)
             => Map(HttpRequestMethod.POST, url, Func);
 
-        public IResponse MatchRequest(IRequest request)
+        public Response MatchRequest(Request request)
         {
             HttpRequestMethod requestMethod = request.RequestMethod;
             string requestUrl = request.Url;

@@ -7,7 +7,7 @@
     using BasicWebServer.Server.Headers.Contracts;
     using System.Text;
 
-    public class Response : IResponse
+    public class Response
     {
         public Response(HttpResponseStatusCode statusCode)
         {

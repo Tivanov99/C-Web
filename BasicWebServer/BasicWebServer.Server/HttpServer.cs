@@ -58,9 +58,9 @@
 
                     Console.WriteLine(requestString);
 
-                    IRequest request = PrepareRequest(requestString);
+                    Request request = PrepareRequest(requestString);
 
-                    IResponse response = this._routingTable.MatchRequest(request);
+                    Response response = this._routingTable.MatchRequest(request);
 
                     AddSession(request, response);
 
@@ -70,7 +70,7 @@
             }
         }
 
-        private async Task WriteResponse(NetworkStream networkStream, IResponse response)
+        private async Task WriteResponse(NetworkStream networkStream, Response response)
         {
             string result = response.ToString();
             byte[] responseBytes = Encoding.UTF8.GetBytes(response.ToString());
@@ -100,21 +100,21 @@
             return requestBuilder.ToString();
         }
 
-        private IRequest PrepareRequest(string queryString)
+        private Request PrepareRequest(string queryString)
         {
-            return new Request(queryString);
+            return Request.Parse(queryString);
         }
-        private void AddSession(IRequest request, IResponse response)
+        private void AddSession(Request request, Response response)
         {
-            bool sessionExist = request.HttpSession
+            bool sessionExist = request.Session
                 .ContainsKey(Session.HttpSession.SessionCurrentDateKey);
 
             if (!sessionExist)
             {
-                request.HttpSession[Session.HttpSession.SessionCurrentDateKey] =
+                request.Session[Session.HttpSession.SessionCurrentDateKey] =
                     DateTime.Now.ToString();
                 response.Cookies
-                    .Add(Session.HttpSession.SessionCookieName, request.HttpSession.Id);
+                    .Add(Session.HttpSession.SessionCookieName, request.Session.Id);
             }
         }
     }

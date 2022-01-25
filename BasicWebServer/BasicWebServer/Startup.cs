@@ -7,7 +7,7 @@ public static class Startup
     public static async Task Main()
     {
         var server = new HttpServer(routes => routes
-        .MapGet<HomeController>("/", c => c.Index())
+        .MapGet<HomeController>("/Home", c => c.Index())
         .MapGet<HomeController>("/Redirect", c => c.Redirect())
         .MapGet<HomeController>("/HTML", c => c.Html())
         .MapPost<HomeController>("/HTML", c => c.HtmlFormPost())
@@ -21,7 +21,6 @@ public static class Startup
         .MapGet<UsersController>("/UserProfile", c => c.UserProfile())
         .MapGet<UsersController>("/Register", c => c.Register())
         .MapPost<UsersController>("/Registration", c => c.Registration())
-
         );
         await server.Start();
     }

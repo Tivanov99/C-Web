@@ -2,15 +2,16 @@
 {
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.Enums;
+    using BasicWebServer.Server.HTTP;
 
     public interface IRoutingTable
     {
-        IRoutingTable Map(HttpRequestMethod method, string url, Func<IRequest, IResponse> Func);
+        IRoutingTable Map(HttpRequestMethod method, string url, Func<Request, Response> Func);
 
-        IRoutingTable MapGet(string url,  Func<IRequest, IResponse> Func);
+        IRoutingTable MapGet(string url,  Func<Request, Response> Func);
 
-        IRoutingTable MapPost(string url, Func<IRequest, IResponse> Func);
+        IRoutingTable MapPost(string url, Func<Request, Response> Func);
 
-        IResponse MatchRequest(IRequest request);
+        Response MatchRequest(Request request);
     }
 }

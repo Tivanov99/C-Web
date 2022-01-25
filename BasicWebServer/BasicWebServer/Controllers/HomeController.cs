@@ -5,6 +5,7 @@
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.Controllers;
     using BasicWebServer.Server.Cookies;
+    using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.Session;
     using System.Linq;
     using System.Text;
@@ -14,18 +15,19 @@
     {
         private const string FileName = "content.txt";
 
-        public HomeController(IRequest request)
+        public HomeController(Request request)
             : base(request)
         {
 
         }
 
-        public IResponse Index() => Text("Hello from the server!");
+        public Response Index() => 
+            this.View();
 
-        public IResponse Redirect()
+        public Response Redirect()
             => Redirect("https://www.youtube.com/watch?v=5tXyXFIIoos");
 
-        public IResponse HtmlFormPost()
+        public Response HtmlFormPost()
         {
             var name = this.Request.Form["Name"];
             var age = this.Request.Form["Age"];
@@ -41,15 +43,15 @@
 
         }
 
-        public IResponse Html()
+        public Response Html()
             => View();
 
-        public IResponse PostTextFile()
+        public Response PostTextFile()
             => File(FileName);
 
-        public IResponse Content() => View();
+        public Response Content() => View();
 
-        public IResponse DownloadContent()
+        public Response DownloadContent()
         {
             FileContentAccess.DownloadSitesAsTextFile(FileName,
                 new string[] { "https://softuni.bg/" })
@@ -58,7 +60,7 @@
             return File(FileName);
         }
 
-        public IResponse Cookies()
+        public Response Cookies()
         {
             bool requestHasCookies = this.Request.Cookies
                .Any(c => c.Name != HttpSession.SessionCookieName);
@@ -94,14 +96,14 @@
             return Html("<h1>Cookies set!</h1>", cookies);
         }
 
-        public IResponse Session()
+        public Response Session()
         {
-            bool sessionExist = this.Request.HttpSession
+            bool sessionExist = this.Request.Session
             .ContainsKey(HttpSession.SessionCurrentDateKey);
 
             if (sessionExist)
             {
-                string currentDate = this.Request.HttpSession[HttpSession.SessionCurrentDateKey];
+                string currentDate = this.Request.Session[HttpSession.SessionCurrentDateKey];
                 return Text($"Stored date: {currentDate}!");
             }
 

@@ -10,22 +10,15 @@
     using System.Linq;
     using System.Web;
 
-    public class Request : IRequest
+    public class Request
     {
-        private Dictionary<string, HttpSession> _sessions = new();
-
-        public Request(string queryString)
-        {
-            this.Headers = new HeaderCollection();
-            Cookies = new CookieCollection();
-            Parse(queryString);
-        }
+        private static Dictionary<string, HttpSession> Sessions = new();
 
         public string Url { get; private set; }
 
-        public HttpRequestMethod RequestMethod { get; private set; }
+        public HttpRequestMethod RequestMethod { get; set; }
 
-        public HeaderCollection Headers { get; }
+        public HeaderCollection Headers { get; set; }
 
         public string Body { get; set; }
 
@@ -33,9 +26,9 @@
 
         public ICookieCollection Cookies { get; private set; }
 
-        public ISession HttpSession { get; private set; }
+        public ISession Session { get; private set; }
 
-        private void Parse(string requestString)
+        public static Request Parse(string requestString)
         {
             string[] lines = requestString.Split("\r\n");
 
@@ -44,42 +37,53 @@
                 .First()
                 .Split(" ");
 
-            ParseRequestMethod(requestLines[0]);
+            var parsedRequestMethod = ParseRequestMethod(requestLines[0]);
 
-            this.Url = requestLines[1];
+            string url = requestLines[1];
 
-            ParsePlainTextHeaders(lines.Skip(1).ToArray());
+            var headers = ParsePlainTextHeaders(lines.Skip(1).ToArray());
 
-            string[] bodyLines = lines.Skip(this.Headers.Count + 2).ToArray();
+            string[] bodyLines = lines.Skip(headers.Count + 2).ToArray();
 
             var body = string.Join("\r\n", bodyLines);
 
-            this.Body = body;
+            var form = ParseForm(body, headers);
 
-            this.Form = ParseForm(body);
+            var cookies = ParseCookies(headers);
 
-            this.ParseCookies();
+            var session = GetSession(cookies);
 
-            this.GetSession();
+            return new Request
+            {
+                RequestMethod = parsedRequestMethod,
+                Url = url,
+                Headers = headers,
+                Body = body,
+                Form = form,
+                Session= session,
+                Cookies = cookies,
+            };
         }
 
-        private void ParsePlainTextHeaders(string[] requestLines)
+        private static HeaderCollection ParsePlainTextHeaders(string[] requestLines)
         {
+            HeaderCollection headers = new HeaderCollection();
             for (int i = 0; i < requestLines.Length - 1; i++)
             {
                 if (!string.IsNullOrEmpty(requestLines[i]))
                 {
                     string[] splitedHeader = requestLines[i].Split(": ");
 
-                    this.Headers.Add(splitedHeader[0], splitedHeader[1]);
+                    headers.Add(splitedHeader[0], splitedHeader[1]);
                 }
             }
+            return headers;
         }
-        private void ParseRequestMethod(string method)
+        private static HttpRequestMethod ParseRequestMethod(string method)
         {
             try
             {
-                this.RequestMethod = (HttpRequestMethod)Enum.Parse(typeof(HttpRequestMethod), method, true);
+                return (HttpRequestMethod)Enum.Parse(typeof(HttpRequestMethod), method, true);
             }
             catch (Exception)
             {
@@ -87,12 +91,12 @@
             }
         }
 
-        private Dictionary<string, string> ParseForm(string body)
+        private static Dictionary<string, string> ParseForm(string body, HeaderCollection headers)
         {
             var formCollection = new Dictionary<string, string>();
 
-            if (this.Headers.ContaisHeader(Header.ConteType) &&
-                this.Headers[Header.ConteType] == ContentType.FormUrlEncoded)
+            if (headers.ContaisHeader(Header.ConteType) &&
+                headers[Header.ConteType] == ContentType.FormUrlEncoded)
             {
                 var parseResult = ParseFormData(body);
                 foreach (var (name, value) in parseResult)
@@ -103,7 +107,7 @@
             return formCollection;
         }
 
-        private Dictionary<string, string> ParseFormData(string bodyLines)
+        private static Dictionary<string, string> ParseFormData(string bodyLines)
         => HttpUtility.UrlDecode(bodyLines)
             .Split("&")
             .Select(part => part.Split("="))
@@ -113,11 +117,13 @@
             part => part[1],
             StringComparer.InvariantCultureIgnoreCase);
 
-        private void ParseCookies()
+        private static CookieCollection ParseCookies(HeaderCollection headers)
         {
-            if (this.Headers.ContaisHeader(Header.Cookie))
+            CookieCollection cookies = new CookieCollection();
+
+            if (headers.ContaisHeader(Header.Cookie))
             {
-                string cookiedHeader = this.Headers[Header.Cookie];
+                string cookiedHeader = headers[Header.Cookie];
 
                 string[] allCookies = cookiedHeader.Split(";");
 
@@ -127,20 +133,23 @@
 
                     string cookieName = cookieParts[0].Trim();
                     string cookieValue = cookieParts[1].Trim();
-                    this.Cookies.Add(cookieName, cookieValue);
+                    cookies.Add(cookieName, cookieValue);
                 }
             }
+            return cookies;
         }
 
-        private void GetSession()
-         =>   //string sessionId = this.Cookies.Contains(Session.SessionCookieName)
-              //    ? this.Cookies[Session.SessionCookieName]
-              //    : Guid.NewGuid().ToString();
+        private static HttpSession GetSession(CookieCollection cookies)
+        {
+            string sessionId = cookies.Contains(HttpSession.SessionCookieName)
+                  ? cookies[HttpSession.SessionCookieName]
+                  : Guid.NewGuid().ToString();
 
-            //if (!this._sessions.ContainsKey(sessionId))
-            //{
-            //    this._sessions[sessionId] = new Session(sessionId);
-            //}
-            this.HttpSession = SessionCollection.GetSession(this.Cookies);
+            if (!Sessions.ContainsKey(sessionId))
+            {
+                Sessions[sessionId] = new HttpSession(sessionId);
+            }
+            return Sessions[sessionId];
+        }
     }
 }

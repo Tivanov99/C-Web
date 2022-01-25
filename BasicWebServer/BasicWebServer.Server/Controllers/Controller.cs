@@ -9,17 +9,17 @@
 
     public abstract class Controller
     {
-        public Controller(IRequest request)
+        public Controller(Request request)
         {
             this.Request = request;
         }
-        protected IRequest Request { get; set; }
+        protected Request Request { get; set; }
 
         protected Response Text(string text) => new TextResponse(text);
 
-        protected IResponse Html(string text, ICookieCollection cookies = null)
+        protected Response Html(string text, ICookieCollection cookies = null)
         {
-            IResponse response = new HtmlResponse(text);
+            Response response = new HtmlResponse(text);
             if (cookies != null)
             {
                 foreach (Cookie cookie in cookies)

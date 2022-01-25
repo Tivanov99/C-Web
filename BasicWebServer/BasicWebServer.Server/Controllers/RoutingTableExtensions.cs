@@ -1,4 +1,5 @@
 ﻿using BasicWebServer.Server.Contracts;
+using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Routing;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BasicWebServer.Server.Controllers
         public static IRoutingTable MapGet<TController>(
             this IRoutingTable routingTable,
             string path,
-            Func<TController, IResponse> controllerFunction)
+            Func<TController, Response> controllerFunction)
             where TController : Controller
         => routingTable
             .MapGet(path, request => controllerFunction(
@@ -22,13 +23,13 @@ namespace BasicWebServer.Server.Controllers
         public static IRoutingTable MapPost<TController>(
             this IRoutingTable routingTable,
             string path,
-            Func<TController, IResponse> controllerFunction)
+            Func<TController, Response> controllerFunction)
             where TController : Controller
             => routingTable
             .MapPost(path, request => controllerFunction(
                 CreateController<TController>(request)));
 
-        private static TController CreateController<TController>(IRequest request)
+        private static TController CreateController<TController>(Request request)
             where TController : Controller
             => (TController)Activator
             .CreateInstance(typeof(TController), new[] { request });

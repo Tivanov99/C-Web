@@ -35,7 +35,6 @@
                 viewName = controllerName + PathSeparator + viewName;
             }
 
-
             var viewPath = Path.GetFullPath(
                 $"./Views/" +
                 viewName.TrimStart(PathSeparator)) +
@@ -70,7 +69,6 @@
                 $"./Views/" +
                 "Layout") +
                 ".cshtml";
-
             return File.ReadAllText(layoutPath);
         }
     }

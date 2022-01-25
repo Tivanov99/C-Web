@@ -3,6 +3,7 @@
     using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.Controllers;
     using BasicWebServer.Server.Cookies;
+    using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.Session;
 
     public class UsersController : Controller
@@ -10,51 +11,51 @@
         private const string Username = "user";
         private const string Password = "user123";
 
-        public UsersController(IRequest request)
+        public UsersController(Request request)
             : base(request)
         {
         }
 
-        public IResponse Login()
+        public Response Login()
             => View();
 
-        public IResponse LogInUser()
+        public Response LogInUser()
         {
-            this.Request.HttpSession.Clear();
+            this.Request.Session.Clear();
 
             bool usernameMatches = this.Request.Form["Username"] == Username;
             bool passwordMatches = this.Request.Form["Password"] == Password;
 
             if (usernameMatches && passwordMatches)
             {
-                if (!this.Request.HttpSession
+                if (!this.Request.Session
                     .ContainsKey(HttpSession.SessionUserKey))
                 {
-                    this.Request.HttpSession[HttpSession.SessionUserKey] = "MyUserId";
+                    this.Request.Session[HttpSession.SessionUserKey] = "MyUserId";
 
                     var cookies = new CookieCollection();
                     cookies.Add(HttpSession.SessionCookieName,
-                        this.Request.HttpSession.Id);
+                        this.Request.Session.Id);
 
                     return Html("<h3>Logged successfully!</h3>", cookies);
                 }
-                return Html("<h3>Logged successfully!</h3>");
+                return Html("<h3>You are already Logged!</h3>");
             }
             return Redirect("/Login");
         }
 
-        public IResponse LogOut()
+        public Response LogOut()
         {
-            this.Request.HttpSession.Clear();
+            this.Request.Session.Clear();
             return Html("<h3>Logged out successfully!</h3>");
         }
 
-        public IResponse Register()
+        public Response Register()
         {
             return this.View();
         }
 
-        public IResponse Registration()
+        public Response Registration()
         {
             string email = this.Request.Form["Email"];
             string pass = this.Request.Form["Psw"];
@@ -64,12 +65,13 @@
             {
 
             }
+
             return this.View();
         }
 
-        public IResponse UserProfile()
+        public Response UserProfile()
         {
-            if (this.Request.HttpSession
+            if (this.Request.Session
                 .ContainsKey(HttpSession.SessionUserKey))
             {
                 return Html("Currently logged-in user " +
