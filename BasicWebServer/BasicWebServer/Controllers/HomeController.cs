@@ -21,7 +21,7 @@
 
         }
 
-        public Response Index() => 
+        public Response Index() =>
             this.View();
 
         public Response Redirect()
@@ -106,7 +106,6 @@
                 string currentDate = this.Request.Session[HttpSession.SessionCurrentDateKey];
                 return Text($"Stored date: {currentDate}!");
             }
-
             return Html("Current date stored!");
         }
     }

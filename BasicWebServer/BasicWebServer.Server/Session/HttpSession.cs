@@ -2,7 +2,7 @@
 {
     using BasicWebServer.Server.Contracts;
 
-    public class HttpSession : ISession
+    public class HttpSession
     {
         public const string SessionCookieName = "MyWebServerSID";
         public const string SessionCurrentDateKey = "CurrentDate";

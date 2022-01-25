@@ -26,7 +26,7 @@
 
         public ICookieCollection Cookies { get; private set; }
 
-        public ISession Session { get; private set; }
+        public HttpSession Session { get; private set; }
 
         public static Request Parse(string requestString)
         {
@@ -60,7 +60,7 @@
                 Headers = headers,
                 Body = body,
                 Form = form,
-                Session= session,
+                Session = session,
                 Cookies = cookies,
             };
         }
