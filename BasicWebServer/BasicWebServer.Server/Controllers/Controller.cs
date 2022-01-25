@@ -41,11 +41,11 @@
 
         protected Response NotFound() => new NotFoundResponse();
 
-        protected Response View([CallerMemberName] string viewName = "")
-            => new ViewResponse(viewName, GetControllerName());
+        protected Response View(Request request, [CallerMemberName] string viewName = "")
+            => new ViewResponse(request, viewName, GetControllerName());
 
-        protected Response View(object model, [CallerMemberName] string viewName = "")
-            => new ViewResponse(viewName, this.GetControllerName(), model);
+        protected Response View(Request request, object model, [CallerMemberName] string viewName = "")
+            => new ViewResponse(request, viewName, this.GetControllerName(), model);
 
         private string GetControllerName()
         => this.GetType().Name

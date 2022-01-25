@@ -19,7 +19,10 @@
 		<None Remove="Views\Home\Html.cshtml" />
 		<None Remove="Views\Home\HtmlFormPost.cshtml" />
 		<None Remove="Views\Home\Index.cshtml" />
+		<None Remove="Views\Home\UserProfile.cshtml" />
 		<None Remove="Views\Layout.cshtml" />
+		<None Remove="Views\Navigations\LoggedInUserNavigation.html" />
+		<None Remove="Views\Navigations\LoggedOutNavigation.html" />
 		<None Remove="Views\Users\Register.cshtml" />
 	</ItemGroup>
 

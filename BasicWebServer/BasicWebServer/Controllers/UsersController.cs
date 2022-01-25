@@ -17,7 +17,7 @@
         }
 
         public Response Login()
-            => View();
+            => View(this.Request);
 
         public Response LogInUser()
         {
@@ -52,7 +52,7 @@
 
         public Response Register()
         {
-            return this.View();
+            return this.View(this.Request);
         }
 
         public Response Registration()
@@ -66,7 +66,7 @@
 
             }
 
-            return this.View();
+            return this.View(this.Request);
         }
 
         public Response UserProfile()
@@ -74,12 +74,10 @@
             if (this.Request.Session
                 .ContainsKey(HttpSession.SessionUserKey))
             {
-                return Html("Currently logged-in user " +
-                     $"is with username '{Username}'</h3>");
+                return this.View(this.Request);
             }
 
-            return Html("<h3>You should first log in " +
-               "- <a href='/Login'>Login</a></h3>");
+            return this.View(Request);
         }
     }
 }

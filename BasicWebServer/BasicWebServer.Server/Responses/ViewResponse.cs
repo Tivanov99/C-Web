@@ -1,20 +1,29 @@
 ﻿namespace BasicWebServer.Server.Responses
 {
     using BasicWebServer.Server.HTTP;
+    using System.Text;
 
     public class ViewResponse : ContentResponse
     {
         private const char PathSeparator = '/';
 
-        public ViewResponse(string viewName, string controllerName, object model = null)
+        public ViewResponse(Request request, string viewName, string controllerName, object model = null)
             : base("", ContentType.Html)
         {
-            GetContent(viewName, controllerName, model);
+            GetContent(request, viewName, controllerName, model);
         }
 
-        private void GetContent(string viewName, string controllerName, object model = null)
+        private void GetContent(Request request, string viewName, string controllerName, object model = null)
         {
+            StringBuilder sb = new StringBuilder();
+
             string layout = GetLayout();
+
+            string navi = GetNavi(request);
+
+            sb.Append(layout);
+
+            sb.Replace("@Rendernavi()", navi);
 
             string viewPath = GetPath(viewName, controllerName);
 
@@ -25,7 +34,7 @@
                 viewContent = PopulateModel(viewContent, model);
             }
 
-            this.Body = layout.Replace("@RenderContent()", viewContent);
+            this.Body = sb.Replace("@RenderContent()", viewContent).ToString();
         }
 
         private string GetPath(string viewName, string controllerName)
@@ -65,11 +74,28 @@
         }
         private string GetLayout()
         {
-            var layoutPath = Path.GetFullPath(
-                $"./Views/" +
-                "Layout") +
-                ".cshtml";
-            return File.ReadAllText(layoutPath);
+            var layout = Path.GetFullPath(
+              $"./Views/" +
+              "Layout") +
+              ".cshtml";
+            return File.ReadAllText(layout);
+        }
+
+        private string GetNavi(Request request)
+        {
+            string naviPath = request.Session.ContainsKey("AuthenticatedUserId") ?
+               Path.GetFullPath(
+               $"./Views/" +
+               "Navigations/" +
+               "LoggedInUserNavigation") +
+               ".html" :
+               Path.GetFullPath(
+               $"./Views/" +
+               "Navigations/" +
+               "LoggedOutNavigation") +
+               ".html";
+
+            return File.ReadAllText(naviPath);
         }
     }
 }

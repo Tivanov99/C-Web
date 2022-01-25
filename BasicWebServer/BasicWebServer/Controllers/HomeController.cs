@@ -21,8 +21,9 @@
 
         }
 
-        public Response Index() =>
-            this.View();
+        public Response Index()
+        => this.View(this.Request);
+
 
         public Response Redirect()
             => Redirect("https://www.youtube.com/watch?v=5tXyXFIIoos");
@@ -39,17 +40,16 @@
                 Age = int.Parse(age)
             };
 
-            return View(model);
-
+            return View(Request, model);
         }
 
         public Response Html()
-            => View();
+            => View(this.Request);
 
         public Response PostTextFile()
             => File(FileName);
 
-        public Response Content() => View();
+        public Response Content() => View(this.Request);
 
         public Response DownloadContent()
         {
