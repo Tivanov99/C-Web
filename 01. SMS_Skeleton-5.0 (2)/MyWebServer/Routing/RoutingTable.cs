@@ -103,7 +103,7 @@
                     var contentType = HttpContentType.GetByFileExtension(fileExtension);
 
                     return new HttpResponse(HttpStatusCode.OK)
-                        .SetContent(content, contentType);  
+                        .SetContent(content, contentType);
                 });
             }
 

@@ -14,7 +14,8 @@
                 .WithRoutes(routes => routes
                     .MapStaticFiles()
                     .MapControllers()
-                .MapGet<HomeController>("/Index",c=>c.Index()))
+                .MapGet<HomeController>("/Index", c => c.Index()))
+                //.MapGet<UsersController>("/Users/Login", c => c.Login()))
                 .WithServices(services => services
                     .Add<IViewEngine, CompilationViewEngine>())
                 .Start();
