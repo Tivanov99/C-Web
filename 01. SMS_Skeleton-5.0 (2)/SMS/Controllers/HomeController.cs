@@ -7,7 +7,17 @@
     {
         public HttpResponse Index()
         {
-            return this.View();
+            //TODO : check here wheter 'AuthenticatedUserId' added before that
+            return this.Request.Session.Contains("AuthenticatedUserId") ?
+                   this.IndexLoggedIn() :
+                   this.View();
+            //if (this.Request.Session.Contains("AuthenticatedUserId"))
+            //{
+            //    return
+            //}
+            //return this.View();
         }
+        private HttpResponse IndexLoggedIn()
+            => this.View();
     }
 }
