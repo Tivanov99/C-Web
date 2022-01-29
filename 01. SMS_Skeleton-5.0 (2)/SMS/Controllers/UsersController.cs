@@ -7,5 +7,8 @@
     {
         public HttpResponse Login()
         => this.View();
+
+        public HttpResponse Register()
+            => this.View();
     }
 }
