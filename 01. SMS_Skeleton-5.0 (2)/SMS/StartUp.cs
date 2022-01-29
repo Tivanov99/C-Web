@@ -5,6 +5,7 @@
     using MyWebServer;
     using MyWebServer.Controllers;
     using MyWebServer.Results.Views;
+    using SMS.Controllers;
 
     public class StartUp
     {
@@ -12,7 +13,8 @@
             => await HttpServer
                 .WithRoutes(routes => routes
                     .MapStaticFiles()
-                    .MapControllers())
+                    .MapControllers()
+                .MapGet<HomeController>("/Index",c=>c.Index()))
                 .WithServices(services => services
                     .Add<IViewEngine, CompilationViewEngine>())
                 .Start();
