@@ -6,6 +6,12 @@ namespace SMS.Controllers
     public class ProductsController : Controller
     {
         public HttpResponse Create()
-        =>this.View();
+        => this.View();
+
+        public HttpResponse CreateProduct()
+        {
+
+           return this.Redirect("/Index");
+        }
     }
 }

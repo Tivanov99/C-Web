@@ -2,6 +2,7 @@
 {
     using MyWebServer.Controllers;
     using MyWebServer.Http;
+    using SMS.Models;
 
     public class UsersController : Controller
     {
@@ -24,7 +25,9 @@
 
             return this.Login();
         }
-        public HttpResponse Registration()
+
+        [HttpPost]
+        public HttpResponse Register(RegisterUserFormModel registerForm)
         {
             string username = this.Request.Form["username"];
             string password = this.Request.Form["password"];
