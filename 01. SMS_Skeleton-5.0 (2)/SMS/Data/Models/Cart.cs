@@ -9,7 +9,6 @@
         [Key]
         public int Id { get; set; }
 
-
         [ForeignKey(nameof(User))]
         [Required]
         public int UserId { get; set; }
