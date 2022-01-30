@@ -19,10 +19,25 @@
             if (validUsername && validPassword)
             {
                 this.SignIn(this.Request.Session.Id);
-                return this.View();
+                return this.Redirect("/Index");
             }
 
             return this.Login();
+        }
+        public HttpResponse Registration()
+        {
+            string username = this.Request.Form["username"];
+            string password = this.Request.Form["password"];
+            string email = this.Request.Form["email"];
+            string confirmPassword = this.Request.Form["confirmPassword"];
+
+            if (password == confirmPassword)
+            {
+                //TODO: Add new user to the db
+                return this.Login();
+            }
+
+            return this.Register();
         }
     }
 }
