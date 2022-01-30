@@ -106,3 +106,4 @@ C:\Users\Trifon\Desktop\Csharp-Web\01. SMS_Skeleton-5.0 (2)\SMS\obj\Debug\net5.0
 C:\Users\Trifon\Desktop\Csharp-Web\01. SMS_Skeleton-5.0 (2)\SMS\obj\Debug\net5.0\ref\SMS.dll
 C:\Users\Trifon\Desktop\Csharp-Web\01. SMS_Skeleton-5.0 (2)\SMS\obj\Debug\net5.0\SMS.pdb
 C:\Users\Trifon\Desktop\Csharp-Web\01. SMS_Skeleton-5.0 (2)\SMS\obj\Debug\net5.0\SMS.genruntimeconfig.cache
+C:\Users\Trifon\Desktop\Csharp-Web\01. SMS_Skeleton-5.0 (2)\SMS\bin\Debug\net5.0\Views\LoggedInUserLayout.cshtml

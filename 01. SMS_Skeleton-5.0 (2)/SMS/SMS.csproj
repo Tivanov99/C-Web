@@ -34,6 +34,9 @@
     <None Update="Views\Layout.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+	  <None Update="Views\LoggedInUserLayout.cshtml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
     <None Update="Views\Products\Add.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
