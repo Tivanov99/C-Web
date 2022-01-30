@@ -28,6 +28,7 @@
             this.routingTable = (RoutingTable)routingTable;
 
             this.serviceCollection = new ServiceCollection();
+
         }
 
         private HttpServer(int port, IRoutingTable routingTable)

@@ -21,7 +21,7 @@
         public string Password { get; set; }
 
         [ForeignKey(nameof(Cart))]
-        [Required]
+        //[Required]
         public int CartId { get; set; }
         public virtual Cart Cart { get; set; }
     }

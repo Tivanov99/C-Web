@@ -13,6 +13,7 @@
         [ForeignKey(nameof(User))]
         [Required]
         public int UserId { get; set; }
+
         public virtual User User { get; set; }
 
         public List<Product> Products { get; set; }
