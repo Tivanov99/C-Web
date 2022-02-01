@@ -7,7 +7,6 @@
     {
         public HttpResponse Index()
         => this.View();
-        private HttpResponse IndexLoggedIn()
-            => this.View();
+
     }
 }

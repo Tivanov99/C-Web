@@ -7,10 +7,22 @@
     public class UsersController : Controller
     {
         public HttpResponse Login()
-        => this.View();
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.NotFound();
+            }
+            return this.View();
+        }
 
         public HttpResponse Register()
-            => this.View();
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.NotFound();
+            }
+            return this.View();
+        }
 
         public HttpResponse LoggingInUser()
         {
@@ -29,6 +41,11 @@
         [HttpPost]
         public HttpResponse Register(RegisterUserFormModel registerForm)
         {
+            //if (this.User.IsAuthenticated)
+            //{
+            //    return this.NotFound();
+            //}
+
             string username = this.Request.Form["username"];
             string password = this.Request.Form["password"];
             string email = this.Request.Form["email"];
