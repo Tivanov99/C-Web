@@ -42,5 +42,10 @@
 
             return this.Register();
         }
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return this.Redirect("/Index");
+        }
     }
 }
