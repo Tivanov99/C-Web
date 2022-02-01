@@ -6,12 +6,21 @@ namespace SMS.Controllers
     public class ProductsController : Controller
     {
         public HttpResponse Create()
-        => this.View();
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.Unauthorized();
+            }
+            return this.View();
+        }
 
         public HttpResponse CreateProduct()
         {
-
-           return this.Redirect("/Index");
+            if (!this.User.IsAuthenticated)
+            {
+                return this.Unauthorized();
+            }
+            return this.View();
         }
     }
 }
