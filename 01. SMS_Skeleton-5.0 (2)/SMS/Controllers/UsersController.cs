@@ -1,12 +1,14 @@
 ﻿namespace SMS.Controllers
 {
     using MyWebServer.Controllers;
-    using SMS.Data.Models;
     using MyWebServer.Http;
     using MyWebServer.Services;
     using SMS.Data;
+    using SMS.Data.Models;
+
     using SMS.Models;
     using SMS.Validator;
+    using System.Linq;
 
     public class UsersController : Controller
     {
@@ -24,7 +26,20 @@
         [HttpPost]
         public HttpResponse Login(LoginUserFormModel userFormModel)
         {
-            return this.View();
+            string username = userFormModel.Username;
+            string password = this.passwordHasher.HashPassword(userFormModel.Password);
+
+            bool userIsExist = this.dbContext
+                .Users
+                .Any(u => u.Username == username && u.Password == password);
+
+            if (userIsExist)
+            {
+                this.SignIn(this.Request.Session.Id);
+                return this.View();
+            }
+
+            return this.Redirect("Users/Login");
         }
 
         public HttpResponse Register()
@@ -36,19 +51,6 @@
             return this.View();
         }
 
-        public HttpResponse LoggingInUser()
-        {
-            bool validUsername = this.Request.Form["username"] == "user";
-            bool validPassword = this.Request.Form["password"] == "user123";
-
-            if (validUsername && validPassword)
-            {
-                this.SignIn(this.Request.Session.Id);
-                return this.Redirect("/Index");
-            }
-
-            return this.Login();
-        }
 
         [HttpPost]
         public HttpResponse Register(RegisterUserFormModel registerForm)

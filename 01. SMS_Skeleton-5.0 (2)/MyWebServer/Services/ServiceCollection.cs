@@ -9,41 +9,41 @@
         private readonly Dictionary<Type, Type> services;
 
         public ServiceCollection()
-            => this.services = new();
+            => services = new();
 
         public IServiceCollection Add<TService, TImplementation>()
             where TService : class
             where TImplementation : TService
         {
-            this.services[typeof(TService)] = typeof(TImplementation);
+            services[typeof(TService)] = typeof(TImplementation);
 
             return this;
         }
 
         public IServiceCollection Add<TService>()
             where TService : class
-            => this.Add<TService, TService>();
+            => Add<TService, TService>();
 
         public TService Get<TService>()
             where TService : class
         {
             var typeOfService = typeof(TService);
 
-            if (!this.services.ContainsKey(typeOfService))
+            if (!services.ContainsKey(typeOfService))
             {
                 return null;
             }
 
-            var implementationType = this.services[typeOfService];
+            var implementationType = services[typeOfService];
 
-            return (TService)this.CreateInstance(implementationType);
+            return (TService)CreateInstance(implementationType);
         }
 
         public object CreateInstance(Type type)
         {
-            if (this.services.ContainsKey(type))
+            if (services.ContainsKey(type))
             {
-                type = this.services[type];
+                type = services[type];
             }
             else if (type.IsInterface)
             {
@@ -67,7 +67,7 @@
             {
                 var parameterType = parameters[i].ParameterType;
 
-                var parameterValue = this.CreateInstance(parameterType);
+                var parameterValue = CreateInstance(parameterType);
 
                 parameterValues[i] = parameterValue;
             }
