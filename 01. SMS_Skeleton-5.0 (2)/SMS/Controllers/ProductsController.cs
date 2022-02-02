@@ -1,6 +1,7 @@
 ﻿using MyWebServer.Controllers;
 using MyWebServer.Http;
 using SMS.Models;
+using SMS.Validator;
 
 namespace SMS.Controllers
 {
@@ -23,6 +24,12 @@ namespace SMS.Controllers
             {
                 return this.Unauthorized();
             }
+
+            if (ItemDataValidator.IsValidItemData(formModel.Name, formModel.Price))
+            {
+
+            }
+
             return this.Redirect("/Index");
         }
     }

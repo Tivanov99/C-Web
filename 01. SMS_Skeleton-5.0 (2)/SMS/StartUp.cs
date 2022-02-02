@@ -25,8 +25,6 @@
                     .Add<IViewEngine, CompilationViewEngine>()
                     .Add<IPasswordHasher, PasswordHasher>())
                 .Start();
-
-
         }
     }
 }
