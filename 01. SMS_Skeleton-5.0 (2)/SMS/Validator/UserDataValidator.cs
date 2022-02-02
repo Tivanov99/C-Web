@@ -8,7 +8,7 @@
     {
         public static bool Validate(RegisterUserFormModel registerForm)
         {
-            if (IsValidUsername(registerForm.Username))
+            if (!IsValidUsername(registerForm.Username))
             {
                 //TODO: Check here
                 return false;
@@ -29,8 +29,8 @@
         }
         private static bool IsValidUsername(string username)
         {
-            return username.Length >= GlobalConstants.usernameMinLength ||
-                username.Length <= GlobalConstants.usernameMaxLength;
+            return username.Length > GlobalConstants.usernameMinLength ||
+                username.Length < GlobalConstants.usernameMaxLength;
         }
 
         private static bool IsValidEmail(string email)
@@ -40,8 +40,8 @@
 
         private static bool IsValidPassword(string password)
         {
-            return password.Length >= GlobalConstants.passwordMinLength ||
-                password.Length <= GlobalConstants.passwordMaxLength;
+            return password.Length > GlobalConstants.passwordMinLength ||
+                password.Length < GlobalConstants.passwordMaxLength;
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿namespace SMS.Controllers
 {
+    using MyWebServer.Common;
     using MyWebServer.Controllers;
     using MyWebServer.Http;
     using MyWebServer.Services;
     using SMS.Data;
     using SMS.Models;
     using SMS.Validator;
+    using System;
     using System.Linq;
 
     public class UsersController : Controller
@@ -25,7 +27,9 @@
         public HttpResponse Login(LoginUserFormModel userFormModel)
         {
             string username = userFormModel.Username;
-            string password = this.passwordHasher.HashPassword(userFormModel.Password);
+            string password = this.passwordHasher
+                .HashPassword(userFormModel.Password)
+                .Substring(0, GlobalConstants.passwordMaxLength);
 
             bool userIsExist = this.dbContext
                 .Users
@@ -34,10 +38,10 @@
             if (userIsExist)
             {
                 this.SignIn(this.Request.Session.Id);
-                return this.View();
+                return this.Redirect("/Index");
             }
 
-            return this.Redirect("Users/Login");
+            return this.View();
         }
 
         public HttpResponse Register()
@@ -57,14 +61,21 @@
 
             if (isValidRegistration == true)
             {
+
                 string password = passwordHasher
                     .HashPassword(registerForm.Password);
+
+
+                //dbContext.Carts.Add(new Data.Models.Cart());
+
+                //Data.Models.Cart cart = dbContext.Carts.Last();
 
                 Data.Models.User user = new Data.Models.User()
                 {
                     Username = registerForm.Username,
-                    Password = password,
+                    Password = password.Substring(0, GlobalConstants.passwordMaxLength),
                     Email = registerForm.Email,
+                    Cart = new Data.Models.Cart()
                 };
 
                 this.dbContext
