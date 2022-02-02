@@ -18,9 +18,6 @@ namespace SMS.Data.Models
         [Required]
         public decimal Price { get; set; }
 
-
-        [ForeignKey(nameof(Cart))]
-        public int CartId { get; set; }
         public virtual Cart Cart { get; set; }
     }
 }

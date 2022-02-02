@@ -65,11 +65,6 @@
                 string password = passwordHasher
                     .HashPassword(registerForm.Password);
 
-
-                //dbContext.Carts.Add(new Data.Models.Cart());
-
-                //Data.Models.Cart cart = dbContext.Carts.Last();
-
                 Data.Models.User user = new Data.Models.User()
                 {
                     Username = registerForm.Username,
