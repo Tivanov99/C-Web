@@ -2,19 +2,20 @@
 {
     using MyWebServer.Controllers;
     using MyWebServer.Http;
+    using MyWebServer.Services;
     using SMS.Models;
     using SMS.Validator;
 
     public class UsersController : Controller
     {
-        public HttpResponse Login()
+        private IPasswordHasher passwordHasher;
+
+        public UsersController(IPasswordHasher passwordHasher)
         {
-            if (this.User.IsAuthenticated)
-            {
-                return this.NotFound();
-            }
-            return this.View();
+            this.passwordHasher = passwordHasher;
         }
+        public HttpResponse Login()
+        => this.View();
 
         [HttpPost]
         public HttpResponse Login(LoginUserFormModel userFormModel)
@@ -52,7 +53,8 @@
 
             if (isValidRegistration == true)
             {
-                //TODO: Add new user to the db
+                string password = passwordHasher.HashPassword(registerForm.Password);
+
                 return this.Login();
             }
 
