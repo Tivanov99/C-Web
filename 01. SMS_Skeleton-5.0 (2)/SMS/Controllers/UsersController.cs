@@ -4,8 +4,6 @@
     using MyWebServer.Http;
     using MyWebServer.Services;
     using SMS.Data;
-    using SMS.Data.Models;
-
     using SMS.Models;
     using SMS.Validator;
     using System.Linq;
