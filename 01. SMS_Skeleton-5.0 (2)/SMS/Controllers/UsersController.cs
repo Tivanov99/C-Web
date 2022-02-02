@@ -3,6 +3,7 @@
     using MyWebServer.Controllers;
     using MyWebServer.Http;
     using SMS.Models;
+    using SMS.Validator;
 
     public class UsersController : Controller
     {
@@ -12,6 +13,12 @@
             {
                 return this.NotFound();
             }
+            return this.View();
+        }
+
+        [HttpPost]
+        public HttpResponse Login(LoginUserFormModel userFormModel)
+        {
             return this.View();
         }
 
@@ -41,12 +48,9 @@
         [HttpPost]
         public HttpResponse Register(RegisterUserFormModel registerForm)
         {
-            string username = this.Request.Form["username"];
-            string password = this.Request.Form["password"];
-            string email = this.Request.Form["email"];
-            string confirmPassword = this.Request.Form["confirmPassword"];
+            bool isValidRegistration = UserDataValidator.Validate(registerForm);
 
-            if (password == confirmPassword)
+            if (isValidRegistration == true)
             {
                 //TODO: Add new user to the db
                 return this.Login();

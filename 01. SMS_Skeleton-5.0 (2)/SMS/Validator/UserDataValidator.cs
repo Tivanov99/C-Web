@@ -25,8 +25,6 @@
                 return false;
             }
 
-
-
             return true;
         }
         private static bool IsValidUsername(string username)
