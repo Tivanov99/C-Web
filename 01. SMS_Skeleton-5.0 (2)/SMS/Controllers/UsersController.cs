@@ -1,18 +1,22 @@
 ﻿namespace SMS.Controllers
 {
     using MyWebServer.Controllers;
+    using SMS.Data.Models;
     using MyWebServer.Http;
     using MyWebServer.Services;
+    using SMS.Data;
     using SMS.Models;
     using SMS.Validator;
 
     public class UsersController : Controller
     {
         private IPasswordHasher passwordHasher;
+        private SMSDbContext dbContext;
 
-        public UsersController(IPasswordHasher passwordHasher)
+        public UsersController(IPasswordHasher passwordHasher, SMSDbContext dbContext)
         {
             this.passwordHasher = passwordHasher;
+            this.dbContext = dbContext;
         }
         public HttpResponse Login()
         => this.View();
@@ -53,7 +57,21 @@
 
             if (isValidRegistration == true)
             {
-                string password = passwordHasher.HashPassword(registerForm.Password);
+                string password = passwordHasher
+                    .HashPassword(registerForm.Password);
+
+                Data.Models.User user = new Data.Models.User()
+                {
+                    Username = registerForm.Username,
+                    Password = password,
+                    Email = registerForm.Email,
+                };
+
+                this.dbContext
+                    .Users
+                    .Add(user);
+
+                this.dbContext.SaveChanges();
 
                 return this.Login();
             }
