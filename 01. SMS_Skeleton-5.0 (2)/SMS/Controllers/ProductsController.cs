@@ -1,13 +1,11 @@
-﻿using MyWebServer.Controllers;
-using MyWebServer.Http;
-using SMS.Data;
-using SMS.Models;
-using SMS.Validator;
-using SMS.Data.Models;
-using System.Linq;
-
-namespace SMS.Controllers
+﻿namespace SMS.Controllers
 {
+    using MyWebServer.Controllers;
+    using MyWebServer.Http;
+    using SMS.Data;
+    using SMS.Models;
+    using SMS.Validator;
+
     public class ProductsController : Controller
     {
         private SMSDbContext dbContext;
@@ -36,12 +34,11 @@ namespace SMS.Controllers
 
             if (ItemDataValidator.IsValidItemData(formModel.Name, formModel.Price))
             {
-
                 Data.Models.Product product = new Data.Models.Product()
                 {
                     Name = formModel.Name,
                     Price = formModel.Price,
-                    Cart= null
+                    Cart = null
                 };
                 this.dbContext
                     .Products
