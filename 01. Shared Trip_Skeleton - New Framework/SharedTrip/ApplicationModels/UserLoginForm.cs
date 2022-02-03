@@ -1,4 +1,4 @@
-﻿namespace SharedTrip.Controllers
+﻿namespace SharedTrip.ApplicationModels
 {
     public class UserLoginForm
     {
