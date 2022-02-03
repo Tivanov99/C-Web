@@ -46,9 +46,11 @@
 
                 this.dbContext
                     .SaveChanges();
+                return this.Redirect("/Index");
+
             }
 
-            return this.Redirect("/Index");
+            return this.Redirect("Products/Create");
         }
     }
 }
