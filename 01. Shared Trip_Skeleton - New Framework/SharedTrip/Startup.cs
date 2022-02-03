@@ -7,16 +7,23 @@
 
     using Controllers;
     using MyWebServer.Results.Views;
+    using SharedTrip.Data;
 
     public class Startup
     {
+
         public static async Task Main()
-            => await HttpServer
-                .WithRoutes(routes => routes
-                    .MapStaticFiles()
-                    .MapControllers())
-                .WithServices(services => services
-                    .Add<IViewEngine, CompilationViewEngine>())
-                .Start();
+        //{
+        //    ApplicationDbContext dbContext = new ApplicationDbContext();
+        //    dbContext.Database.EnsureCreated();
+        //}
+        => await HttpServer
+            .WithRoutes(routes => routes
+                .MapStaticFiles()
+                .MapControllers()
+            .MapGet<HomeController>("/Index",c=>c.Index()))
+            .WithServices(services => services
+                .Add<IViewEngine, CompilationViewEngine>())
+            .Start();
     }
 }

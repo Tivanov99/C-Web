@@ -6,7 +6,12 @@ namespace SharedTrip.Models
 {
     public class Trip
     {
-        [Key]
+        public Trip()
+        {
+            this.Id = Guid.NewGuid().ToString();
+            this.UserTrips = new HashSet<UserTrip>();
+        }
+
         public string Id { get; set; }
 
         [Required]
@@ -17,14 +22,14 @@ namespace SharedTrip.Models
 
         public DateTime DepartureTime { get; set; }
 
-        [Range(2, 6)]
         public int Seats { get; set; }
 
+        [Required]
         [MaxLength(80)]
         public string Description { get; set; }
 
-        public string ImagePath { get; set; }
+        public string ImagePath { get; set; } //nullable
 
-        public List<UserTrip> UserTrips { get; set; }
+        public virtual ICollection<UserTrip> UserTrips { get; set; }
     }
 }
