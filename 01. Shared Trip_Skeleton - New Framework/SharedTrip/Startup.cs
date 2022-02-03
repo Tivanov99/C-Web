@@ -21,7 +21,7 @@
             .WithRoutes(routes => routes
                 .MapStaticFiles()
                 .MapControllers()
-            .MapGet<HomeController>("/Index",c=>c.Index()))
+            .MapGet<HomeController>("/Index", c => c.Index()))
             .WithServices(services => services
                 .Add<IViewEngine, CompilationViewEngine>())
             .Start();
