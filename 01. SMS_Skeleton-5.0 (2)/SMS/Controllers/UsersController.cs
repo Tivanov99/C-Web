@@ -7,7 +7,6 @@
     using SMS.Data;
     using SMS.Models;
     using SMS.Validator;
-    using System;
     using System.Linq;
 
     public class UsersController : Controller

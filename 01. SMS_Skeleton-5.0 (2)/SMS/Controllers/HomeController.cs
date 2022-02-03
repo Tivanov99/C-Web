@@ -28,7 +28,9 @@
                         Price = x.Price,
                     })
                     .ToList();
-                return this.View("IndexLoggedIn");
+
+                LoggedInUserIndexPageModel model = new(products);
+                return this.View(model, "IndexLoggedIn");
             }
             return this.View();
         }
