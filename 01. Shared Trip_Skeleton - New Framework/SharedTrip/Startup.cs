@@ -8,6 +8,7 @@
     using Controllers;
     using MyWebServer.Results.Views;
     using SharedTrip.Data;
+    using MyWebServer.Services;
 
     public class Startup
     {
@@ -23,7 +24,8 @@
                 .MapControllers()
             .MapGet<HomeController>("/Index", c => c.Index()))
             .WithServices(services => services
-                .Add<IViewEngine, CompilationViewEngine>())
+                .Add<IViewEngine, CompilationViewEngine>()
+            .Add<IPasswordHasher, PasswordHasher>())
             .Start();
     }
 }

@@ -37,14 +37,16 @@
             string hashedPassword = this.passwordHasher
                 .HashPassword(userLoginForm.Password);
 
-            bool userIsExist = this.dbContext
+            var userId = this.dbContext
                 .Users
                 .Where(x => x.Username == userLoginForm.Username &&
                 x.Password == hashedPassword)
-                .Any();
-
-            if (userIsExist)
+                .Select(x=>x.Id)
+                .FirstOrDefault();
+                
+            if (userId!=null)
             {
+                this.SignIn(userId);
                 return this.Redirect("/Trips/All");
             }
 
