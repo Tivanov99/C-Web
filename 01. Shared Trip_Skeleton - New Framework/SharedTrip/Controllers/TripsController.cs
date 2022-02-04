@@ -13,6 +13,7 @@
     {
         private ApplicationDbContext dbContext;
         private TripDataValidator tripDataValidator;
+
         public TripsController(
             ApplicationDbContext dbContext,
             TripDataValidator tripDataValidator)
@@ -30,6 +31,7 @@
                   .Trips
                   .Select(t => new TripsDtoModel()
                   {
+                      Id= t.Id,
                       StartPoint = t.StartPoint,
                       EndPoint = t.EndPoint,
                       DepartureTime = t.DepartureTime,
