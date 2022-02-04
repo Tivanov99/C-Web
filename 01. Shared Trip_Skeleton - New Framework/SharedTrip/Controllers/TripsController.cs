@@ -4,13 +4,20 @@
     using MyWebServer.Http;
     using SharedTrip.ApplicationModels;
     using SharedTrip.Data;
+    using SharedTrip.Models;
+    using SharedTrip.Validator;
+    using System;
     using System.Linq;
 
     public class TripsController : Controller
     {
         private ApplicationDbContext dbContext;
-        public TripsController(ApplicationDbContext dbContext)
+        private TripDataValidator tripDataValidator;
+        public TripsController(
+            ApplicationDbContext dbContext,
+            TripDataValidator tripDataValidator)
         {
+            this.tripDataValidator = tripDataValidator;
             this.dbContext = dbContext;
         }
         public HttpResponse All()
@@ -34,5 +41,37 @@
             }
             return this.Unauthorized();
         }
+
+        [HttpPost]
+        public HttpResponse Add(CreatedTripForm createdTripForm)
+        {
+            if (this.User.IsAuthenticated)
+            {
+                if (this.tripDataValidator
+                .IsValidProduct(createdTripForm))
+                {
+                    this.dbContext
+                        .Trips
+                        .Add(new Trip()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            StartPoint = createdTripForm.StartPoint,
+                            EndPoint = createdTripForm.EndPoint,
+                            DepartureTime = createdTripForm.DepartureTime,
+                            Seats = createdTripForm.Seats,
+                            Description = createdTripForm.Description,
+                            ImagePath = createdTripForm.ImagePath
+                        });
+
+                    this.dbContext
+                        .SaveChanges();
+
+                    return this.All();
+                }
+                return this.View();
+            }
+            return this.Unauthorized();
+        }
+
     }
 }
