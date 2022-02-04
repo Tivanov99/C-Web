@@ -87,28 +87,28 @@
 
         public HttpResponse Details()
         {
-            //if (this.User.IsAuthenticated)
-            //{
-            string tipId = this.Request
+            if (this.User.IsAuthenticated)
+            {
+                string tipId = this.Request
            .Query["tripId"];
 
-            TripDetailsDto trip = this.dbContext
-                    .Trips
-                    .Where(t => t.Id == tipId)
-                    .Select(t => new TripDetailsDto()
-                    {
-                        StartPoint = t.StartPoint,
-                        EndPoint = t.EndPoint,
-                        DepartureTime = t.DepartureTime.Date,
-                        Seats = t.Seats,
-                        ImagePath = t.ImagePath,
-                        Description = t.Description,
-                    })
-                    .First();
+                TripDetailsDto trip = this.dbContext
+                        .Trips
+                        .Where(t => t.Id == tipId)
+                        .Select(t => new TripDetailsDto()
+                        {
+                            StartPoint = t.StartPoint,
+                            EndPoint = t.EndPoint,
+                            DepartureTime = t.DepartureTime.Date,
+                            Seats = t.Seats,
+                            ImagePath = t.ImagePath,
+                            Description = t.Description,
+                        })
+                        .First();
 
-            return this.View(trip);
-            //}
-            //return this.Redirect("/User/Login");
+                return this.View(trip);
+            }
+            return this.Redirect("/User/Login");
         }
     }
 }
