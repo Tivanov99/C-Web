@@ -22,7 +22,13 @@
             this.userDataValidator = userDataValidator;
         }
         public HttpResponse Login()
-        => this.View();
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Error("You can't access this page because you are logged in your account!");
+        }
 
         [HttpPost]
         public HttpResponse Login(UserLoginForm userLoginForm)
@@ -46,7 +52,13 @@
         }
 
         public HttpResponse Register()
-            => this.View();
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Error("You can't access this page because you are logged in your account!");
+        }
 
         [HttpPost]
         public HttpResponse Register(UserRegisterForm userRegisterForm)
