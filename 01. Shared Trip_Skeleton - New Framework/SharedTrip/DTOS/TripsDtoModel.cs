@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace SharedTrip.ApplicationModels
+namespace SharedTrip.DTOS
 {
     public class TripsDtoModel
     {
         public string Id { get; set; }
+
         public string StartPoint { get; set; }
 
         public string EndPoint { get; set; }

@@ -4,6 +4,7 @@
     using MyWebServer.Http;
     using SharedTrip.ApplicationModels;
     using SharedTrip.Data;
+    using SharedTrip.DTOS;
     using SharedTrip.Models;
     using SharedTrip.Validator;
     using System;
@@ -31,7 +32,7 @@
                   .Trips
                   .Select(t => new TripsDtoModel()
                   {
-                      Id= t.Id,
+                      Id = t.Id,
                       StartPoint = t.StartPoint,
                       EndPoint = t.EndPoint,
                       DepartureTime = t.DepartureTime,
@@ -82,6 +83,23 @@
                 return this.View();
             }
             return this.Redirect("/Users/Login");
+        }
+
+        public HttpResponse Details()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                string tipId = this.Request
+               .Query["tripId"];
+
+                var trip = this.dbContext
+                    .Trips
+                    .Where(t => t.Id == tipId)
+                    .First();
+
+                return this.View(trip);
+            }
+            return this.Redirect("/User/Login");
         }
     }
 }

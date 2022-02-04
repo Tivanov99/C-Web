@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SharedTrip.DTOS;
+using System.Collections.Generic;
 
 namespace SharedTrip.ApplicationModels
 {
