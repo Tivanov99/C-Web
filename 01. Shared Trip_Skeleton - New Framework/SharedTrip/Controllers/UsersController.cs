@@ -7,6 +7,7 @@
     using SharedTrip.Data;
     using SharedTrip.Models;
     using SharedTrip.Validator;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class UsersController : Controller
@@ -41,10 +42,10 @@
                 .Users
                 .Where(x => x.Username == userLoginForm.Username &&
                 x.Password == hashedPassword)
-                .Select(x=>x.Id)
+                .Select(x => x.Id)
                 .FirstOrDefault();
-                
-            if (userId!=null)
+
+            if (userId != null)
             {
                 this.SignIn(userId);
                 return this.Redirect("/Trips/All");
@@ -59,7 +60,7 @@
             {
                 return this.View();
             }
-            return this.Error("You can't access this page because you are logged in your account!");
+            return this.Error(new List<string>() { "You can't access this page because you are logged in your account!" });
         }
 
         [HttpPost]
@@ -87,6 +88,10 @@
             }
             return this.Register();
         }
-
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return this.Redirect("/Index");
+        }
     }
 }
