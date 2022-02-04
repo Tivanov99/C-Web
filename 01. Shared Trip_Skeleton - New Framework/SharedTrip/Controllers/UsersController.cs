@@ -5,6 +5,7 @@
     using MyWebServer.Services;
     using SharedTrip.ApplicationModels;
     using SharedTrip.Data;
+    using SharedTrip.Models;
     using SharedTrip.Validator;
     using System.Linq;
 
@@ -35,7 +36,6 @@
         {
             string hashedPassword = this.passwordHasher
                 .HashPassword(userLoginForm.Password);
-
 
             bool userIsExist = this.dbContext
                 .Users
@@ -69,7 +69,18 @@
                 userRegisterForm.Password,
                 userRegisterForm.ConfirmPassword))
             {
-                //TODO: Add the user to the db
+                string hashedPassword = this.passwordHasher
+                    .HashPassword(userRegisterForm.Password);
+
+                User user = new()
+                {
+                    Username = userRegisterForm.Username,
+                    Email = userRegisterForm.Email,
+                    Password = hashedPassword
+                };
+
+                this.dbContext.Users.Add(user);
+                this.dbContext.SaveChanges();
                 return this.Login();
             }
             return this.Register();
