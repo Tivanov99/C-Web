@@ -50,8 +50,8 @@ namespace SharedTrip.Validator
 
         private bool IsValidSeatsCount(int seatsCount)
         {
-            return GlobalConstants.SeatsMaxValue <= seatsCount &&
-                GlobalConstants.SeatsMinValue >= seatsCount;
+            return seatsCount<= GlobalConstants.SeatsMaxValue &&
+               seatsCount>= GlobalConstants.SeatsMinValue ;
         }
 
         private bool IsValidTripDescription(string tripDescription)

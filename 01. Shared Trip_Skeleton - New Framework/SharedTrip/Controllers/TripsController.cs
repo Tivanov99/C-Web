@@ -39,7 +39,7 @@
 
                 return this.View(tripModel);
             }
-            return this.Unauthorized();
+            return this.Redirect("/Users/Login");
         }
 
         [HttpPost]
@@ -70,8 +70,16 @@
                 }
                 return this.View();
             }
-            return this.Unauthorized();
+            return this.Redirect("/Users/Login");
         }
 
+        public HttpResponse Add()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Redirect("/Users/Login");
+        }
     }
 }
