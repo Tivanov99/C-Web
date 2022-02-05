@@ -42,9 +42,19 @@
         {
             if (!this.User.IsAuthenticated)
             {
-                return this.View();
+                List<string> err = new()
+                {
+                    "You can't access this page because you are logged in your account!"
+                };
+                return this.Error(err);
+
+                //return this.View();
             }
-            return this.Error(new List<string>() { "You can't access this page because you are logged in your account!" });
+            List<string> errors = new()
+            {
+                "You can't access this page because you are logged in your account!"
+            };
+            return this.View("Error");
         }
 
         [HttpPost]
