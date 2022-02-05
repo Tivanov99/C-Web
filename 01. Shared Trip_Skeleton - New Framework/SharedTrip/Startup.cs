@@ -9,6 +9,7 @@
     using MyWebServer.Results.Views;
     using SharedTrip.Data;
     using MyWebServer.Services;
+    using SharedTrip.AppServices;
 
     public class Startup
     {
@@ -24,8 +25,10 @@
                 .MapControllers()
             .MapGet<HomeController>("/Index", c => c.Index()))
             .WithServices(services => services
-                .Add<IViewEngine, CompilationViewEngine>()
-            .Add<IPasswordHasher, PasswordHasher>())
+            .Add<IViewEngine, CompilationViewEngine>()
+            .Add<IPasswordHasher, PasswordHasher>()
+            .Add<IUserService, UserService>()
+            .Add<ITripService, TripService>())
             .Start();
     }
 }

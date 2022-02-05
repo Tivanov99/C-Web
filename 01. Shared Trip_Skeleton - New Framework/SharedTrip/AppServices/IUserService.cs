@@ -6,7 +6,7 @@ namespace SharedTrip.AppServices
     {
         bool Create(UserRegisterForm registerForm);
 
-        bool IsUserAvailable(string username);
+        bool IsUserAvailable(string username, string password);
 
         string GetUserId(string username, string password);
 

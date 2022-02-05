@@ -5,13 +5,16 @@
     using SharedTrip.Data;
     using SharedTrip.Models;
     using SharedTrip.Validator;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class UserService : IUserService
     {
         private ApplicationDbContext dbContext;
         private IPasswordHasher passwordHasher;
         private UserDataValidator userDataValidator;
+        private string emailValidationTemplate = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 
         public UserService(ApplicationDbContext dbContext,
             IPasswordHasher passwordHasher,
@@ -21,6 +24,7 @@
             this.passwordHasher = passwordHasher;
             this.userDataValidator = userDataValidator;
         }
+
         public bool Create(UserRegisterForm registerForm)
         {
             if (this.userDataValidator
@@ -29,8 +33,8 @@
                 registerForm.Password,
                 registerForm.ConfirmPassword))
             {
-                string hashedPassword = this.passwordHasher
-                    .HashPassword(registerForm.Password);
+                string hashedPassword =
+                    hashPassword(registerForm.Password);
 
                 User user = new()
                 {
@@ -47,20 +51,27 @@
         }
 
         public string GetUserId(string username, string password)
-        => this.dbContext
+        {
+            string hashedPassword = this.passwordHasher.HashPassword(password);
+
+            return this.dbContext
             .Users
-            .Where(x => x.Id == username && x.Password == password)
+            .Where(x => x.Id == username && x.Password == hashedPassword)
             .Select(x => x.Id)
             .FirstOrDefault();
+        }
 
         public bool IsEmailAvailable(string email)
-        {
-            throw new System.NotImplementedException();
-        }
+        => Regex.IsMatch(email, emailValidationTemplate);
 
-        public bool IsUserAvailable(string username)
-        {
-            throw new System.NotImplementedException();
-        }
+        public bool IsUserAvailable(string username, string password)
+        => this.dbContext
+                .Users
+                .Any(x => x.Username == username &&
+                     x.Password == hashPassword(password));
+
+        private string hashPassword(string password)
+       => this.passwordHasher
+                    .HashPassword(password);
     }
 }
