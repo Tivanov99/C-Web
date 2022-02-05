@@ -56,7 +56,7 @@
 
             return this.dbContext
             .Users
-            .Where(x => x.Id == username && x.Password == hashedPassword)
+            .Where(x => x.Username == username && x.Password == hashedPassword)
             .Select(x => x.Id)
             .FirstOrDefault();
         }
@@ -64,11 +64,11 @@
         public bool IsEmailAvailable(string email)
         => Regex.IsMatch(email, emailValidationTemplate);
 
-        public bool IsUserAvailable(string username, string password)
+        public bool IsUserAvailable(UserLoginForm userLoginForm)
         => this.dbContext
                 .Users
-                .Any(x => x.Username == username &&
-                     x.Password == hashPassword(password));
+                .Any(x => x.Username == userLoginForm.Username &&
+                     x.Password == hashPassword(userLoginForm.Password));
 
         private string hashPassword(string password)
        => this.passwordHasher

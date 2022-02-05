@@ -48,9 +48,9 @@
         }
 
         [HttpPost]
-        public HttpResponse Register(UserRegisterForm userRegisterForm)
+        public HttpResponse Register(UserLoginForm userLoginForm)
         {
-            if (this.userService.Create(userRegisterForm))
+            if (this.userService.IsUserAvailable(userLoginForm))
             {
                 return this.Login();
             }
