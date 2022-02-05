@@ -2,15 +2,14 @@
 {
     using SharedTrip.ApplicationModels;
     using SharedTrip.DTOS;
-    using SharedTrip.Models;
-    using System.Collections.Generic;
+
     public interface ITripService
     {
         TripsModel GetAllTrips();
 
         bool AddTrip(CreatedTripForm createdTripForm);
 
-        Trip GetTrip(string id);
+        TripDetailsDto GetTrip(string tripId);
 
         bool AddUserToTrip(string tripId, string userId);
     }

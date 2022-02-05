@@ -32,7 +32,7 @@
         [HttpPost]
         public HttpResponse Add(CreatedTripForm createdTripForm)
         {
-            if (this.User.IsAuthenticated && this.tripService.AddTrip(createdTripForm))
+            if (this.User.IsAuthenticated)
             {
                 if (this.tripService.AddTrip(createdTripForm))
                 {
@@ -52,27 +52,12 @@
             return this.Redirect("/Users/Login");
         }
 
-        public HttpResponse Details()
+        public HttpResponse Details(string tripId)
         {
             if (this.User.IsAuthenticated)
             {
-                string tipId = this.Request
-                .Query["tripId"];
-
-                TripDetailsDto trip = this.dbContext
-                        .Trips
-                        .Where(t => t.Id == tipId)
-                        .Select(t => new TripDetailsDto()
-                        {
-                            Id = t.Id,
-                            StartPoint = t.StartPoint,
-                            EndPoint = t.EndPoint,
-                            DepartureTime = t.DepartureTime.ToString("dd.MM.yyyy HH:mm"),
-                            Seats = t.Seats,
-                            ImagePath = t.ImagePath,
-                            Description = t.Description,
-                        })
-                        .First();
+                TripDetailsDto trip = this.tripService
+                    .GetTrip(tripId);
 
                 return this.View(trip);
             }

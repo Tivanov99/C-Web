@@ -6,7 +6,6 @@
     using SharedTrip.Models;
     using SharedTrip.Validator;
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
 
@@ -72,9 +71,23 @@
             throw new NotImplementedException();
         }
 
-        public Trip GetTrip(string id)
+        public TripDetailsDto GetTrip(string tripId)
         {
-            throw new NotImplementedException();
+            TripDetailsDto trip = this.dbContext
+                    .Trips
+                    .Where(t => t.Id == tripId)
+                    .Select(t => new TripDetailsDto()
+                    {
+                        Id = t.Id,
+                        StartPoint = t.StartPoint,
+                        EndPoint = t.EndPoint,
+                        DepartureTime = t.DepartureTime.ToString("dd.MM.yyyy HH:mm"),
+                        Seats = t.Seats,
+                        ImagePath = t.ImagePath,
+                        Description = t.Description,
+                    })
+                    .First();
+            return trip;
         }
     }
 }
