@@ -5,6 +5,7 @@
     using SharedTrip.Data;
     using SharedTrip.Models;
     using SharedTrip.Validator;
+    using System.Linq;
 
     public class UserService : IUserService
     {
@@ -43,9 +44,11 @@
         }
 
         public string GetUserId(string username, string password)
-        {
-            throw new System.NotImplementedException();
-        }
+        => this.dbContext
+            .Users
+            .Where(x => x.Id == username && x.Password == password)
+            .Select(x => x.Id)
+            .FirstOrDefault();
 
         public bool IsEmailAvailable(string email)
         {

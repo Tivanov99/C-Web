@@ -2,12 +2,10 @@
 {
     using MyWebServer.Controllers;
     using MyWebServer.Http;
-    using MyWebServer.Services;
     using SharedTrip.ApplicationModels;
     using SharedTrip.AppServices;
     using SharedTrip.Data;
     using SharedTrip.Models;
-    using SharedTrip.Validator;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -34,15 +32,8 @@
         [HttpPost]
         public HttpResponse Login(UserLoginForm userLoginForm)
         {
-            string hashedPassword = this.passwordHasher
-                .HashPassword(userLoginForm.Password);
-
-            var userId = this.dbContext
-                .Users
-                .Where(x => x.Username == userLoginForm.Username &&
-                x.Password == hashedPassword)
-                .Select(x => x.Id)
-                .FirstOrDefault();
+            string userId = this.userService
+                .GetUserId(userLoginForm.Username, userLoginForm.Password);
 
             if (userId != null)
             {
