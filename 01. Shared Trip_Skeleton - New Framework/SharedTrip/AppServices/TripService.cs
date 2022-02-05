@@ -68,7 +68,33 @@
 
         public bool AddUserToTrip(string tripId, string userId)
         {
-            throw new NotImplementedException();
+
+
+            if (isUserAlreadyJoinTrip)
+            {
+                return this.Redirect($"/Trips/Details?tripId={tripId}");
+            }
+
+            Trip joinedTrip = this.dbContext
+                .Trips
+                .Where(t => t.Id == tripId)
+                .First();
+
+            if (joinedTrip.Seats == 0)
+            {
+                //TODO show message to this user for not enoungt seats
+            }
+
+            this.dbContext
+                 .UserTrips.Add(new UserTrip()
+                 {
+                     TripId = tripId,
+                     UserId = this.User.Id
+                 });
+
+            joinedTrip.Seats -= 1;
+
+            this.dbContext.SaveChanges();
         }
 
         public TripDetailsDto GetTrip(string tripId)
@@ -89,5 +115,11 @@
                     .First();
             return trip;
         }
+
+        public bool IsUserAlreadyJoinTrip(string tripId, string userId)
+       => this.dbContext
+               .UserTrips
+                   .Any(ut => ut.TripId == tripId &&
+                       ut.UserId == userId);
     }
 }

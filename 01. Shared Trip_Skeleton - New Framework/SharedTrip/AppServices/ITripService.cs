@@ -12,5 +12,7 @@
         TripDetailsDto GetTrip(string tripId);
 
         bool AddUserToTrip(string tripId, string userId);
+
+        bool IsUserAlreadyJoinTrip(string userId);
     }
 }

@@ -66,16 +66,12 @@
 
         public HttpResponse AddUserToTrip(string tripId)
         {
-            bool isUserAlreadyJoinTrip =
-                this.dbContext
-                .UserTrips
-                    .Any(ut => ut.TripId == tripId &&
-                        ut.UserId == this.User.Id);
-
-            if (isUserAlreadyJoinTrip)
+            if (this.tripService
+                    .IsUserAlreadyJoinTrip(tripId, this.User.Id))
             {
                 return this.Redirect($"/Trips/Details?tripId={tripId}");
             }
+
 
             Trip joinedTrip = this.dbContext
                 .Trips
