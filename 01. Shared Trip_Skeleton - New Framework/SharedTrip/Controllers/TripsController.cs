@@ -123,9 +123,7 @@
 
             if (isUserAlreadyJoinTrip)
             {
-                //TODO: Message that user already join this trip!
-                //And redirect to correct page
-                return this.View();
+                return this.Redirect($"/Trips/Details?tripId={tripId}");
             }
 
             Trip joinedTrip = this.dbContext
