@@ -4,7 +4,7 @@ namespace SharedTrip.AppServices
 {
     public interface IUserService
     {
-        void Create(UserRegisterForm registerForm);
+        bool Create(UserRegisterForm registerForm);
 
         bool IsUserAvailable(string username);
 

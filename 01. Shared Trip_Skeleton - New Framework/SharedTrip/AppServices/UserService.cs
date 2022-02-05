@@ -12,6 +12,7 @@
         private ApplicationDbContext dbContext;
         private IPasswordHasher passwordHasher;
         private UserDataValidator userDataValidator;
+
         public UserService(ApplicationDbContext dbContext,
             IPasswordHasher passwordHasher,
             UserDataValidator userDataValidator)
@@ -20,7 +21,7 @@
             this.passwordHasher = passwordHasher;
             this.userDataValidator = userDataValidator;
         }
-        public void Create(UserRegisterForm registerForm)
+        public bool Create(UserRegisterForm registerForm)
         {
             if (this.userDataValidator
                 .IsValidRegistraionData(registerForm.Username,
@@ -40,7 +41,9 @@
 
                 this.dbContext.Users.Add(user);
                 this.dbContext.SaveChanges();
+                return true;
             }
+            return false;
         }
 
         public string GetUserId(string username, string password)

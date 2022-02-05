@@ -4,20 +4,14 @@
     using MyWebServer.Http;
     using SharedTrip.ApplicationModels;
     using SharedTrip.AppServices;
-    using SharedTrip.Data;
-    using SharedTrip.Models;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class UsersController : Controller
     {
-        private ApplicationDbContext dbContext;
         private IUserService userService;
 
-        public UsersController(ApplicationDbContext context,
-            IUserService userService)
+        public UsersController(IUserService userService)
         {
-            this.dbContext = context;
             this.userService = userService;
         }
         public HttpResponse Login()
@@ -56,28 +50,13 @@
         [HttpPost]
         public HttpResponse Register(UserRegisterForm userRegisterForm)
         {
-            if (this.userDataValidator
-                .IsValidRegistraionData(userRegisterForm.Username,
-                userRegisterForm.Email,
-                userRegisterForm.Password,
-                userRegisterForm.ConfirmPassword))
+            if (this.userService.Create(userRegisterForm))
             {
-                string hashedPassword = this.passwordHasher
-                    .HashPassword(userRegisterForm.Password);
-
-                User user = new()
-                {
-                    Username = userRegisterForm.Username,
-                    Email = userRegisterForm.Email,
-                    Password = hashedPassword
-                };
-
-                this.dbContext.Users.Add(user);
-                this.dbContext.SaveChanges();
                 return this.Login();
             }
             return this.Register();
         }
+
         public HttpResponse Logout()
         {
             this.SignOut();
