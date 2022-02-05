@@ -3,6 +3,7 @@
     using MyWebServer.Controllers;
     using MyWebServer.Http;
     using SharedTrip.ApplicationModels;
+    using SharedTrip.AppServices;
     using SharedTrip.Data;
     using SharedTrip.DTOS;
     using SharedTrip.Models;
@@ -13,16 +14,13 @@
 
     public class TripsController : Controller
     {
-        private ApplicationDbContext dbContext;
-        private TripDataValidator tripDataValidator;
+        private TripService tripService;
 
-        public TripsController(
-            ApplicationDbContext dbContext,
-            TripDataValidator tripDataValidator)
+        public TripsController(TripService tripService)
         {
-            this.tripDataValidator = tripDataValidator;
-            this.dbContext = dbContext;
+            this.tripService = tripService;
         }
+
         public HttpResponse All()
         {
             if (this.User.IsAuthenticated)
@@ -49,27 +47,10 @@
         [HttpPost]
         public HttpResponse Add(CreatedTripForm createdTripForm)
         {
-            if (this.User.IsAuthenticated)
+            if (this.User.IsAuthenticated && this.tripService.AddTrip(createdTripForm))
             {
-                if (this.tripDataValidator
-                .IsValidProduct(createdTripForm))
+                if (this.tripService.AddTrip(createdTripForm))
                 {
-                    this.dbContext
-                        .Trips
-                        .Add(new Trip()
-                        {
-                            Id = Guid.NewGuid().ToString(),
-                            StartPoint = createdTripForm.StartPoint,
-                            EndPoint = createdTripForm.EndPoint,
-                            DepartureTime = DateTime.ParseExact(createdTripForm.DepartureTime, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
-                            Seats = createdTripForm.Seats,
-                            Description = createdTripForm.Description,
-                            ImagePath = createdTripForm.ImagePath
-                        });
-
-                    this.dbContext
-                        .SaveChanges();
-
                     return this.All();
                 }
                 return this.View();

@@ -12,9 +12,12 @@
     {
         private ApplicationDbContext dbContext;
         private TripDataValidator tripDataValidator;
-        public TripService(ApplicationDbContext dbContext)
+
+        public TripService(ApplicationDbContext dbContext,
+            TripDataValidator tripDataValidator)
         {
             this.dbContext = dbContext;
+            this.tripDataValidator = tripDataValidator;
         }
 
         public bool AddTrip(CreatedTripForm createdTripForm)
