@@ -147,7 +147,7 @@
 
             this.dbContext.SaveChanges();
 
-            return this.View();
+            return this.Redirect("/Trips/All");
         }
     }
 }
