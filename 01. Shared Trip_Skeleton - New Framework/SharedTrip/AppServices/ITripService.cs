@@ -2,6 +2,7 @@
 {
     using SharedTrip.ApplicationModels;
     using SharedTrip.DTOS;
+    using SharedTrip.Models;
 
     public interface ITripService
     {
@@ -9,10 +10,14 @@
 
         bool AddTrip(CreatedTripForm createdTripForm);
 
-        TripDetailsDto GetTrip(string tripId);
+        TripDetailsDto GetTripAsDto(string tripId);
+
+        Trip GetTrip(string tripId);
 
         bool AddUserToTrip(string tripId, string userId);
 
-        bool IsUserAlreadyJoinTrip(string userId);
+        bool IsUserAlreadyJoinTrip(string tripId, string userId);
+
+        bool IsTripHaveAvailableSeats(string tripId);
     }
 }

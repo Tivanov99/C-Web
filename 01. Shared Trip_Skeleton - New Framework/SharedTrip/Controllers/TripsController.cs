@@ -57,7 +57,7 @@
             if (this.User.IsAuthenticated)
             {
                 TripDetailsDto trip = this.tripService
-                    .GetTrip(tripId);
+                    .GetTripAsDto(tripId);
 
                 return this.View(trip);
             }
@@ -71,28 +71,12 @@
             {
                 return this.Redirect($"/Trips/Details?tripId={tripId}");
             }
+            
 
-
-            Trip joinedTrip = this.dbContext
-                .Trips
-                .Where(t => t.Id == tripId)
-                .First();
-
-            if (joinedTrip.Seats == 0)
+            if (!this.tripService.IsTripHaveAvailableSeats(tripId))
             {
                 //TODO show message to this user for not enoungt seats
             }
-
-            this.dbContext
-                 .UserTrips.Add(new UserTrip()
-                 {
-                     TripId = tripId,
-                     UserId = this.User.Id
-                 });
-
-            joinedTrip.Seats -= 1;
-
-            this.dbContext.SaveChanges();
 
             return this.Redirect("/Trips/All");
         }

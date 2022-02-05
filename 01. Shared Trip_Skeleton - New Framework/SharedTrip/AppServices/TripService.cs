@@ -1,5 +1,6 @@
 ﻿namespace SharedTrip.AppServices
 {
+    using Microsoft.EntityFrameworkCore;
     using SharedTrip.ApplicationModels;
     using SharedTrip.Data;
     using SharedTrip.DTOS;
@@ -32,7 +33,7 @@
                   Id = t.Id,
                   StartPoint = t.StartPoint,
                   EndPoint = t.EndPoint,
-                  DepartureTime = t.DepartureTime,
+                  DepartureTime = t.DepartureTime.ToString(""),
                   Seats = t.Seats,
               })
               .ToList();
@@ -68,39 +69,27 @@
 
         public bool AddUserToTrip(string tripId, string userId)
         {
-
-
-            if (isUserAlreadyJoinTrip)
-            {
-                return this.Redirect($"/Trips/Details?tripId={tripId}");
-            }
-
-            Trip joinedTrip = this.dbContext
-                .Trips
-                .Where(t => t.Id == tripId)
-                .First();
-
-            if (joinedTrip.Seats == 0)
-            {
-                //TODO show message to this user for not enoungt seats
-            }
+            Trip joinedTrip = this.GetTrip(tripId);
 
             this.dbContext
                  .UserTrips.Add(new UserTrip()
                  {
                      TripId = tripId,
-                     UserId = this.User.Id
+                     UserId = userId
                  });
 
             joinedTrip.Seats -= 1;
 
             this.dbContext.SaveChanges();
+
+            return true;
         }
 
-        public TripDetailsDto GetTrip(string tripId)
+        public TripDetailsDto GetTripAsDto(string tripId)
         {
             TripDetailsDto trip = this.dbContext
                     .Trips
+                    .AsNoTracking()
                     .Where(t => t.Id == tripId)
                     .Select(t => new TripDetailsDto()
                     {
@@ -121,5 +110,18 @@
                .UserTrips
                    .Any(ut => ut.TripId == tripId &&
                        ut.UserId == userId);
+
+
+        public bool IsTripHaveAvailableSeats(string tripId)
+        => this.dbContext
+            .Trips
+            .Where(t => t.Id == tripId)
+            .Any(t => t.Seats > 0);
+
+        public Trip GetTrip(string tripId)
+        => this.dbContext
+            .Trips
+            .Where(t => t.Id == tripId)
+            .First();
     }
 }

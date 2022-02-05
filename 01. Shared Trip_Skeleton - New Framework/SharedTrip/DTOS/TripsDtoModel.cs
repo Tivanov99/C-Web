@@ -10,7 +10,7 @@ namespace SharedTrip.DTOS
 
         public string EndPoint { get; set; }
 
-        public DateTime DepartureTime { get; set; }
+        public string DepartureTime { get; set; }
 
         public int Seats { get; set; }
     }
