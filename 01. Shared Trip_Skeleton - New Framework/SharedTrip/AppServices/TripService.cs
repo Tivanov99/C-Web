@@ -2,11 +2,13 @@
 {
     using SharedTrip.ApplicationModels;
     using SharedTrip.Data;
+    using SharedTrip.DTOS;
     using SharedTrip.Models;
     using SharedTrip.Validator;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
 
     public class TripService : ITripService
     {
@@ -18,6 +20,25 @@
         {
             this.dbContext = dbContext;
             this.tripDataValidator = tripDataValidator;
+        }
+
+        public TripsModel GetAllTrips()
+        {
+            TripsModel tripModel = new();
+
+            tripModel.Trips = this.dbContext
+              .Trips
+              .Select(t => new TripsDtoModel()
+              {
+                  Id = t.Id,
+                  StartPoint = t.StartPoint,
+                  EndPoint = t.EndPoint,
+                  DepartureTime = t.DepartureTime,
+                  Seats = t.Seats,
+              })
+              .ToList();
+
+            return tripModel;
         }
 
         public bool AddTrip(CreatedTripForm createdTripForm)
@@ -47,11 +68,6 @@
         }
 
         public bool AddUserToTrip(string tripId, string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Trip> GetAllTrips()
         {
             throw new NotImplementedException();
         }

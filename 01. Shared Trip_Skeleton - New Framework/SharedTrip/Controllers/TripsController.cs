@@ -4,12 +4,8 @@
     using MyWebServer.Http;
     using SharedTrip.ApplicationModels;
     using SharedTrip.AppServices;
-    using SharedTrip.Data;
     using SharedTrip.DTOS;
     using SharedTrip.Models;
-    using SharedTrip.Validator;
-    using System;
-    using System.Globalization;
     using System.Linq;
 
     public class TripsController : Controller
@@ -25,21 +21,10 @@
         {
             if (this.User.IsAuthenticated)
             {
-                TripsModel tripModel = new();
+                var trips = this.tripService
+                    .GetAllTrips();
 
-                tripModel.Trips = this.dbContext
-                  .Trips
-                  .Select(t => new TripsDtoModel()
-                  {
-                      Id = t.Id,
-                      StartPoint = t.StartPoint,
-                      EndPoint = t.EndPoint,
-                      DepartureTime = t.DepartureTime,
-                      Seats = t.Seats,
-                  })
-                  .ToList();
-
-                return this.View(tripModel);
+                return this.View(trips);
             }
             return this.Redirect("/Users/Login");
         }

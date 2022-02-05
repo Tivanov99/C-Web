@@ -1,11 +1,12 @@
 ﻿namespace SharedTrip.AppServices
 {
     using SharedTrip.ApplicationModels;
+    using SharedTrip.DTOS;
     using SharedTrip.Models;
     using System.Collections.Generic;
     public interface ITripService
     {
-        IEnumerable<Trip> GetAllTrips();
+        TripsModel GetAllTrips();
 
         bool AddTrip(CreatedTripForm createdTripForm);
 
