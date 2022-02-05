@@ -4,6 +4,7 @@
     using MyWebServer.Http;
     using MyWebServer.Services;
     using SharedTrip.ApplicationModels;
+    using SharedTrip.AppServices;
     using SharedTrip.Data;
     using SharedTrip.Models;
     using SharedTrip.Validator;
@@ -13,16 +14,13 @@
     public class UsersController : Controller
     {
         private ApplicationDbContext dbContext;
-        private IPasswordHasher passwordHasher;
-        UserDataValidator userDataValidator;
+        private IUserService userService;
 
         public UsersController(ApplicationDbContext context,
-            IPasswordHasher passwordHasher,
-            UserDataValidator userDataValidator)
+            IUserService userService)
         {
             this.dbContext = context;
-            this.passwordHasher = passwordHasher;
-            this.userDataValidator = userDataValidator;
+            this.userService = userService;
         }
         public HttpResponse Login()
         {
