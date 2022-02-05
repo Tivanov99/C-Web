@@ -15,6 +15,7 @@
         private ApplicationDbContext dbContext;
         private IPasswordHasher passwordHasher;
         UserDataValidator userDataValidator;
+
         public UsersController(ApplicationDbContext context,
             IPasswordHasher passwordHasher,
             UserDataValidator userDataValidator)
