@@ -8,7 +8,7 @@
 
         string EndPoint { get; set; }
 
-        DateTime DepartureTime { get; set; }
+        string DepartureTime { get; set; }
 
         string ImagePath { get; set; }
 

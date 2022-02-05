@@ -93,6 +93,5 @@
             this.SignOut();
             return this.Redirect("/Index");
         }
-
     }
 }

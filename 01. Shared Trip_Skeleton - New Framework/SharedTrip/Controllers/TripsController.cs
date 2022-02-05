@@ -8,6 +8,7 @@
     using SharedTrip.Models;
     using SharedTrip.Validator;
     using System;
+    using System.Globalization;
     using System.Linq;
 
     public class TripsController : Controller
@@ -60,7 +61,7 @@
                             Id = Guid.NewGuid().ToString(),
                             StartPoint = createdTripForm.StartPoint,
                             EndPoint = createdTripForm.EndPoint,
-                            DepartureTime = createdTripForm.DepartureTime,
+                            DepartureTime = DateTime.ParseExact(createdTripForm.DepartureTime, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
                             Seats = createdTripForm.Seats,
                             Description = createdTripForm.Description,
                             ImagePath = createdTripForm.ImagePath
@@ -90,16 +91,17 @@
             if (this.User.IsAuthenticated)
             {
                 string tipId = this.Request
-           .Query["tripId"];
+                .Query["tripId"];
 
                 TripDetailsDto trip = this.dbContext
                         .Trips
                         .Where(t => t.Id == tipId)
                         .Select(t => new TripDetailsDto()
                         {
+                            Id = t.Id,
                             StartPoint = t.StartPoint,
                             EndPoint = t.EndPoint,
-                            DepartureTime = t.DepartureTime.Date,
+                            DepartureTime = t.DepartureTime.ToString("dd.MM.yyyy HH:mm"),
                             Seats = t.Seats,
                             ImagePath = t.ImagePath,
                             Description = t.Description,
@@ -109,6 +111,45 @@
                 return this.View(trip);
             }
             return this.Redirect("/User/Login");
+        }
+
+        public HttpResponse AddUserToTrip(string tripId)
+        {
+            bool isUserAlreadyJoinTrip =
+                this.dbContext
+                .UserTrips
+                    .Any(ut => ut.TripId == tripId &&
+                        ut.UserId == this.User.Id);
+
+            if (isUserAlreadyJoinTrip)
+            {
+                //TODO: Message that user already join this trip!
+                //And redirect to correct page
+                return this.View();
+            }
+
+            Trip joinedTrip = this.dbContext
+                .Trips
+                .Where(t => t.Id == tripId)
+                .First();
+
+            if (joinedTrip.Seats == 0)
+            {
+                //TODO show message to this user for not enoungt seats
+            }
+
+            this.dbContext
+                 .UserTrips.Add(new UserTrip()
+                 {
+                     TripId = tripId,
+                     UserId = this.User.Id
+                 });
+
+            joinedTrip.Seats -= 1;
+
+            this.dbContext.SaveChanges();
+
+            return this.View();
         }
     }
 }
