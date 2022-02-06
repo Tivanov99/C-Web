@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\BasicWebServer.BLL\BasicWebServer.BLL.csproj" />
 		<ProjectReference Include="..\BasicWebServer.Server\BasicWebServer.Server.csproj" />
 		<Content Include="Views\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -24,6 +25,10 @@
 		<None Remove="Views\Navigations\LoggedInUserNavigation.html" />
 		<None Remove="Views\Navigations\LoggedOutNavigation.html" />
 		<None Remove="Views\Users\Register.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\Contracts\" />
 	</ItemGroup>
 
 

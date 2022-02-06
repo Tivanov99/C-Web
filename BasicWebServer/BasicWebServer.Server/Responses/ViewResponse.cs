@@ -83,7 +83,9 @@
 
         private string GetNavi(Request request)
         {
-            string naviPath = request.Session.ContainsKey("AuthenticatedUserId") ?
+            string naviPath = request
+                .Session
+                .ContainsKey("AuthenticatedUserId") ?
                Path.GetFullPath(
                $"./Views/" +
                "Navigations/" +

@@ -19,6 +19,7 @@
         public Response Login()
             => View(this.Request);
 
+
         public Response LogInUser()
         {
             this.Request.Session.Clear();
@@ -33,13 +34,15 @@
                 {
                     this.Request.Session[HttpSession.SessionUserKey] = "MyUserId";
 
-                    var cookies = new CookieCollection();
-                    cookies.Add(HttpSession.SessionCookieName,
-                        this.Request.Session.Id);
+                    //var cookies = new CookieCollection();
+                    //cookies.Add(HttpSession.SessionCookieName,
+                    //    this.Request.Session.Id);
 
-                    return Html("<h3>Logged successfully!</h3>", cookies);
+                    //return Html("<h3>Logged successfully!</h3>", cookies);
                 }
-                return Html("<h3>You are already Logged!</h3>");
+                return this.UserProfile();
+
+                //return Html("<h3>You are already Logged!</h3>");
             }
             return Redirect("/Login");
         }
@@ -47,7 +50,8 @@
         public Response LogOut()
         {
             this.Request.Session.Clear();
-            return Html("<h3>Logged out successfully!</h3>");
+            return this.Login();
+            //return Html("<h3>Logged out successfully!</h3>");
         }
 
         public Response Register()
@@ -71,13 +75,14 @@
 
         public Response UserProfile()
         {
-            if (this.Request.Session
-                .ContainsKey(HttpSession.SessionUserKey))
-            {
-                return this.View(this.Request);
-            }
+            //if (this.Request.Session
+            //    .ContainsKey(HttpSession.SessionUserKey))
+            //{
+            //    return this.View(this.Request);
+            //}
 
-            return this.View(Request);
+            return this.View(this.Request);
         }
+
     }
 }

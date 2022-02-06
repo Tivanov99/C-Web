@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "BasicWebServer.Demo/1.0.0": {
+        "dependencies": {
+          "BasicWebServer.BLL": "1.0.0",
+          "BasicWebServer.Server": "1.0.0"
+        },
+        "runtime": {
+          "BasicWebServer.Demo.dll": {}
+        }
+      },
+      "BasicWebServer.BLL/1.0.0": {
+        "runtime": {
+          "BasicWebServer.BLL.dll": {}
+        }
+      },
+      "BasicWebServer.Server/1.0.0": {
+        "runtime": {
+          "BasicWebServer.Server.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BasicWebServer.Demo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BasicWebServer.BLL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BasicWebServer.Server/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

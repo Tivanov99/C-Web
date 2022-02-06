@@ -109,12 +109,13 @@
             bool sessionExist = request.Session
                 .ContainsKey(Session.HttpSession.SessionCurrentDateKey);
 
+            response.Cookies
+                    .Add(Session.HttpSession.SessionCookieName, request.Session.Id);
+
             if (!sessionExist)
             {
                 request.Session[Session.HttpSession.SessionCurrentDateKey] =
                     DateTime.Now.ToString();
-                response.Cookies
-                    .Add(Session.HttpSession.SessionCookieName, request.Session.Id);
             }
         }
     }
