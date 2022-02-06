@@ -1,0 +1,12 @@
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\bin\Debug\net5.0\MyWebServer.deps.json
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\bin\Debug\net5.0\MyWebServer.dll
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\bin\Debug\net5.0\ref\MyWebServer.dll
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\bin\Debug\net5.0\MyWebServer.pdb
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.csproj.AssemblyReference.cache
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.AssemblyInfoInputs.cache
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.AssemblyInfo.cs
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.csproj.CoreCompileInputs.cache
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.dll
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\ref\MyWebServer.dll
+C:\Users\Trifon\Desktop\Csharp-Web\CarShop\MyWebServer\obj\Debug\net5.0\MyWebServer.pdb

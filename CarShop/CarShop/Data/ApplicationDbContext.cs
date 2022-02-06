@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CarShop.Data.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarShop.Data
 {
@@ -12,9 +13,15 @@ namespace CarShop.Data
             }
         }
 
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<Issue> Issues { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
         }
     }
 }

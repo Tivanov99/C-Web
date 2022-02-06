@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "pGmgs7AiK6VU0Tm1ww4KN272XIHGeVqL5ZuPT2rrY1pPV0auAsy9Xeqk0mvA9sK7iZwLbP3p8l7imlWCA70a6g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Trifon\\Desktop\\Csharp-Web\\CarShop\\MyWebServer\\MyWebServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Trifon\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.2\\microsoft.codeanalysis.analyzers.3.3.2.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\microsoft.codeanalysis.common\\3.10.0\\microsoft.codeanalysis.common.3.10.0.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.10.0\\microsoft.codeanalysis.csharp.3.10.0.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\system.reflection.metadata\\5.0.0\\system.reflection.metadata.5.0.0.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512",
+    "C:\\Users\\Trifon\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+  ],
+  "logs": []
+}
