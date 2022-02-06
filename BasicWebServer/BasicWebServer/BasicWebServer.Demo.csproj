@@ -8,7 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BasicWebServer.BLL\BasicWebServer.BLL.csproj" />
 		<ProjectReference Include="..\BasicWebServer.Server\BasicWebServer.Server.csproj" />
 		<Content Include="Views\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

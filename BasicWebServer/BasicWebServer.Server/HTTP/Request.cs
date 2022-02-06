@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using System.ComponentModel.Design;
 
     public class Request
     {
@@ -28,9 +29,12 @@
 
         public HttpSession Session { get; private set; }
 
+        public static IServiceContainer ServiceContainer { get; private set; }
+
         public static Request Parse(string requestString)
         {
-            string[] lines = requestString.Split("\r\n");
+            string[] lines = requestString
+                .Split("\r\n");
 
 
             string[] requestLines = lines
