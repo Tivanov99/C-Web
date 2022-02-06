@@ -2,16 +2,6 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "BasicWebServer.BLL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/BasicWebServer.BLL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BasicWebServer.BLL.dll": {}
-        }
-      },
       "BasicWebServer.Server/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -25,11 +15,6 @@
     }
   },
   "libraries": {
-    "BasicWebServer.BLL/1.0.0": {
-      "type": "project",
-      "path": "../BasicWebServer.BLL/BasicWebServer.BLL.csproj",
-      "msbuildProject": "../BasicWebServer.BLL/BasicWebServer.BLL.csproj"
-    },
     "BasicWebServer.Server/1.0.0": {
       "type": "project",
       "path": "../BasicWebServer.Server/BasicWebServer.Server.csproj",
@@ -38,7 +23,6 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "BasicWebServer.BLL >= 1.0.0",
       "BasicWebServer.Server >= 1.0.0"
     ]
   },
@@ -69,9 +53,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Trifon\\Desktop\\Csharp-Web\\BasicWebServer\\BasicWebServer.BLL\\BasicWebServer.BLL.csproj": {
-              "projectPath": "C:\\Users\\Trifon\\Desktop\\Csharp-Web\\BasicWebServer\\BasicWebServer.BLL\\BasicWebServer.BLL.csproj"
-            },
             "C:\\Users\\Trifon\\Desktop\\Csharp-Web\\BasicWebServer\\BasicWebServer.Server\\BasicWebServer.Server.csproj": {
               "projectPath": "C:\\Users\\Trifon\\Desktop\\Csharp-Web\\BasicWebServer\\BasicWebServer.Server\\BasicWebServer.Server.csproj"
             }
