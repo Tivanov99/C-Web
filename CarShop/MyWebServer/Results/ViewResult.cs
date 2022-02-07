@@ -12,11 +12,11 @@
         public ViewResult(
             HttpResponse response,
             IViewEngine viewEngine,
-            string viewName, 
-            string controllerName, 
+            string viewName,
+            string controllerName,
             object model,
             string userId)
-            : base(response) 
+            : base(response)
             => this.GetHtml(viewEngine, viewName, controllerName, model, userId);
 
         private void GetHtml(IViewEngine viewEngine, string viewName, string controllerName, object model, string userId)
