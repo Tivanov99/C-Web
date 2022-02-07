@@ -19,7 +19,7 @@
             => this.View();
 
         [HttpPost]
-        public HttpResponse Register()
+        public HttpResponse Register(UserRegisterDataForm registerUserDataForm)
         {
             return this.Login();
         }
