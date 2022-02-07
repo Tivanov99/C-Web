@@ -19,12 +19,13 @@
             {
                 return this.View();
             }
-            return this.Redirect("/Index");
+            return this.Redirect("/Cars/All");
         }
 
         [HttpPost]
         public HttpResponse Login(LoginUserDataForm loginUserDataForm)
         {
+            int da = 0;
             if (this.userService.IsUserExist(loginUserDataForm))
             {
                 return this.Redirect("/Cars/All");
@@ -39,13 +40,12 @@
             {
                 return this.View();
             }
-            return this.Redirect("/Index");
+            return this.Redirect("/Cars/All");
         }
 
         [HttpPost]
         public HttpResponse Register(UserRegisterDataForm registerUserDataForm)
         {
-
             if (!this.userService.IsUsernameAlreadyExists(registerUserDataForm.Username))
             {
                 this.userService.Create(registerUserDataForm);
@@ -54,6 +54,5 @@
 
             return this.Login();
         }
-
     }
 }

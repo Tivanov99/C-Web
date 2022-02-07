@@ -7,6 +7,8 @@
     using MyWebServer.Results.Views;
     using Microsoft.EntityFrameworkCore;
     using CarShop.Controllers;
+    using CarShop.Services;
+    using CarShop.Validator;
 
     public class Startup
     {
@@ -22,7 +24,9 @@
             .MapGet<HomeController>("/Index", c => c.Index()))
             .WithServices(services => services
             .Add<ApplicationDbContext>()
-            .Add<IViewEngine, CompilationViewEngine>())
+            .Add<IViewEngine, CompilationViewEngine>()
+            .Add<IUserService, UserService>()
+            .Add<DataValidator,DataValidator>())
             .WithConfiguration<ApplicationDbContext>(context => context
                 .Database.Migrate())
             .Start();

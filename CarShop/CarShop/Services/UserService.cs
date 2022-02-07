@@ -33,27 +33,35 @@ namespace CarShop.Services
                 registerUserDataForm.Email);
             if (!IsUsernameAlreadyExists(registerUserDataForm.Username) && IsValidData)
             {
+                string pass = passwordHasher.Hash(registerUserDataForm.Password);
                 User newUser = new()
                 {
                     Id = Guid.NewGuid().ToString(),
+                    Username = registerUserDataForm.Username,
                     Email = registerUserDataForm.Email,
-                    Password = passwordHasher.Hash(registerUserDataForm.Password),
+                    Password = pass.Substring(0,20),
                     IsMechanic = IsUserMechanic(registerUserDataForm.UserType)
                 };
 
                 this.dbContext
                     .Users
-                    .AddAsync(newUser);
+                    .Add(newUser);
+
+                this.dbContext.SaveChanges();
             }
         }
 
         public bool IsUserExist(LoginUserDataForm loginUserDataForm)
         {
+            string pass = passwordHasher
+                .Hash(loginUserDataForm.Password)
+                .Substring(0,20);
+
             return this.dbContext
                 .Users
                 .AsNoTracking()
                 .Any(u => u.Username == loginUserDataForm.Username &&
-                    u.Password == loginUserDataForm.Password);
+                    u.Password == pass);
         }
 
         public bool GetUserTypeById(string id)
