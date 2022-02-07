@@ -7,8 +7,13 @@
     public class UsersController : Controller
     {
         public HttpResponse Login()
-            => this.View();
-
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Redirect("/Index");
+        }
         [HttpPost]
         public HttpResponse Login(LoginUserDataForm loginUserDataForm)
         {
@@ -16,7 +21,13 @@
         }
 
         public HttpResponse Register()
-            => this.View();
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Redirect("/Index");
+        }
 
         [HttpPost]
         public HttpResponse Register(UserRegisterDataForm registerUserDataForm)
