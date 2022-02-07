@@ -1,4 +1,4 @@
-﻿namespace MyWebServer.DataForms
+﻿namespace CarShop.DataForms
 {
     public class LoginUserDataForm
     {

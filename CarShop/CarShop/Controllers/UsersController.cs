@@ -1,7 +1,7 @@
 ﻿namespace CarShop.Controllers
 {
+    using CarShop.DataForms;
     using MyWebServer.Controllers;
-    using MyWebServer.DataForms;
     using MyWebServer.Http;
 
     public class UsersController : Controller

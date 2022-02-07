@@ -1,6 +1,6 @@
-﻿namespace MyWebServer.Services
+﻿namespace CarShop.Services
 {
-    using MyWebServer.DataForms;
+    using CarShop.DataForms;
     using System;
 
     public class UserClientService : IUserService
