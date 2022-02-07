@@ -1,31 +1,43 @@
 ﻿using CarShop.Data;
 using CarShop.Data.DbModels;
 using CarShop.DataForms;
+using CarShop.Validator;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
 namespace CarShop.Services
 {
-
-    public abstract class UserService
+    public class UserService : IUserService
     {
         private ApplicationDbContext dbContext;
+        private PasswordHasher passwordHasher;
+        private DataValidator dataValidator;
 
-        public UserService(ApplicationDbContext dbContex)
+        public UserService(ApplicationDbContext dbContex,
+            PasswordHasher passwordHasher,
+            DataValidator dataValidator)
         {
             this.dbContext = dbContex;
+            this.passwordHasher = passwordHasher;
+            this.dataValidator = dataValidator;
         }
 
         public void Create(UserRegisterDataForm registerUserDataForm)
         {
-            if (!IsUsernameAlreadyExists(registerUserDataForm.Username))
+            bool IsValidData = dataValidator
+                .IsValidUserRegistraionData(registerUserDataForm.Username,
+                registerUserDataForm.Password,
+                registerUserDataForm.ConfirmPassword,
+
+                registerUserDataForm.Email);
+            if (!IsUsernameAlreadyExists(registerUserDataForm.Username) && IsValidData)
             {
                 User newUser = new()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Email = registerUserDataForm.Email,
-                    //TODO: Hash password
-                    Password = registerUserDataForm.Password,
+                    Password = passwordHasher.Hash(registerUserDataForm.Password),
                     IsMechanic = IsUserMechanic(registerUserDataForm.UserType)
                 };
 
@@ -35,17 +47,29 @@ namespace CarShop.Services
             }
         }
 
-        public bool IsUserExist(string username, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool IsUsernameAlreadyExists(string username)
+        public bool IsUserExist(LoginUserDataForm loginUserDataForm)
         {
             return this.dbContext
                 .Users
-                .Any(u => u.Username == username);
+                .AsNoTracking()
+                .Any(u => u.Username == loginUserDataForm.Username &&
+                    u.Password == loginUserDataForm.Password);
         }
+
+        public bool GetUserTypeById(string id)
+        => this.dbContext
+                  .Users
+                .AsNoTracking()
+                  .Where(x => x.Id == id)
+                  .Select(u => u.IsMechanic)
+                  .First();
+
+        public bool IsUsernameAlreadyExists(string username)
+        => this.dbContext
+                .Users
+                .AsNoTracking()
+                .Any(u => u.Username == username);
+
         private bool IsUserMechanic(string userType)
         {
             return userType == "Mechanic";
