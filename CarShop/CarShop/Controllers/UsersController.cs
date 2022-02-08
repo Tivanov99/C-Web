@@ -25,9 +25,11 @@
         [HttpPost]
         public HttpResponse Login(LoginUserDataForm loginUserDataForm)
         {
-            int da = 0;
-            if (this.userService.IsUserExist(loginUserDataForm))
+            string userId = this.userService
+                    .GetUserId(loginUserDataForm.Username);
+            if (userId != null)
             {
+                this.SignIn(userId);
                 return this.Redirect("/Cars/All");
             }
 
@@ -53,6 +55,15 @@
             }
 
             return this.Login();
+        }
+
+        public HttpResponse Logout()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                this.SignOut();
+            }
+            return this.Redirect("/Index");
         }
     }
 }
