@@ -12,5 +12,7 @@
         bool GetUserTypeById(string id);
 
         bool IsUsernameAlreadyExists(string username);
+
+        string GetUserId(string username);
     }
 }

@@ -39,7 +39,7 @@ namespace CarShop.Services
                     Id = Guid.NewGuid().ToString(),
                     Username = registerUserDataForm.Username,
                     Email = registerUserDataForm.Email,
-                    Password = pass.Substring(0,20),
+                    Password = pass.Substring(0, 20),
                     IsMechanic = IsUserMechanic(registerUserDataForm.UserType)
                 };
 
@@ -55,7 +55,7 @@ namespace CarShop.Services
         {
             string pass = passwordHasher
                 .Hash(loginUserDataForm.Password)
-                .Substring(0,20);
+                .Substring(0, 20);
 
             return this.dbContext
                 .Users
@@ -82,5 +82,12 @@ namespace CarShop.Services
         {
             return userType == "Mechanic";
         }
+
+        public string GetUserId(string username)
+        => this.dbContext
+            .Users
+            .Where(u=>u.Username == username)
+            .Select(u => u.Id)
+            .FirstOrDefault();
     }
 }
