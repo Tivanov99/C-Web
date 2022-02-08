@@ -1,6 +1,4 @@
-﻿
-
-namespace CarShop.Controllers
+﻿namespace CarShop.Controllers
 {
     using MyWebServer.Controllers;
     using MyWebServer.Http;
