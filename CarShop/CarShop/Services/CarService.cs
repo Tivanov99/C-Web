@@ -1,4 +1,5 @@
 ﻿using CarShop.Data;
+using CarShop.DataForms;
 using CarShop.DTOS;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -61,5 +62,10 @@ namespace CarShop.Services
                 RemainingIssues = c.Issues.Where(i => i.IsFixed == false).Count()
             })
             .ToList();
+
+        public void CreateCar(AddCarDataForm dataForm, string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
