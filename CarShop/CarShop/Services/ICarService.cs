@@ -6,5 +6,7 @@
     public interface ICarService
     {
         List<CarDTOModel> GetAllCars(string userId);
+
+        void CreateCar()
     }
 }

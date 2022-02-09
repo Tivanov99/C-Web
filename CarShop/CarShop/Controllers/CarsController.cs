@@ -27,10 +27,16 @@
             return this.View(allCarsModel);
         }
 
+        public HttpResponse Add()
+        {
+            return this.View();
+        }
+
         [HttpPost]
         public HttpResponse Add(AddCarDataForm dataForm)
         {
-
+            int da = 0;
+            return this.View();
         }
     }
 }
