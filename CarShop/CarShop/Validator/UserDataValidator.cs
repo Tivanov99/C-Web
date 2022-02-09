@@ -3,7 +3,7 @@
     using MyWebServer.Common;
     using System.Text.RegularExpressions;
 
-    public class DataValidator
+    public class UserDataValidator
     {
         public bool IsValidUserRegistraionData(string username,
             string password,

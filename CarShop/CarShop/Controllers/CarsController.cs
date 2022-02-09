@@ -35,7 +35,7 @@
         [HttpPost]
         public HttpResponse Add(AddCarDataForm dataForm)
         {
-            int da = 0;
+            this.carService.CreateCar(dataForm, this.User.Id);
             return this.View();
         }
     }

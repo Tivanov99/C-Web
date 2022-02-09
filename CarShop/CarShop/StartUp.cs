@@ -26,7 +26,7 @@
             .Add<ApplicationDbContext>()
             .Add<IViewEngine, CompilationViewEngine>()
             .Add<IUserService, UserService>()
-            .Add<DataValidator,DataValidator>()
+            .Add<UserDataValidator,UserDataValidator>()
             .Add<ICarService,CarService>())
             .WithConfiguration<ApplicationDbContext>(context => context
                 .Database.Migrate())

@@ -1,6 +1,8 @@
 ﻿using CarShop.Data;
+using CarShop.Data.DbModels;
 using CarShop.DataForms;
 using CarShop.DTOS;
+using CarShop.Validator;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,12 @@ namespace CarShop.Services
     public class CarService : ICarService
     {
         private ApplicationDbContext dbContext;
-        public CarService(ApplicationDbContext dbContext)
+        private CarDataValidator carDataValidator;
+        public CarService(ApplicationDbContext dbContext,
+            CarDataValidator carDataValidator)
         {
             this.dbContext = dbContext;
+            this.carDataValidator = carDataValidator;
         }
 
         public List<CarDTOModel> GetAllCars(string userId)
@@ -65,7 +70,25 @@ namespace CarShop.Services
 
         public void CreateCar(AddCarDataForm dataForm, string userId)
         {
-            throw new NotImplementedException();
+            if (this.carDataValidator.ValidateCarData(dataForm))
+            {
+                string id = Guid.NewGuid().ToString();
+                this.dbContext
+                    .Cars
+                    .Add(new Car()
+                    {
+                        Id = id.Substring(0, 20),
+                        Model = dataForm.Model,
+                        Year = dataForm.Year,
+                        PictureUrl = dataForm.Image,
+                        PlateNumber = dataForm.PlateNumber,
+                        OwnerId = userId,
+                        Issues = new List<Issue>()
+                    });
+
+                this.dbContext
+                    .SaveChanges();
+            }
         }
     }
 }

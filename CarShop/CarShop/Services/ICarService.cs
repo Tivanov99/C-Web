@@ -8,6 +8,6 @@
     {
         List<CarDTOModel> GetAllCars(string userId);
 
-        void CreateCar(AddCarDataForm dataForm, string userId)
+        void CreateCar(AddCarDataForm dataForm, string userId);
     }
 }

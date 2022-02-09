@@ -12,11 +12,11 @@ namespace CarShop.Services
     {
         private ApplicationDbContext dbContext;
         private PasswordHasher passwordHasher;
-        private DataValidator dataValidator;
+        private UserDataValidator dataValidator;
 
         public UserService(ApplicationDbContext dbContex,
             PasswordHasher passwordHasher,
-            DataValidator dataValidator)
+            UserDataValidator dataValidator)
         {
             this.dbContext = dbContex;
             this.passwordHasher = passwordHasher;
