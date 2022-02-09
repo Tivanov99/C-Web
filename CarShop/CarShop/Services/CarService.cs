@@ -32,7 +32,7 @@ namespace CarShop.Services
             .Users
             .Where(u => u.Id == userID)
             .Select(u => u.IsMechanic)
-            .First();
+            .FirstOrDefault();
 
         private List<CarDTOModel> GetCarsByUserId(string userID)
         => this.dbContext

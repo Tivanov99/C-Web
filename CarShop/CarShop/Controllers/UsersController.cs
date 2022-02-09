@@ -54,7 +54,7 @@
                 return this.Login();
             }
 
-            return this.Login();
+            return this.Redirect("/Users/Login");
         }
 
         public HttpResponse Logout()

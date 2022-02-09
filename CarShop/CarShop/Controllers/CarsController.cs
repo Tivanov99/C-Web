@@ -1,29 +1,30 @@
 ﻿namespace CarShop.Controllers
 {
     using CarShop.Services;
+    using CarShop.ViewModels;
     using MyWebServer.Controllers;
     using MyWebServer.Http;
 
     public class CarsController : Controller
     {
-        private IMechanicService mechanicService;
-        private IUserService userService;
+        private ICarService carService;
 
-        public CarsController(IMechanicService mechanicService,
-            IUserService userService)
+        public CarsController(ICarService carService)
         {
-            this.mechanicService = mechanicService;
-            this.userService = userService;
+            this.carService = carService;
         }
 
         public HttpResponse All()
         {
             string userId = this.User.Id;
 
+            AllCarsModel allCarsModel = new()
+            {
+                Cars = this.carService.GetAllCars(userId)
+            };
 
 
-
-            return this.View();
+            return this.View(allCarsModel);
         }
     }
 }
