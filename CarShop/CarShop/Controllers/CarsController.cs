@@ -1,5 +1,6 @@
 ﻿namespace CarShop.Controllers
 {
+    using CarShop.DataForms;
     using CarShop.Services;
     using CarShop.ViewModels;
     using MyWebServer.Controllers;
@@ -23,8 +24,13 @@
                 Cars = this.carService.GetAllCars(userId)
             };
 
-
             return this.View(allCarsModel);
+        }
+
+        [HttpPost]
+        public HttpResponse Add(AddCarDataForm dataForm)
+        {
+
         }
     }
 }
