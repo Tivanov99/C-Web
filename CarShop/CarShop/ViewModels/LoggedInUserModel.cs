@@ -7,6 +7,6 @@
     {
         public bool IsMechanic { get; set; }
 
-        public List<CarDTOModel> Cars { get; set; }
+        public List<CarDetailsDTOModel> Cars { get; set; }
     }
 }

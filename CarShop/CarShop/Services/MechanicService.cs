@@ -26,11 +26,11 @@
             this.context.SaveChanges();
         }
 
-        public List<CarDTOModel> GetAllCarsWithUnfixedIssues()
+        public List<CarDetailsDTOModel> GetAllCarsWithUnfixedIssues()
         => this.context
             .Cars
             .Where(c => c.Issues.Any(i => i.IsFixed == false))
-            .Select(c => new CarDTOModel()
+            .Select(c => new CarDetailsDTOModel()
             {
                 Id = c.Id,
                 Model = c.Model,

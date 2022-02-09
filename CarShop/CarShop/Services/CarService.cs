@@ -19,7 +19,12 @@ namespace CarShop.Services
 
         public List<CarDTOModel> GetAllCars(string userId)
         {
-            throw new NotImplementedException();
+            bool isMechanic = IsUserMechanic(userId);
+
+            if (isMechanic)
+                return GetCarsForMechanic();
+
+            return GetCarsByUserId(userId);
         }
 
         private bool IsUserMechanic(string userID)
@@ -37,11 +42,9 @@ namespace CarShop.Services
             .Select(c => new CarDTOModel()
             {
                 Id = c.Id,
-                Model = c.Model,
-                Year = c.Year,
-                PictureUrl = c.PictureUrl,
                 PlateNumber = c.PlateNumber,
-                Issues = c.Issues,
+                FixedIssues = c.Issues.Where(i => i.IsFixed == true).Count(),
+                RemainingIssues = c.Issues.Where(i => i.IsFixed == false).Count()
             })
             .ToList();
 
@@ -49,15 +52,13 @@ namespace CarShop.Services
             => this.dbContext
             .Cars
             .AsNoTracking()
-            .Where(c => c.Owner.IsMechanic == true)
+            .Where(c => c.Issues.Any(i => i.IsFixed == false))
             .Select(c => new CarDTOModel()
             {
                 Id = c.Id,
-                Model = c.Model,
-                Year = c.Year,
-                PictureUrl = c.PictureUrl,
                 PlateNumber = c.PlateNumber,
-                Issues = c.Issues,
+                FixedIssues = c.Issues.Where(i => i.IsFixed == true).Count(),
+                RemainingIssues = c.Issues.Where(i => i.IsFixed == false).Count()
             })
             .ToList();
     }

@@ -1,21 +1,13 @@
-﻿
-namespace CarShop.DTOS
+﻿namespace CarShop.DTOS
 {
-    using CarShop.Data.DbModels;
-    using System.Collections.Generic;
-
     public class CarDTOModel
     {
         public string Id { get; set; }
 
-        public string Model { get; set; }
+        public string PlateNumber { get; set; }
 
-        public int Year { get; set; }
+        public int RemainingIssues { get; set; }
 
-        public string PictureUrl { get; set; }
-
-        public string PlateNumber { get; init; }
-
-        public List<Issue> Issues { get; set; }
+        public int FixedIssues { get; set; }
     }
 }
