@@ -21,19 +21,31 @@
                                 <th scope="col" class="text-center">Delete Issue</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="table-light">
-                                <td>Broken Valve</td>
-                                <td>Not yet</td>
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId={Id}&CarId={Id}">Fix Issue</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Delete?issueId={Id}&CarId={Id}">Delete Issue</a>
-                                </td>
-                            </tr>
 
-                        </tbody>
+                        @foreach (var issue in Model.Issues)
+                        {
+                            <tbody>
+                                <tr class="table-light">
+                                    <td>@issue.Description</td>
+                                    @if (@issue.IsFixed == false)
+                                    {
+                                        <td>Not yet</td>
+                                    }
+                                    @if (@issue.IsFixed == true)
+                                    {
+                                        <td>Yes</td>
+                                    }
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId={Id}&CarId={Id}">Fix Issue</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Delete?issueId={Id}&CarId={Id}">Delete Issue</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        }
+
                     </table>
                 </div>
             </div>

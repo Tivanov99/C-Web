@@ -22,6 +22,7 @@
                 model.Issues = issueService
                     .GetCarIssues(carId);
 
+
                 return this.View(model);
             }
             return this.Redirect("/Users/Login");
