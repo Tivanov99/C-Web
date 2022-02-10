@@ -1,7 +1,5 @@
 ﻿namespace BasicWebServer.Server
 {
-    using BasicWebServer.Server.Session;
-    using BasicWebServer.Server.Contracts;
     using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.Routing;
     using System;

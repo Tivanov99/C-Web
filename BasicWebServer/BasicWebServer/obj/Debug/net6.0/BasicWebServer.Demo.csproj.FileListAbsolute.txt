@@ -14,9 +14,7 @@ C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.Demo.dll
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\ref\BasicWebServer.Demo.dll
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.Demo.pdb
-C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.BLL.dll
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.Server.dll
-C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.BLL.pdb
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.Server.pdb
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.Demo.csproj.AssemblyReference.cache
 C:\Users\Trifon\Desktop\Csharp-Web\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.Demo.GeneratedMSBuildEditorConfig.editorconfig
