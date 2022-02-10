@@ -1,16 +1,19 @@
-﻿using Git.DataForm;
-using MyWebServer.Controllers;
-using MyWebServer.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Git.Controllers
 {
+    using MyWebServer.Controllers;
+    using MyWebServer.DataForm;
+    using MyWebServer.Http;
+    using MyWebServer.Services;
+   
     public class UsersController : Controller
     {
+        private IUserService userService;
+
+        public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }
         public HttpResponse Login()
         {
             if (this.User.IsAuthenticated)
@@ -23,7 +26,11 @@ namespace Git.Controllers
         [HttpPost]
         public HttpResponse Login(LoginDataForm dataForm)
         {
+            if (this.userService.IsUserExist(dataForm))
+            {
 
+            }
+            return this.Login();
         }
     }
 }

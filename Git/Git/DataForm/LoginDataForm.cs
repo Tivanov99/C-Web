@@ -1,4 +1,4 @@
-﻿namespace Git.DataForm
+﻿namespace MyWebServer.DataForm
 {
     public class LoginDataForm
     {

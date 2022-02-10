@@ -1,4 +1,4 @@
-﻿namespace Git.DataForm
+﻿namespace MyWebServer.DataForm
 {
     public class RegisterDataForm
     {
@@ -9,6 +9,5 @@
         public string ConfirmPassword { get; set; }
 
         public string Email { get; set; }
-
     }
 }
