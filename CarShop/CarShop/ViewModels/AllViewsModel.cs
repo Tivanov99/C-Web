@@ -5,6 +5,11 @@
 
     public class AllViewsModel
     {
+        public AllViewsModel()
+        {
+            Issues = new();
+        }
+
         public List<IssueDTO> Issues { get; set; }
     }
 }
