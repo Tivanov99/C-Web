@@ -4,6 +4,7 @@
     using CarShop.Data.DbModels;
     using CarShop.DTOS;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -22,6 +23,7 @@
                .Issues
                .Add(new Issue()
                {
+                   Id = Guid.NewGuid().ToString().Substring(0, 20),
                    CarId = carId,
                    Description = description,
                    IsFixed = false
