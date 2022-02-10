@@ -18,6 +18,7 @@
         private readonly RoutingTable routingTable;
         private readonly ServiceCollection serviceCollection;
 
+
         private HttpServer(string ipAddress, int port, IRoutingTable routingTable)
         {
             this.ipAddress = IPAddress.Parse(ipAddress);
@@ -144,7 +145,7 @@
             if (request.Session.IsNew)
             {
                 response.Cookies.Add(HttpSession.SessionCookieName, request.Session.Id);
-                
+
                 request.Session.IsNew = false;
             }
         }
