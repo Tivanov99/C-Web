@@ -20,10 +20,15 @@
             {
                 AllIssuesModel model = new();
 
+                var carData = this.issueService
+                    .GetIssueCar(carId);
+
                 model.Issues = issueService
                     .GetCarIssues(carId);
 
-
+                model.CarYear = carData.CarYear;
+                model.CarModel = carData.CarModel;
+                model.CarId = carId;
 
                 return this.View(model);
             }
