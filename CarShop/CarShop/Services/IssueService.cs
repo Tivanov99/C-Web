@@ -1,6 +1,7 @@
 ﻿namespace CarShop.Services
 {
     using CarShop.Data;
+    using CarShop.Data.DbModels;
     using CarShop.DTOS;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -15,9 +16,18 @@
             this.context = context;
         }
 
-        public void CreateCarIssue(string carId)
+        public void CreateCarIssue(string carId, string description)
         {
-            throw new System.NotImplementedException();
+            this.context
+               .Issues
+               .Add(new Issue()
+               {
+                   CarId = carId,
+                   Description = description,
+                   IsFixed = false
+               });
+
+            this.context.SaveChanges();
         }
 
         public List<IssueDTO> GetCarIssues(string carId)

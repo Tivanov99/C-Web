@@ -7,7 +7,7 @@ namespace CarShop.Services
     {
         List<IssueDTO> GetCarIssues(string carId);
 
-        void CreateCarIssue(string carId);
+        void CreateCarIssue(string carId, string description);
 
         IssueCarDto GetIssueCar(string carId);
     }

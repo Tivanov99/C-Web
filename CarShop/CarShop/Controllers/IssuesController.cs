@@ -1,5 +1,6 @@
 ﻿namespace CarShop.Controllers
 {
+    using CarShop.DataForms;
     using CarShop.Services;
     using CarShop.ViewModels;
     using MyWebServer.Controllers;
@@ -45,10 +46,12 @@
         }
 
         [HttpPost]
-        public HttpResponse Add(string carId)
+        public HttpResponse Add(string carId, AddIssueDataForm dataForm)
         {
             if (this.User.IsAuthenticated)
             {
+                this.issueService
+                     .CreateCarIssue(carId, dataForm.Description);
                 return this.View();
             }
             return this.Redirect("/Users/Login");
