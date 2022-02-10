@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Git.Data.Models
+﻿namespace Git.Data.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Commit
     {
         public string Id { get; set; }

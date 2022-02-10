@@ -9,6 +9,10 @@ namespace Git.Data.Models
 {
     public class Repository
     {
+        public Repository()
+        {
+            Commits = new();
+        }
         public string Id { get; set; }
 
         public string Name { get; set; }
