@@ -30,8 +30,18 @@
                 Id = i.Id,
                 Description = i.Description,
                 IsFixed = i.IsFixed,
-                CarId = carId
             })
             .ToList();
+
+        public IssueCarDto GetIssueCar(string carId)
+        => this.context
+            .Cars
+            .Where(c => c.Id == carId)
+            .Select(c => new IssueCarDto()
+            {
+                CarModel = c.Model,
+                CarYear = c.Year,
+            })
+            .FirstOrDefault();
     }
 }

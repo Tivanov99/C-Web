@@ -8,5 +8,7 @@ namespace CarShop.Services
         List<IssueDTO> GetCarIssues(string carId);
 
         void CreateCarIssue(string carId);
+
+        IssueCarDto GetIssueCar(string carId);
     }
 }

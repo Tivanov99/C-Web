@@ -19,6 +19,7 @@
             if (this.User.IsAuthenticated)
             {
                 AllIssuesModel model = new();
+
                 model.Issues = issueService
                     .GetCarIssues(carId);
 
