@@ -17,8 +17,6 @@
         public const int ModelMaxLength = 20;
         public const string PlateNumberTemplate = @"";
 
-
-
         public const string EmailValidationTemplate = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     }
 }

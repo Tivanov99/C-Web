@@ -1,17 +1,15 @@
-﻿using CarShop.Data;
-using CarShop.Data.DbModels;
-using CarShop.DataForms;
-using CarShop.DTOS;
-using CarShop.Validator;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarShop.Services
+﻿namespace CarShop.Services
 {
+    using CarShop.Data;
+    using CarShop.Data.DbModels;
+    using CarShop.DataForms;
+    using CarShop.DTOS;
+    using CarShop.Validator;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CarService : ICarService
     {
         private ApplicationDbContext dbContext;
