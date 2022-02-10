@@ -30,6 +30,7 @@
                 Id = i.Id,
                 Description = i.Description,
                 IsFixed = i.IsFixed,
+                CarId = carId
             })
             .ToList();
     }

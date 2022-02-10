@@ -36,16 +36,14 @@
                                         <td>Yes</td>
                                     }
                                     <td>
-                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId={Id}&CarId={Id}">Fix Issue</a>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId=@issue.Id&CarId=@issue.CarId">Fix Issue</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Delete?issueId={Id}&CarId={Id}">Delete Issue</a>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Delete?issueId=@issue.Id&CarId=@issue.CarId">Delete Issue</a>
                                     </td>
                                 </tr>
-
                             </tbody>
                         }
-
                     </table>
                 </div>
             </div>

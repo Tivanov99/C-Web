@@ -18,12 +18,32 @@
         {
             if (this.User.IsAuthenticated)
             {
-                AllViewsModel model = new();
+                AllIssuesModel model = new();
                 model.Issues = issueService
                     .GetCarIssues(carId);
 
 
+
                 return this.View(model);
+            }
+            return this.Redirect("/Users/Login");
+        }
+
+        public HttpResponse Add()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Redirect("/Users/Login");
+        }
+
+        [HttpPost]
+        public HttpResponse Add(string carId)
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.View();
             }
             return this.Redirect("/Users/Login");
         }
