@@ -5,7 +5,7 @@ namespace Git.Controllers
     using MyWebServer.DataForm;
     using MyWebServer.Http;
     using MyWebServer.Services;
-   
+
     public class UsersController : Controller
     {
         private IUserService userService;
@@ -16,9 +16,9 @@ namespace Git.Controllers
         }
         public HttpResponse Login()
         {
-            if (this.User.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
-                return this.Redirect("/Index");
+                return this.Redirect("/Repositories/All");
             }
             return this.View();
         }
@@ -28,9 +28,21 @@ namespace Git.Controllers
         {
             if (this.userService.IsUserExist(dataForm))
             {
-
+                return this.Redirect("/Repositories/All");
             }
             return this.Login();
         }
+        
+
+        public HttpResponse Register()
+        {
+            if (this.IsUserAuthenticated())
+            {
+                return this.Redirect("/Repositories/All");
+            }
+            return this.View();
+        }
+        private bool IsUserAuthenticated()
+        => this.User.IsAuthenticated;
     }
 }
