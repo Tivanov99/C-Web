@@ -32,7 +32,7 @@ namespace Git.Controllers
             }
             return this.Login();
         }
-        
+
 
         public HttpResponse Register()
         {
@@ -41,6 +41,13 @@ namespace Git.Controllers
                 return this.Redirect("/Repositories/All");
             }
             return this.View();
+        }
+
+        [HttpPost]
+        public HttpResponse Register(RegisterDataForm registerData)
+        {
+            this.userService.CreateUser(registerData);
+            return this.Redirect("/Repositories/All");
         }
         private bool IsUserAuthenticated()
         => this.User.IsAuthenticated;
