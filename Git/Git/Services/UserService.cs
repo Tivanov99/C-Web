@@ -2,8 +2,10 @@
 {
     using Git.Contracts;
     using Git.Data.Models;
+    using Git.Models;
     using MyWebServer.DataForm;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
@@ -51,6 +53,35 @@
             .Any(x => x.Username == loginDataForm.Username &&
             x.Password == HashPassword(loginDataForm.Password));
 
+        public (bool, IEnumerable<ErrorViewModel>) ValidateUser
+            (RegisterDataForm loginDataForm)
+        {
+            bool isValid = true;
+            List<ErrorViewModel> errors = new List<ErrorViewModel>();
 
+            if (string.IsNullOrEmpty(loginDataForm.Username))
+            {
+                isValid = false;
+                errors.Add(new ErrorViewModel("Invalid Username!"));
+            }
+            if (string.IsNullOrEmpty(loginDataForm.Email))
+            {
+                isValid = false;
+                errors.Add(new ErrorViewModel("Invalid Email!"));
+            }
+            if (string.IsNullOrEmpty(loginDataForm.Password) ||
+                string.IsNullOrEmpty(loginDataForm.ConfirmPassword))
+            {
+                isValid = false;
+                errors.Add(new ErrorViewModel("Invalid Password!"));
+            }
+            if (loginDataForm.Password != loginDataForm.ConfirmPassword)
+            {
+                isValid = false;
+                errors.Add(new ErrorViewModel("Passwords shoud be the same!"));
+            }
+
+            return (isValid, errors);
+        }
     }
 }
