@@ -49,6 +49,7 @@ namespace Git.Controllers
             this.userService.CreateUser(registerData);
             return this.Redirect("/Repositories/All");
         }
+
         private bool IsUserAuthenticated()
         => this.User.IsAuthenticated;
     }

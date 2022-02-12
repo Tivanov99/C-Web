@@ -18,7 +18,15 @@
 
         public void CreateUser(RegisterDataForm registerDataForm)
         {
-            throw new NotImplementedException();
+            User user = new User()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = registerDataForm.Username,
+                Email = registerDataForm.Email,
+                Password = registerDataForm.Password,
+            };
+            this.repository.Add<User>(user);
+            this.repository.SaveChanges();
         }
 
         private string HashPassword(string password)
