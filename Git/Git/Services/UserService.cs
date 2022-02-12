@@ -50,5 +50,7 @@
          => this.repository.All<User>()
             .Any(x => x.Username == loginDataForm.Username &&
             x.Password == HashPassword(loginDataForm.Password));
+
+
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Git.Controllers
+﻿namespace Git.Controllers
 {
     using Git.Contracts;
     using MyWebServer.Controllers;
@@ -14,6 +13,7 @@ namespace Git.Controllers
         {
             this.userService = userService;
         }
+
         public HttpResponse Login()
         {
             if (IsUserAuthenticated())
