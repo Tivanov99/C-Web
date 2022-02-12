@@ -1,5 +1,6 @@
 ﻿namespace MyWebServer.Services
 {
+    using Git.Contracts;
     using Git.Data;
     using MyWebServer.DataForm;
     using System;

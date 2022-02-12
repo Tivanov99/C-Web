@@ -1,10 +1,10 @@
 ﻿
 namespace Git.Controllers
 {
+    using Git.Contracts;
     using MyWebServer.Controllers;
     using MyWebServer.DataForm;
     using MyWebServer.Http;
-    using MyWebServer.Services;
 
     public class UsersController : Controller
     {

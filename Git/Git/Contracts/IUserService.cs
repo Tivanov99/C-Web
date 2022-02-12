@@ -1,7 +1,6 @@
-﻿namespace MyWebServer.Services
+﻿namespace Git.Contracts
 {
     using MyWebServer.DataForm;
- 
 
     public interface IUserService
     {
