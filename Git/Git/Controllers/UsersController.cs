@@ -26,7 +26,7 @@ namespace Git.Controllers
         [HttpPost]
         public HttpResponse Login(LoginDataForm dataForm)
         {
-            if (this.userService.IsUserExist(dataForm))
+            if (this.userService.IsUserExists(dataForm))
             {
                 return this.Redirect("/Repositories/All");
             }
