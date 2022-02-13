@@ -2,6 +2,7 @@
 {
     using Git.Contracts;
     using Git.Data;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
 
     public class Repository : IRepository
@@ -20,12 +21,16 @@
 
         public IQueryable<T> All<T>() where T : class
         {
-            return this.dbContext.Set<T>();
+            return DbSet<T>().AsQueryable();
         }
 
         public int SaveChanges()
         {
             return this.dbContext.SaveChanges();
+        }
+        private DbSet<T> DbSet<T>() where T : class
+        {
+            return dbContext.Set<T>();
         }
     }
 }

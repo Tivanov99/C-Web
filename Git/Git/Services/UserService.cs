@@ -26,7 +26,7 @@
                 Id = Guid.NewGuid().ToString(),
                 Username = registerDataForm.Username,
                 Email = registerDataForm.Email,
-                Password = registerDataForm.Password,
+                Password = HashPassword(registerDataForm.Password),
             };
             this.repository.Add<User>(user);
             this.repository.SaveChanges();
@@ -50,9 +50,14 @@
         }
 
         public bool IsUserExists(LoginDataForm loginDataForm)
-         => this.repository.All<User>()
-            .Any(x => x.Username == loginDataForm.Username &&
-            x.Password == HashPassword(loginDataForm.Password));
+        {
+            var result = this.repository.All<User>()
+                .FirstOrDefault(u => u.Username == loginDataForm.Username &&
+                u.Password == HashPassword(loginDataForm.Password));
+
+            return result != null;
+        }
+
 
         public (bool, IEnumerable<ErrorViewModel>) ValidateUser
             (RegisterDataForm loginDataForm)
