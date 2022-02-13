@@ -9,6 +9,7 @@
     using Git.Controllers;
     using Git.Contracts;
     using MyWebServer.Services;
+    using Git.Services;
 
     public class Startup
     {
@@ -26,7 +27,8 @@
             .Add<ApplicationDbContext>()
             .Add<IViewEngine, CompilationViewEngine>()
             .Add<IRepository, Repository.Repository>()
-            .Add<IUserService, UserService>())
+            .Add<IUserService, UserService>()
+            .Add<IRepositoryService, RepositoryService>())
             .WithConfiguration<ApplicationDbContext>(context => context
                 .Database.Migrate())
             .Start();

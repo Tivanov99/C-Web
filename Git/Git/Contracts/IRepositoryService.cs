@@ -5,11 +5,11 @@
     using System.Collections.Generic;
     public interface IRepositoryService
     {
-        IEnumerable<RepositoryViewModel> GetAll();
+        List<RepositoryViewModel> GetAll();
 
-        (bool, IEnumerable<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm);
+        (bool, List<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm);
 
-        void Create(CreateRepositoryDataForm repositoryDataForm);
+        void Create(CreateRepositoryDataForm repositoryDataForm, string userId);
 
         //(bool, IEnumerable<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm);
 

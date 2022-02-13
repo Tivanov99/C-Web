@@ -29,8 +29,11 @@
         [HttpPost]
         public HttpResponse Login(LoginDataForm dataForm)
         {
-            if (this.userService.IsUserExists(dataForm))
+            var (isExists, userId) = this.userService.IsUserExists(dataForm);
+
+            if (isExists)
             {
+                this.SignIn(userId);
                 return this.Redirect("/Repositories/All");
             }
             return this.Login();
@@ -64,10 +67,13 @@
             catch (ArgumentException aex)
             {
                 return this.View(new List<ErrorViewModel>() { new ErrorViewModel(aex.Message) }, "/Error");
-                throw;
             }
         }
-
+        public HttpResponse LogOut()
+        {
+            this.SignOut();
+            return this.Redirect("/Index");
+        }
         private bool IsUserAuthenticated()
         => this.User.IsAuthenticated;
     }

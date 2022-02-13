@@ -18,15 +18,14 @@
         }
 
         public HttpResponse All()
-        {
-            return this.View();
-        }
+       => this.View(this.repositoryService.GetAll());
+
 
         public HttpResponse Create()
         {
             if (this.User.IsAuthenticated)
             {
-                this.View();
+                return this.View();
             }
             return this.Redirect("/Users/Login");
         }
@@ -44,7 +43,7 @@
 
             try
             {
-                this.repositoryService.Create(repositoryDataForm);
+                this.repositoryService.Create(repositoryDataForm, this.User.Id);
                 return this.All();
             }
             catch (Exception ex)

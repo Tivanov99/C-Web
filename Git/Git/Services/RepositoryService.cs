@@ -3,7 +3,10 @@
     using Git.Contracts;
     using Git.DataForm;
     using Git.Models;
+    using MyWebServer.Common;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class RepositoryService : IRepositoryService
     {
@@ -14,19 +17,46 @@
             this.repository = _repository;
         }
 
-        public void Create(CreateRepositoryDataForm repositoryDataForm)
+        public void Create(CreateRepositoryDataForm repositoryDataForm, string ownerId)
         {
-            throw new System.NotImplementedException();
+            Data.Models.Repository repo = new Data.Models.Repository()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = repositoryDataForm.Name,
+                CreatedOn = DateTime.UtcNow,
+                IsPublic = repositoryDataForm.RepositoryType == "Public",
+                OwnerId = ownerId,
+            };
+            this.repository.Add<Data.Models.Repository>(repo);
         }
 
-        public IEnumerable<RepositoryViewModel> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
+        public List<RepositoryViewModel> GetAll()
+        => this.repository
+                 .All<Data.Models.Repository>()
+                 .Select(r => new RepositoryViewModel()
+                 {
+                     Id = r.Id,
+                     CreatedOn = r.CreatedOn.ToString("MM/dd/yyyy HH:mm:ss"),
+                     Name = r.Name,
+                     Owner = r.OwnerId,
+                     CommitsCount = r.Commits.Count()
+                 })
+                 .ToList();
 
-        public (bool, IEnumerable<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm)
+        public (bool, List<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm)
         {
-            throw new System.NotImplementedException();
+            bool isValid = true;
+            List<ErrorViewModel> errors = new List<ErrorViewModel>();
+
+            if (string.IsNullOrWhiteSpace(repositoryDataForm.Name) ||
+                repositoryDataForm.Name.Length < GlobalConstants.repositoryNameMinLenght ||
+                repositoryDataForm.Name.Length > GlobalConstants.repositoryNameMaxLenght)
+            {
+                isValid = false;
+                errors.Add(new ErrorViewModel($"Repository name should be between {GlobalConstants.repositoryNameMinLenght} and {GlobalConstants.repositoryNameMaxLenght} characters!"));
+            }
+
+            return (isValid, errors);
         }
     }
 }

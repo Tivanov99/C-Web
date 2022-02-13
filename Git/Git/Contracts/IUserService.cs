@@ -6,7 +6,7 @@
 
     public interface IUserService
     {
-        bool IsUserExists(LoginDataForm loginDataForm);
+        (bool, string) IsUserExists(LoginDataForm loginDataForm);
 
         void CreateUser(RegisterDataForm registerDataForm);
 
