@@ -38,7 +38,7 @@
                      Id = r.Id,
                      CreatedOn = r.CreatedOn.ToString("MM/dd/yyyy HH:mm:ss"),
                      Name = r.Name,
-                     Owner = r.OwnerId,
+                     Owner = r.Owner.Username,
                      CommitsCount = r.Commits.Count()
                  })
                  .ToList();

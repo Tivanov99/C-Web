@@ -18,8 +18,13 @@
         }
 
         public HttpResponse All()
-       => this.View(this.repositoryService.GetAll());
-
+        {
+            AllRepositoriesViewModel model = new AllRepositoriesViewModel()
+            {
+                Repositories = this.repositoryService.GetAll()
+            };
+            return this.View(model);
+        }
 
         public HttpResponse Create()
         {
