@@ -10,6 +10,6 @@ namespace Git.Contracts
 
         List<CommitViewModel> GetAllCommits();
 
-        void CreateCommit(CreateCommitDataForm commitDataForm);
+        void CreateCommit(CreateCommitDataForm commitDataForm, string creatorId, string repositoryId);
     }
 }

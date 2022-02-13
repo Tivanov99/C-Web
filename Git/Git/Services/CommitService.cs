@@ -12,13 +12,22 @@
     public class CommitService : ICommitService
     {
         private readonly IRepository repository;
+
         public CommitService(IRepository _repository)
         {
             this.repository = _repository;
         }
-        public void CreateCommit(CreateCommitDataForm commitDataForm)
+
+        public void CreateCommit(CreateCommitDataForm commitDataForm, string creatorId, string repositoryId)
         {
-            throw new NotImplementedException();
+            Commit commit = new()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Description = commitDataForm.Description,
+                CreatorId = creatorId,
+                CreatedOn = DateTime.UtcNow,
+                RepositoryId = repositoryId
+            };
         }
 
         public List<CommitViewModel> GetAllCommits()
