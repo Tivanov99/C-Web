@@ -10,7 +10,5 @@
         (bool, List<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm);
 
         void Create(CreateRepositoryDataForm repositoryDataForm, string userId);
-
-        
     }
 }
