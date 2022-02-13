@@ -30,9 +30,9 @@
             };
         }
 
-        public List<CommitViewModel> GetAllCommits(string repositoryId)
+        public List<CommitViewModel> GetAllCommits(string creatorId)
         => this.repository.All<Commit>()
-            .Where(c => c.RepositoryId == repositoryId)
+            .Where(c => c.CreatorId == creatorId)
             .Select(c => new CommitViewModel()
             {
                 Id = c.Id,

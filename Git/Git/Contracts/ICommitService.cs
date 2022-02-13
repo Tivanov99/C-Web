@@ -8,7 +8,7 @@ namespace Git.Contracts
     {
         (bool, List<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm);
 
-        List<CommitViewModel> GetAllCommits(string repositoryId);
+        List<CommitViewModel> GetAllCommits(string creatorId);
 
         void CreateCommit(CreateCommitDataForm commitDataForm, string creatorId, string repositoryId);
     }
