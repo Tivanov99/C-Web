@@ -11,10 +11,6 @@
 
         void Create(CreateRepositoryDataForm repositoryDataForm, string userId);
 
-        //(bool, IEnumerable<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm);
-
-        //IEnumerable<CommitViewModel> GetAllCommits();
-
-        //void CreateCommit(CreateCommitDataForm commitDataForm);
+        
     }
 }
