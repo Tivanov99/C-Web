@@ -36,7 +36,6 @@
             return this.Login();
         }
 
-
         public HttpResponse Register()
         {
             if (this.IsUserAuthenticated())
@@ -60,8 +59,7 @@
             try
             {
                 this.userService.CreateUser(registerData);
-                return this.Redirect("/Repositories/All");
-
+                return this.Login();
             }
             catch (ArgumentException aex)
             {
