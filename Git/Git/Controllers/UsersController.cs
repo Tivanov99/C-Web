@@ -1,9 +1,12 @@
 ﻿namespace Git.Controllers
 {
     using Git.Contracts;
+    using Git.Models;
     using MyWebServer.Controllers;
     using MyWebServer.DataForm;
     using MyWebServer.Http;
+    using System;
+    using System.Collections.Generic;
 
     public class UsersController : Controller
     {
@@ -46,8 +49,25 @@
         [HttpPost]
         public HttpResponse Register(RegisterDataForm registerData)
         {
-            this.userService.CreateUser(registerData);
-            return this.Redirect("/Repositories/All");
+            var (isValid, errors) = this.userService
+                .ValidateUser(registerData);
+
+            if (!isValid)
+            {
+                return this.View(errors, "/Error");
+            }
+
+            try
+            {
+                this.userService.CreateUser(registerData);
+                return this.Redirect("/Repositories/All");
+
+            }
+            catch (ArgumentException aex)
+            {
+                return this.View(new List<ErrorViewModel>() { new ErrorViewModel(aex.Message) }, "/Error");
+                throw;
+            }
         }
 
         private bool IsUserAuthenticated()

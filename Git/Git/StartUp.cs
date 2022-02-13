@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using Git.Controllers;
     using Git.Contracts;
+    using MyWebServer.Services;
 
     public class Startup
     {
@@ -24,7 +25,8 @@
             .WithServices(services => services
             .Add<ApplicationDbContext>()
             .Add<IViewEngine, CompilationViewEngine>()
-            .Add<IRepository, Repository.Repository>())
+            .Add<IRepository, Repository.Repository>()
+            .Add<IUserService, UserService>())
             .WithConfiguration<ApplicationDbContext>(context => context
                 .Database.Migrate())
             .Start();
