@@ -5,16 +5,16 @@
     using System.Collections.Generic;
     public interface IRepositoryService
     {
-        IEnumerable<RepositoryViewModel> GetAllRepositories();
+        IEnumerable<RepositoryViewModel> GetAll();
 
-        (bool, IEnumerable<ErrorViewModel>) ValidateRepository(CreateRepositoryDataForm repositoryDataForm);
+        (bool, IEnumerable<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm);
 
-        void CreateRepository(CreateRepositoryDataForm repositoryDataForm);
+        void Create(CreateRepositoryDataForm repositoryDataForm);
 
-        (bool, IEnumerable<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm);
+        //(bool, IEnumerable<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm);
 
-        IEnumerable<CommitViewModel> GetAllCommits();
+        //IEnumerable<CommitViewModel> GetAllCommits();
 
-        void CreateCommit(CreateCommitDataForm commitDataForm);
+        //void CreateCommit(CreateCommitDataForm commitDataForm);
     }
 }

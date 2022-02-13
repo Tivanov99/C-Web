@@ -3,7 +3,6 @@
     using Git.Contracts;
     using Git.DataForm;
     using Git.Models;
-    using System.Collections;
     using System.Collections.Generic;
 
     public class RepositoryService : IRepositoryService
@@ -15,32 +14,17 @@
             this.repository = _repository;
         }
 
-        public void CreateCommit(CreateCommitDataForm commitDataForm)
+        public void Create(CreateRepositoryDataForm repositoryDataForm)
         {
             throw new System.NotImplementedException();
         }
 
-        public void CreateRepository(CreateRepositoryDataForm repositoryDataForm)
+        public IEnumerable<RepositoryViewModel> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<CommitViewModel> GetAllCommits()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<RepositoryViewModel> GetAllRepositories()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public (bool, IEnumerable<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public (bool, IEnumerable<ErrorViewModel>) ValidateRepository(CreateRepositoryDataForm repositoryDataForm)
+        public (bool, IEnumerable<ErrorViewModel>) Validate(CreateRepositoryDataForm repositoryDataForm)
         {
             throw new System.NotImplementedException();
         }
