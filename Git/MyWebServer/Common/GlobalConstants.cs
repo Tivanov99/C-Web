@@ -12,6 +12,5 @@
         public const int repositoryNameMinLenght = 3;
 
         public const int commitDescriptionMinLenght = 5;
-
     }
 }

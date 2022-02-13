@@ -3,6 +3,7 @@
     using Git.Contracts;
     using Git.Data.Models;
     using Git.Models;
+    using MyWebServer.Common;
     using MyWebServer.DataForm;
     using System;
     using System.Collections.Generic;
@@ -59,21 +60,25 @@
             bool isValid = true;
             List<ErrorViewModel> errors = new List<ErrorViewModel>();
 
-            if (string.IsNullOrEmpty(loginDataForm.Username))
+            if (string.IsNullOrEmpty(loginDataForm.Username)
+                || loginDataForm.Username.Length < GlobalConstants.usernameMinLength
+                || loginDataForm.Username.Length > GlobalConstants.usernameMaxLenght)
             {
                 isValid = false;
                 errors.Add(new ErrorViewModel("Invalid Username!"));
             }
-            if (string.IsNullOrEmpty(loginDataForm.Email))
+            if (string.IsNullOrWhiteSpace(loginDataForm.Email))
             {
                 isValid = false;
                 errors.Add(new ErrorViewModel("Invalid Email!"));
             }
             if (string.IsNullOrEmpty(loginDataForm.Password) ||
-                string.IsNullOrEmpty(loginDataForm.ConfirmPassword))
+                string.IsNullOrEmpty(loginDataForm.ConfirmPassword) ||
+                loginDataForm.ConfirmPassword.Length < GlobalConstants.passwordMinLength ||
+                loginDataForm.ConfirmPassword.Length > GlobalConstants.passwordMaxLength)
             {
                 isValid = false;
-                errors.Add(new ErrorViewModel("Invalid Password!"));
+                errors.Add(new ErrorViewModel($"Password should be between {GlobalConstants.passwordMinLength} and {GlobalConstants.passwordMaxLength} characters length!"));
             }
             if (loginDataForm.Password != loginDataForm.ConfirmPassword)
             {
