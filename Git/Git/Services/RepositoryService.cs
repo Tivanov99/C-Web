@@ -1,6 +1,7 @@
 ﻿namespace Git.Services
 {
     using Git.Contracts;
+    using System.Collections;
 
     public class RepositoryService
     {
@@ -11,7 +12,6 @@
             this.repository = _repository;
         }
 
-        public 
 
     }
 }
