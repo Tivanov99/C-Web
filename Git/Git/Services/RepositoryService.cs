@@ -33,6 +33,7 @@
         public List<RepositoryViewModel> GetAll()
         => this.repository
                  .All<Data.Models.Repository>()
+            .Where(r => r.IsPublic)
                  .Select(r => new RepositoryViewModel()
                  {
                      Id = r.Id,

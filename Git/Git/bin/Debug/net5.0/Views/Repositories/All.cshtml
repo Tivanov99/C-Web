@@ -22,21 +22,21 @@
                                 <th scope="col">Commit</th>
                             </tr>
                         </thead>
-                        @foreach(var repository in Model.Repositories)
+                        @foreach (var repository in Model.Repositories)
                         {
                             <tbody>
-                            <tr class="table-light">
-                                <th scope="row">@repository.Name</th>
-                                <td>@repository.Owner</td>
-                                <td>@repository.CreatedOn</td>
-                                <td>@repository.CommitsCount</td>
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Commits/Create?id=@repository.Id">Commit</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                                <tr class="table-light">
+                                    <th scope="row">@repository.Name</th>
+                                    <td>@repository.Owner</td>
+                                    <td>@repository.CreatedOn</td>
+                                    <td>@repository.CommitsCount</td>
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Commits/Create?id=@repository.Id">Commit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                         }
-                        
+
                     </table>
                 </div>
             </div>

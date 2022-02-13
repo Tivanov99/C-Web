@@ -14,13 +14,13 @@
             this.commitService = _commitService;
         }
 
-        public HttpResponse All()
+        public HttpResponse All(string repositoryId)
         {
             if (this.User.IsAuthenticated)
             {
                 AllCommitsViewModel viewModel = new AllCommitsViewModel()
                 {
-                    Commits = this.commitService.GetAllCommits()
+                    Commits = this.commitService.GetAllCommits(repositoryId)
                 };
 
                 return this.View(viewModel);
