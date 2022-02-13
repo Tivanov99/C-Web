@@ -36,7 +36,7 @@
                  .Select(r => new RepositoryViewModel()
                  {
                      Id = r.Id,
-                     CreatedOn = r.CreatedOn.ToString("MM/dd/yyyy HH:mm:ss"),
+                     CreatedOn = r.CreatedOn.ToString(GlobalConstants.dateTimeFormat),
                      Name = r.Name,
                      Owner = r.Owner.Username,
                      CommitsCount = r.Commits.Count()

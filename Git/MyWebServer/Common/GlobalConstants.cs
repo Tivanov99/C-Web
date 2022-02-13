@@ -12,5 +12,7 @@
         public const int repositoryNameMinLenght = 3;
 
         public const int commitDescriptionMinLenght = 5;
+
+        public const string dateTimeFormat = "MM/dd/yyyy HH:mm:ss";
     }
 }

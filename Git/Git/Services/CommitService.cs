@@ -7,6 +7,7 @@
     using MyWebServer.Common;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class CommitService : ICommitService
     {
@@ -21,7 +22,15 @@
         }
 
         public List<CommitViewModel> GetAllCommits()
-        => this.repository.All < Commit >
+        => this.repository.All<Commit>()
+            .Select(c => new CommitViewModel()
+            {
+                Id = c.Id,
+                RepositoryName = c.Repository.Name,
+                Description = c.Description,
+                CreatedOn = c.CreatedOn.ToString(GlobalConstants.dateTimeFormat)
+            })
+            .ToList();
 
         public (bool, List<ErrorViewModel>) ValidateCommit(CreateCommitDataForm commitDataForm)
         {
