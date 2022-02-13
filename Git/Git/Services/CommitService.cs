@@ -30,8 +30,9 @@
             };
         }
 
-        public List<CommitViewModel> GetAllCommits()
+        public List<CommitViewModel> GetAllCommits(string repositoryId)
         => this.repository.All<Commit>()
+            .Where(c => c.RepositoryId == repositoryId)
             .Select(c => new CommitViewModel()
             {
                 Id = c.Id,
