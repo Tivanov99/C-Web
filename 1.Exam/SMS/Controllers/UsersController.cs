@@ -3,6 +3,7 @@
     using MyWebServer.Controllers;
     using MyWebServer.Http;
     using SMS.Data.Common;
+    using SMS.Models;
     using System.Runtime.CompilerServices;
 
     public class UsersController : Controller
@@ -29,6 +30,12 @@
                 return this.Redirect("/Home");
             }
             return this.View();
+        }
+
+        [HttpPost]
+        public HttpResponse Register(UserRegisterModel userRegisterModel)
+        {
+
         }
 
 
