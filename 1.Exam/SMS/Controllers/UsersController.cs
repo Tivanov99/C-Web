@@ -22,6 +22,14 @@
             return this.View();
         }
 
+        public HttpResponse Register()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.Redirect("/Home");
+            }
+            return this.View();
+        }
 
 
     }
