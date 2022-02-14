@@ -2,18 +2,20 @@
 {
     using MyWebServer.Controllers;
     using MyWebServer.Http;
+    using SMS.Contracts;
     using SMS.Data.Common;
     using SMS.Models;
     using System.Runtime.CompilerServices;
 
     public class UsersController : Controller
     {
-        private readonly IRepository repo;
+        private readonly IUserService userService;
 
-        public UsersController(IRepository repository)
+        public UsersController(IUserService userService)
         {
-            this.repo = repository;
+            this.userService = userService;
         }
+
         public HttpResponse Login()
         {
             if (this.User.IsAuthenticated)
@@ -37,7 +39,5 @@
         {
 
         }
-
-
     }
 }

@@ -5,9 +5,12 @@
     using MyWebServer;
     using MyWebServer.Controllers;
     using MyWebServer.Results.Views;
+    using SMS.Common;
+    using SMS.Contracts;
     using SMS.Controllers;
     using SMS.Data;
     using SMS.Data.Common;
+    using SMS.Services;
 
     public class StartUp
     {
@@ -23,7 +26,9 @@
                 .MapGet<HomeController>("/Index", c => c.Index()))
                 .WithServices(services => services
                     .Add<IViewEngine, CompilationViewEngine>()
-                .Add<IRepository, Repository>())
+                .Add<IRepository, Repository>()
+                .Add<IUserService, UserService>()
+                .Add<PasswordHasher>())
                 .Start();
     }
 }
