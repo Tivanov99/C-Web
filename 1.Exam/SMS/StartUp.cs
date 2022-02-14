@@ -7,6 +7,7 @@
     using MyWebServer.Results.Views;
     using SMS.Controllers;
     using SMS.Data;
+    using SMS.Data.Common;
 
     public class StartUp
     {
@@ -21,7 +22,8 @@
                     .MapControllers()
                 .MapGet<HomeController>("/Index", c => c.Index()))
                 .WithServices(services => services
-                    .Add<IViewEngine, CompilationViewEngine>())
+                    .Add<IViewEngine, CompilationViewEngine>()
+                .Add<IRepository, Repository>())
                 .Start();
     }
 }

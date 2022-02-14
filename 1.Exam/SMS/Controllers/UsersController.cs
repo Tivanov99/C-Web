@@ -1,14 +1,27 @@
-﻿using MyWebServer.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SMS.Controllers
+﻿namespace SMS.Controllers
 {
+    using MyWebServer.Controllers;
+    using MyWebServer.Http;
+    using SMS.Data.Common;
+    using System.Runtime.CompilerServices;
+
     public class UsersController : Controller
     {
+        private readonly IRepository repo;
+
+        public UsersController(IRepository repository)
+        {
+            this.repo = repository;
+        }
+        public HttpResponse Login()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.Redirect("/Home");
+            }
+            return this.View();
+        }
+
 
 
     }
