@@ -49,13 +49,14 @@
             }
         }
 
-        public (bool, string) IsUserExists(LoginDataForm loginDataForm)
+        public (bool, User) IsUserExists(LoginDataForm loginDataForm)
         {
             var user = this.repository.All<User>()
                 .FirstOrDefault(u => u.Username == loginDataForm.Username &&
                 u.Password == HashPassword(loginDataForm.Password));
 
-            return (user != null,user.Id);
+
+            return (user != null,user);
         }
 
 

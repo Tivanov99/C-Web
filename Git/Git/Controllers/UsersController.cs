@@ -29,13 +29,14 @@
         [HttpPost]
         public HttpResponse Login(LoginDataForm dataForm)
         {
-            var (isExists, userId) = this.userService.IsUserExists(dataForm);
+            var (isExists, user) = this.userService.IsUserExists(dataForm);
 
-            if (isExists)
+            if (isExists && user != null)
             {
-                this.SignIn(userId);
+                this.SignIn(user.Id);
                 return this.Redirect("/Repositories/All");
             }
+
             return this.Login();
         }
 

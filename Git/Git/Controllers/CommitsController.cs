@@ -27,5 +27,20 @@
             }
             return this.Redirect("/Users/Login");
         }
+        public HttpResponse Create(string id)
+        {
+            //if (this.User.IsAuthenticated)
+            //{
+            CreateCommitModelView modelView = new()
+            {
+                Id = id,
+                RepositoryName =
+                };
+            var da = this.Request;
+
+            return this.View(modelView);
+            //}
+            return this.Redirect("/Users/Login");
+        }
     }
 }

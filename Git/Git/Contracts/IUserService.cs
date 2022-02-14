@@ -1,12 +1,13 @@
 ﻿namespace Git.Contracts
 {
+    using Git.Data.Models;
     using Git.Models;
     using MyWebServer.DataForm;
     using System.Collections.Generic;
 
     public interface IUserService
     {
-        (bool, string) IsUserExists(LoginDataForm loginDataForm);
+        (bool, User) IsUserExists(LoginDataForm loginDataForm);
 
         void CreateUser(RegisterDataForm registerDataForm);
 

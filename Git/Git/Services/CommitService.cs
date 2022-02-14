@@ -28,6 +28,7 @@
                 CreatedOn = DateTime.UtcNow,
                 RepositoryId = repositoryId
             };
+            this.repository.Add<Commit>(commit);
         }
 
         public List<CommitViewModel> GetAllCommits(string creatorId)
