@@ -40,7 +40,7 @@
 
             if (!isValid)
             {
-                return this.View(errors);
+                return this.View("/Error", errors);
             }
 
             this.userService.Create(userRegisterModel);
