@@ -29,7 +29,8 @@
                     .Add<IViewEngine, CompilationViewEngine>()
                 .Add<IRepository, Repository>()
                 .Add<IUserService, UserService>()
-                .Add<PasswordHasher>())
+                .Add<PasswordHasher>()
+                .Add<IHomeService,HomeService>())
                 .Start();
     }
 }
