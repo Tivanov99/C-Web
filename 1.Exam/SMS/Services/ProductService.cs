@@ -17,7 +17,7 @@
             throw new NotImplementedException();
         }
 
-        public bool ValidateProductData(CreateProductModel createProductModel)
+        (bool, ErrorViewModel) IProductService.ValidateProductData(CreateProductModel createProductModel)
         {
             throw new NotImplementedException();
         }

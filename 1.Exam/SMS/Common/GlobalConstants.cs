@@ -10,5 +10,8 @@
 
         public const int productNameMainLength = 4;
         public const int productNameMaxLength = 20;
+
+        public const decimal productMinPrice = (decimal)0.05;
+        public const decimal productMaxPrice = 1000;
     }
 }

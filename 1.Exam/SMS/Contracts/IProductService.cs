@@ -6,6 +6,6 @@
     {
         void Create(CreateProductModel createProductModel);
 
-        bool ValidateProductData(CreateProductModel createProductModel);
+        (bool, ErrorViewModel) ValidateProductData(CreateProductModel createProductModel);
     }
 }
