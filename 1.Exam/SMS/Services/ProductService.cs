@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SMS.Services
+﻿namespace SMS.Services
 {
-    public class ProductService
+    using SMS.Contracts;
+    using SMS.Data.Common;
+    using SMS.Models;
+    using System;
+    public class ProductService : IProductService
     {
+        private readonly Repository repo;
+        public ProductService(Repository repo)
+        {
+            this.repo = repo;
+        }
+
+        public void Create(CreateProductModel createProductModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ValidateProductData(CreateProductModel createProductModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
