@@ -2,6 +2,7 @@
 {
     using MyWebServer.Controllers;
     using MyWebServer.Http;
+    using SMS.Models;
 
     public class ProductsController : Controller
     {
@@ -13,7 +14,7 @@
             }
             return this.Redirect("/Users/Login");
         }
-        public HttpResponse Create()
+        public HttpResponse Create(CreateProductModel createProductModel)
         {
 
         }
