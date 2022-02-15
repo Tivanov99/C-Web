@@ -1,5 +1,6 @@
 ﻿namespace SMS.Services
 {
+    using SMS.Common;
     using SMS.Contracts;
     using SMS.Data.Common;
     using SMS.Models;
@@ -17,9 +18,27 @@
             throw new NotImplementedException();
         }
 
-        (bool, ErrorViewModel) IProductService.ValidateProductData(CreateProductModel createProductModel)
+        public (bool, ErrorViewModel) ValidateProductData(CreateProductModel createProductModel)
         {
-            throw new NotImplementedException();
+            bool isValid = true;
+            ErrorViewModel errorViewModel = new();
+
+            if (string.IsNullOrWhiteSpace(createProductModel.Name) ||
+                createProductModel.Name.Length < GlobalConstants.productNameMinLength ||
+                createProductModel.Name.Length > GlobalConstants.productNameMaxLength)
+            {
+                errorViewModel.Errors.Add(new ErrorMessage("Invalid product name!"));
+                isValid = false;
+            }
+            if (createProductModel.Price < GlobalConstants.productMinPrice ||
+                createProductModel.Price > GlobalConstants.productMaxPrice)
+            {
+                errorViewModel.Errors.Add(new ErrorMessage("Invalid product price!"));
+                isValid = false;
+            }
+            return (isValid, errorViewModel);
         }
+
+
     }
 }

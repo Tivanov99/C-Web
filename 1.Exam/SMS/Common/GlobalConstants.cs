@@ -8,7 +8,7 @@
         public const int userPasswordMinLength = 5;
         public const int userPasswordMaxLength = 20;
 
-        public const int productNameMainLength = 4;
+        public const int productNameMinLength = 4;
         public const int productNameMaxLength = 20;
 
         public const decimal productMinPrice = (decimal)0.05;
