@@ -50,12 +50,16 @@
         [HttpPost]
         public HttpResponse Login(UserLoginModel userLoginModel)
         {
-            if (this.userService.IsUserExists(userLoginModel))
+            string userId = this.userService.GetUserId(userLoginModel);
+            if (userId != null)
             {
-                this.SignIn(); 
+                this.SignIn(userId);
                 return this.Redirect("/Home");
             }
-            return this.Login();
+
+            ErrorViewModel errorViewModel = new ErrorViewModel();
+            errorViewModel.Errors.Add(new ErrorMessage("Invalid username or password!"));
+            return this.View("/Error", errorViewModel);
         }
     }
 }

@@ -6,7 +6,6 @@
     using SMS.Data.Models;
     using SMS.Models;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     public class UserService : IUserService
@@ -34,13 +33,14 @@
             this.repo.Add<User>(user);
         }
 
-        public bool IsUserExists(UserLoginModel userLoginModel)
+        public string GetUserId(UserLoginModel userLoginModel)
         => this.repo
                 .All<User>()
                 .Where(u => u.Username == userLoginModel.Username &&
                 u.Password == passwordHasher.Hash(userLoginModel.Password)
-                .Substring(0,20))
-                .Any();
+                .Substring(0, 20))
+                .Select(x => x.Id)
+            .FirstOrDefault();
 
         public (bool, ErrorViewModel) ValidateUser(UserRegisterModel userRegisterModel)
         {

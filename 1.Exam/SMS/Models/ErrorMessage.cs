@@ -4,8 +4,8 @@
     {
         public ErrorMessage(string errorMessage)
         {
-            this.Error = errorMessage;
+            this.ErrorText = errorMessage;
         }
-        public string Error { get; set; }
+        public string ErrorText { get; set; }
     }
 }

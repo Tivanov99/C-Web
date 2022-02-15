@@ -1,6 +1,4 @@
-﻿using SMS.Data.Models;
-using SMS.Models;
-using System.Collections.Generic;
+﻿using SMS.Models;
 
 namespace SMS.Contracts
 {
@@ -8,7 +6,7 @@ namespace SMS.Contracts
     {
         void Create(UserRegisterModel userRegisterModel);
 
-        bool IsUserExists(UserLoginModel userLoginModel);
+        string GetUserId(UserLoginModel userLoginModel);
 
         (bool, ErrorViewModel) ValidateUser(UserRegisterModel userRegisterModel);
     }
