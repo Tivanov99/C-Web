@@ -23,7 +23,8 @@
                 .WithRoutes(routes => routes
                     .MapStaticFiles()
                     .MapControllers()
-                .MapGet<HomeController>("/Index", c => c.Index()))
+                .MapGet<HomeController>("/Index", c => c.Index())
+                .MapGet<HomeController>("/IndexLoggedIn", c => c.IndexLoggedIn()))
                 .WithServices(services => services
                     .Add<IViewEngine, CompilationViewEngine>()
                 .Add<IRepository, Repository>()

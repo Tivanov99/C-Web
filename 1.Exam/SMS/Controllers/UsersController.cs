@@ -27,7 +27,7 @@
         {
             if (this.User.IsAuthenticated)
             {
-                return this.Redirect("/Home");
+                return this.Redirect("/IndexLoggedIn");
             }
             return this.View();
         }
@@ -54,7 +54,7 @@
             if (userId != null)
             {
                 this.SignIn(userId);
-                return this.Redirect("/Home");
+                return this.Redirect("/IndexLoggedIn");
             }
 
             ErrorViewModel errorViewModel = new ErrorViewModel();
@@ -64,7 +64,10 @@
 
         public HttpResponse Logout()
         {
-            this.SignOut();
+            if (this.User.IsAuthenticated)
+            {
+                this.SignOut();
+            }
             return this.Redirect("/Index");
         }
     }

@@ -9,5 +9,14 @@
         {
             return this.View();
         }
+
+        public HttpResponse IndexLoggedIn()
+        {
+            if (this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Redirect("/Users/Login");
+        }
     }
 }
