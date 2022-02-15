@@ -10,6 +10,6 @@ namespace SMS.Contracts
 
         bool IsUserExists(UserLoginModel userLoginModel);
 
-        List<>
+        (bool, ErrorViewModel) ValidateUser(UserRegisterModel userRegisterModel);
     }
 }

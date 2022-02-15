@@ -1,11 +1,13 @@
 ﻿namespace SMS.Models
 {
+    using System.Collections.Generic;
+
     public class ErrorViewModel
     {
-        public ErrorViewModel(string errorMessage)
+        public ErrorViewModel()
         {
-            this.ErrorMessage = errorMessage;
+            this.Errors = new();
         }
-        public string ErrorMessage { get; set; }
+        public List<ErrorMessage> Errors { get; set; }
     }
 }
