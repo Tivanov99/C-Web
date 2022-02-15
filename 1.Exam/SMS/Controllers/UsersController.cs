@@ -61,5 +61,11 @@
             errorViewModel.Errors.Add(new ErrorMessage("Invalid username or password!"));
             return this.View("/Error", errorViewModel);
         }
+
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return this.Redirect("/Index");
+        }
     }
 }
