@@ -3,6 +3,7 @@
     using SMS.Common;
     using SMS.Contracts;
     using SMS.Data.Common;
+    using SMS.Data.Models;
     using SMS.Models;
     using System;
     public class ProductService : IProductService
@@ -15,7 +16,12 @@
 
         public void Create(CreateProductModel createProductModel)
         {
-            throw new NotImplementedException();
+            Product product = new Product()
+            {
+                Name = createProductModel.Name,
+                Price = createProductModel.Price,
+            };
+            this.repo.Add<Product>(product);
         }
 
         public (bool, ErrorViewModel) ValidateProductData(CreateProductModel createProductModel)
@@ -38,7 +44,6 @@
             }
             return (isValid, errorViewModel);
         }
-
 
     }
 }
