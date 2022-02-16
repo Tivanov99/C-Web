@@ -5,7 +5,8 @@
 
     public interface ICartService
     {
-        List<CartProductModel> AllProducts();
+        List<CartProductModel> AllProducts(string userId);
+
         void BuyAll(string userId);
     }
 }

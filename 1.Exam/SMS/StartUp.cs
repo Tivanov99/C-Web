@@ -30,7 +30,8 @@
                 .Add<IRepository, Repository>()
                 .Add<IUserService, UserService>()
                 .Add<PasswordHasher>()
-                .Add<IHomeService,HomeService>())
+                .Add<IHomeService, HomeService>()
+                .Add<ICartService, CartService>())
                 .Start();
     }
 }

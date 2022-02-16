@@ -15,14 +15,26 @@
             this.repo = repository;
         }
 
-        public List<CartProductModel> AllProducts()
-        => this.repo.All<Product>()
-                .Select(p => new CartProductModel()
-                {
-                    Name = p.Name,
-                    Price = p.Price,
-                })
-                .ToList();
+        public List<CartProductModel> AllProducts(string userId)
+        {
+            User user = GetUser(userId);
+
+            if (user != null)
+            {
+                return this.repo
+                  .All<Cart>()
+                  .Where(c => c.User.Id == userId)
+                  .SelectMany(c => c.Products)
+                  .Select(p => new CartProductModel()
+                  {
+                      Name = p.Name,
+                      Price = p.Price,
+                  })
+                  .ToList();
+            }
+            return null;
+        }
+
 
         public void BuyAll(string userId)
         {
@@ -33,5 +45,11 @@
 
             this.repo.SaveChanges();
         }
+
+        private User GetUser(string userId)
+        => this.repo
+            .All<User>()
+            .Where(u => u.Id == userId)
+            .FirstOrDefault();
     }
 }
