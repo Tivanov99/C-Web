@@ -18,6 +18,7 @@
         {
             Product product = new Product()
             {
+                Id = Guid.NewGuid().ToString(),
                 Name = createProductModel.Name,
                 Price = createProductModel.Price,
             };

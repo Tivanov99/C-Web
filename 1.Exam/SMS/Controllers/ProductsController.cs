@@ -32,6 +32,8 @@
             {
                 return this.View("/Error", errors);
             }
+
+            this.productService.Create(createProductModel);
             return this.Redirect("/IndexLoggedIn");
         }
 
