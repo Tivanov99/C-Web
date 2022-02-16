@@ -14,14 +14,23 @@
             this.repo = repository;
         }
 
-        public List<CartProductViewModel> AllProducts()
+        public List<CartProductModel> AllProducts()
         => this.repo.All<Product>()
-                .Select(p => new CartProductViewModel()
+                .Select(p => new CartProductModel()
                 {
                     Name = p.Name,
                     Price = p.Price,
                 })
                 .ToList();
 
+        public void BuyAll(string userId)
+        {
+            User user = this.repo.All<User>()
+                .Where(u => u.Id == userId)
+                .FirstOrDefault();
+            user.Cart.Products.Clear();
+
+            this.repo.SaveChanges();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SMS.Models
 {
-    public class CartProductViewModel
+    public class CartProductModel
     {
         public string Name { get; set; }
 
