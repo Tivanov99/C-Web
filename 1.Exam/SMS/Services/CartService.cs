@@ -1,12 +1,13 @@
 ﻿namespace SMS.Services
 {
+    using SMS.Contracts;
     using SMS.Data.Common;
     using SMS.Data.Models;
     using SMS.Models;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class CartService
+    public class CartService : ICartService
     {
         private readonly IRepository repo;
         public CartService(IRepository repository)
