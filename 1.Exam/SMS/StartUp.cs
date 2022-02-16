@@ -19,19 +19,19 @@
         //    SMSDbContext sMSDbContext = new SMSDbContext();
         //    sMSDbContext.Database.EnsureCreated();
         //}
-            => await HttpServer
-                .WithRoutes(routes => routes
-                    .MapStaticFiles()
-                    .MapControllers()
-                .MapGet<HomeController>("/Index", c => c.Index())
-                .MapGet<HomeController>("/IndexLoggedIn", c => c.IndexLoggedIn()))
-                .WithServices(services => services
-                    .Add<IViewEngine, CompilationViewEngine>()
-                .Add<IRepository, Repository>()
-                .Add<IUserService, UserService>()
-                .Add<PasswordHasher>()
-                .Add<IHomeService, HomeService>()
-                .Add<ICartService, CartService>())
-                .Start();
+        => await HttpServer
+            .WithRoutes(routes => routes
+                .MapStaticFiles()
+                .MapControllers()
+            .MapGet<HomeController>("/Index", c => c.Index())
+            .MapGet<HomeController>("/IndexLoggedIn", c => c.IndexLoggedIn()))
+            .WithServices(services => services
+                .Add<IViewEngine, CompilationViewEngine>()
+            .Add<IRepository, Repository>()
+            .Add<IUserService, UserService>()
+            .Add<PasswordHasher>()
+            .Add<IHomeService, HomeService>()
+            .Add<ICartService, CartService>())
+            .Start();
     }
 }

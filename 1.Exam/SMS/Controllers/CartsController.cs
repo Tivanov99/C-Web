@@ -1,6 +1,7 @@
 ﻿using MyWebServer.Controllers;
 using MyWebServer.Http;
 using SMS.Contracts;
+using SMS.Models;
 
 namespace SMS.Controllers
 {
@@ -18,9 +19,12 @@ namespace SMS.Controllers
             {
                 var products = this.cartService
                     .AllProducts(this.User.Id);
+
                 if (products != null)
                 {
-                    return this.View(new { });
+                    CartModelView modelView = new CartModelView();
+                    modelView.Products = products;
+                    return this.View(modelView);
                 }
             }
             return this.Redirect("/Users/Login");
@@ -33,6 +37,14 @@ namespace SMS.Controllers
                 return this.Redirect("/IndexLoggedIn");
             }
             return this.Redirect("/Users/Login");
+        }
+
+        public HttpResponse AddProduct(string productId)
+        {
+            this.cartService
+                .AddProduct(productId, this.User.Id);
+
+            return this.Details();
         }
     }
 }

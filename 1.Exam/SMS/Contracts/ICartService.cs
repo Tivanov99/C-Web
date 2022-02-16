@@ -8,5 +8,7 @@
         List<CartProductModel> AllProducts(string userId);
 
         void BuyAll(string userId);
+
+        void AddProduct(string productId, string userId);
     }
 }

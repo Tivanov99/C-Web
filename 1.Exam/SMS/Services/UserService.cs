@@ -19,17 +19,20 @@
         }
         public void Create(UserRegisterModel userRegisterModel)
         {
+            Cart cart = CreateUserCart();
+           
+
             User user = new User()
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = userRegisterModel.Username,
                 Password = passwordHasher.Hash(userRegisterModel.Password).Substring(0, 20),
                 Email = userRegisterModel.Email,
-                Cart = new Data.Models.Cart()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                }
+                Cart = cart,
+                CartId= cart.Id
             };
+
+
             this.repo.Add<User>(user);
         }
 
@@ -84,5 +87,10 @@
             }
             return (isValid, errors);
         }
+        private Cart CreateUserCart()
+        => new Cart()
+        {
+            Id = Guid.NewGuid().ToString(),
+        };
     }
 }

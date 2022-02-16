@@ -9,12 +9,16 @@
                     <th scope="col" class="col-lg-5">Price</th>
                 </tr>
             </thead>
-            <tbody>
+            @foreach(var product in Model.Products)
+            {
+                <tbody>
                 <tr class="row">
-                    <td class="col-lg-5">ProductName</td>
-                    <td class="col-lg-5">ProductPrice</td>
+                    <td class="col-lg-5">@product.Name</td>
+                    <td class="col-lg-5">@product.Price</td>
                 </tr>
             </tbody>
+            }
+            
         </table>
         <div class="button-holder text-center">
             <a href="/Carts/Buy" class="btn btn-outline-primary">Buy</a>

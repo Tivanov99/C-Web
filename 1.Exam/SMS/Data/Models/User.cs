@@ -23,9 +23,9 @@ namespace SMS.Data.Models
         [StringLength(20), MinLength(6)]
         public string Password { get; set; }
 
-        [ForeignKey(nameof(Cart))]
         public string CartId { get; set; }
 
-        public Cart Cart { get; set; }
+        [ForeignKey(nameof(CartId))]
+        public virtual Cart Cart { get; set; }
     }
 }

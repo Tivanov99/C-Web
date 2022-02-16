@@ -16,7 +16,7 @@
         [Range(0.05, 1000)]
         public decimal Price { get; set; }
 
-        public Cart Cart { get; set; }
+        public virtual Cart Cart { get; set; }
 
         [ForeignKey(nameof(Cart))]
         public string CartId { get; set; }
