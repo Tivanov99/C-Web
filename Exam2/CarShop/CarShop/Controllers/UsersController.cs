@@ -1,17 +1,18 @@
 ﻿namespace CarShop.Controllers
 {
-    using MyWebServer.Http;
     using MyWebServer.Controllers;
+    using MyWebServer.Http;
 
-    public class HomeController : Controller
+    public class UsersController : Controller
     {
-        public HttpResponse Index()
+        public HttpResponse Login()
         {
             if (!this.User.IsAuthenticated)
             {
                 return this.View();
             }
-            return this.Redirect("/Cars/All");
+            return this.Redirect("/Index");
         }
+
     }
 }

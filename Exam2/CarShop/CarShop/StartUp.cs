@@ -6,22 +6,21 @@
     using MyWebServer.Controllers;
     using MyWebServer.Results.Views;
     using Microsoft.EntityFrameworkCore;
+    using CarShop.Controllers;
+
     public class Startup
     {
         public static async Task Main()
-        {
-            ApplicationDbContext applicationDbContext = new ApplicationDbContext();
-            applicationDbContext.Database.EnsureDeleted();
-        }
-            //=> await HttpServer
-            //    .WithRoutes(routes => routes
-            //        .MapStaticFiles()
-            //        .MapControllers())
-            //    .WithServices(services => services
-            //    .Add<ApplicationDbContext>()
-            //    .Add<IViewEngine, CompilationViewEngine>())
-            //    .WithConfiguration<ApplicationDbContext>(context => context
-            //        .Database.Migrate())
-            //    .Start();
+            => await HttpServer
+                .WithRoutes(routes => routes
+                    .MapStaticFiles()
+                    .MapControllers()
+                .MapGet<HomeController>("/Index", c => c.Index()))
+                .WithServices(services => services
+                .Add<ApplicationDbContext>()
+                .Add<IViewEngine, CompilationViewEngine>())
+                .WithConfiguration<ApplicationDbContext>(context => context
+                    .Database.Migrate())
+                .Start();
     }
 }
