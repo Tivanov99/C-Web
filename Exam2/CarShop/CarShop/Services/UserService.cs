@@ -3,6 +3,9 @@ using CarShop.Data.Common;
 using CarShop.Data.DataModels;
 using CarShop.ViewModels;
 using System;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CarShop.Services
 {
@@ -36,7 +39,7 @@ namespace CarShop.Services
             {
                 Username = registerModel.Username,
                 Email = registerModel.Email,
-                Password = registerModel.Password,
+                Password = CalculateHash(registerModel.Password),
                 IsMechanic = registerModel.UserType == "Mechanic" ? true : false
             };
 
@@ -56,7 +59,19 @@ namespace CarShop.Services
 
         public (bool exists, string error) Login(LoginViewModel loginModel)
         {
-            throw new NotImplementedException();
+            bool isExists = true;
+            string error = null;
+
+            var user = this.repo.All<User>()
+                .Where(u => u.Username == loginModel.Username &&
+                u.Password == CalculateHash(loginModel.Password))
+                .FirstOrDefault();
+            if (user == null)
+            {
+                error = "Invalid Username or Password!";
+            }
+
+            return (isExists, error);
         }
         private string CalculateHash(string password)
         {
