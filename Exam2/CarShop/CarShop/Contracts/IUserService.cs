@@ -8,5 +8,6 @@ namespace CarShop.Contracts
 
         (bool exists, string error) Login(LoginViewModel loginModel);
 
+
     }
 }
