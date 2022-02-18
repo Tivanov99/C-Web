@@ -1,11 +1,19 @@
 ﻿namespace CarShop.Controllers
 {
+    using CarShop.Contracts;
     using CarShop.ViewModels;
     using MyWebServer.Controllers;
     using MyWebServer.Http;
 
     public class UsersController : Controller
     {
+        private readonly IUserService userService;
+
+        public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         public HttpResponse Login()
         {
             if (!this.User.IsAuthenticated)
@@ -27,11 +35,15 @@
         [HttpPost]
         public HttpResponse Register(RegisterViewModel registerModel)
         {
-            if (!this.User.IsAuthenticated)
+            var (isRegistered, error) = userService
+                .Create(registerModel);
+
+            if (isRegistered)
             {
-                return this.View();
+                return Redirect("/Users/Login");
             }
-            return this.Redirect("/Index");
+
+            return View(new { ErrorMessage = error }, "/Error");
         }
 
     }

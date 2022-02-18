@@ -105,3 +105,4 @@ C:\Users\Trifon\Desktop\Csharp-Web\Exam2\CarShop\CarShop\obj\Debug\net5.0\CarSho
 C:\Users\Trifon\Desktop\Csharp-Web\Exam2\CarShop\CarShop\obj\Debug\net5.0\ref\CarShop.dll
 C:\Users\Trifon\Desktop\Csharp-Web\Exam2\CarShop\CarShop\obj\Debug\net5.0\CarShop.pdb
 C:\Users\Trifon\Desktop\Csharp-Web\Exam2\CarShop\CarShop\obj\Debug\net5.0\CarShop.genruntimeconfig.cache
+C:\Users\Trifon\Desktop\Csharp-Web\Exam2\CarShop\CarShop\bin\Debug\net5.0\Views\Error.cshtml

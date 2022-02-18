@@ -10,6 +10,7 @@ namespace CarShop.Services
     {
         private readonly IRepository repo;
         private readonly IValidationService validationService;
+
         public UserService(
             IRepository repo,
             IValidationService validationService)
@@ -23,12 +24,12 @@ namespace CarShop.Services
             bool registered = false;
             string error = null;
 
-            (bool isValid, string validationError) = this.validationService
+            var (isValid, validationError) = validationService
                 .Validate(registerModel);
 
             if (!isValid)
             {
-                return (isValid, error);
+                return (isValid, validationError);
             }
 
             User user = new User()
@@ -41,19 +42,30 @@ namespace CarShop.Services
 
             try
             {
-                this.repo.Add<User>(user);
+                repo.Add(user);
+                repo.SaveChanges();
                 registered = true;
             }
             catch (Exception)
             {
                 error = "Could not save user in DB";
             }
+
             return (registered, error);
         }
 
         public (bool exists, string error) Login(LoginViewModel loginModel)
         {
             throw new NotImplementedException();
+        }
+        private string CalculateHash(string password)
+        {
+            byte[] passworArray = Encoding.UTF8.GetBytes(password);
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                return Convert.ToBase64String(sha256.ComputeHash(passworArray));
+            }
         }
     }
 }
