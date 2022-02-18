@@ -46,5 +46,17 @@
             return View(new { ErrorMessage = error }, "/Error");
         }
 
+        [HttpPost]
+        public HttpResponse Login(LoginViewModel loginModel)
+        {
+            (bool isExists, string error) = this.userService
+                .Login(loginModel);
+            if (!isExists)
+            {
+                return View(new { ErrorMessage = error }, "/Error");
+            }
+
+            return this.Redirect("/Cars/All");
+        }
     }
 }

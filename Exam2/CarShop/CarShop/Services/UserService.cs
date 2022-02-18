@@ -39,7 +39,7 @@ namespace CarShop.Services
             {
                 Username = registerModel.Username,
                 Email = registerModel.Email,
-                Password = CalculateHash(registerModel.Password),
+                Password = CalculateHash(registerModel.Password).Substring(0, 20),
                 IsMechanic = registerModel.UserType == "Mechanic" ? true : false
             };
 
@@ -70,7 +70,6 @@ namespace CarShop.Services
             {
                 error = "Invalid Username or Password!";
             }
-
             return (isExists, error);
         }
         private string CalculateHash(string password)
