@@ -1,26 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarShop.Data.Common
+﻿namespace CarShop.Data.Common
 {
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Linq;
+
     public class Repository : IRepository
     {
+        private readonly ApplicationDbContext dbContext;
+
+        public Repository(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public void Add<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            this.dbContext.Add<T>(entity);
+            this.SaveChanges();
         }
 
         public IQueryable<T> All<T>() where T : class
-        {
-            throw new NotImplementedException();
-        }
+        => DbSet<T>().AsQueryable();
 
         public int SaveChanges()
         {
             throw new NotImplementedException();
+        }
+        private DbSet<T> DbSet<T>() where T : class
+        {
+            return this.dbContext.Set<T>();
         }
     }
 }
