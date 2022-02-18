@@ -13,7 +13,7 @@ namespace CarShop.Services
             var context = new ValidationContext(model);
             var errorResult = new List<ValidationResult>();
 
-            bool isValid = Validator.TryValidateObject(model, context, errorResult,true);
+            bool isValid = Validator.TryValidateObject(model, context, errorResult, true);
 
             if (isValid)
             {
