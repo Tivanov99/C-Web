@@ -57,6 +57,12 @@ namespace CarShop.Services
             return (registered, error);
         }
 
+        public string GetUserId(string username)
+        => this.repo.All<User>()
+            .Where(u => u.Id == username)
+            .Select(u => u.Id)
+            .FirstOrDefault();
+
         public (bool exists, string error) Login(LoginViewModel loginModel)
         {
             bool isExists = true;

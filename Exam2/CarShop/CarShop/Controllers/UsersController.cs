@@ -56,7 +56,17 @@
                 return View(new { ErrorMessage = error }, "/Error");
             }
 
+            string userId = this.userService.GetUserId(loginModel.Username);
+
+            this.SignIn(userId);
+
             return this.Redirect("/Cars/All");
+        }
+
+        public HttpResponse Logout()
+        {
+            this.Logout();
+            return this.Login();
         }
     }
 }
