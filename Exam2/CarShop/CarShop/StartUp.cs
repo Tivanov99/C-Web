@@ -7,6 +7,7 @@
     using MyWebServer.Results.Views;
     using Microsoft.EntityFrameworkCore;
     using CarShop.Controllers;
+    using CarShop.Data.Common;
 
     public class Startup
     {
@@ -18,7 +19,8 @@
                 .MapGet<HomeController>("/Index", c => c.Index()))
                 .WithServices(services => services
                 .Add<ApplicationDbContext>()
-                .Add<IViewEngine, CompilationViewEngine>())
+                .Add<IViewEngine, CompilationViewEngine>()
+                .Add<IRepository, Repository>())
                 .WithConfiguration<ApplicationDbContext>(context => context
                     .Database.Migrate())
                 .Start();

@@ -1,7 +1,6 @@
 ﻿namespace CarShop.Data.Common
 {
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Linq;
 
     public class Repository : IRepository
@@ -23,9 +22,8 @@
         => DbSet<T>().AsQueryable();
 
         public int SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
+         => this.dbContext.SaveChanges();
+
         private DbSet<T> DbSet<T>() where T : class
         {
             return this.dbContext.Set<T>();
