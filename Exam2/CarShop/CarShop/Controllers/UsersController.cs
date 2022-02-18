@@ -13,6 +13,14 @@
             }
             return this.Redirect("/Index");
         }
+        public HttpResponse Register()
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.View();
+            }
+            return this.Redirect("/Index");
+        }
 
     }
 }
